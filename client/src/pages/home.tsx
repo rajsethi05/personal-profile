@@ -38,6 +38,7 @@ export default function Home() {
       period: "2022 - Present",
       title: "Senior QA Engineer",
       company: "TechCorp Solutions",
+      location: "San Francisco, CA",
       achievements: [
         "Led automation testing initiatives reducing manual testing time by 60%",
         "Implemented CI/CD testing pipelines using Jenkins and Docker",
@@ -49,6 +50,7 @@ export default function Home() {
       period: "2020 - 2022",
       title: "QA Engineer II",
       company: "Digital Innovation Inc",
+      location: "Austin, TX",
       achievements: [
         "Developed comprehensive test suites using Selenium and Cypress",
         "Performed API testing using Postman and REST Assured",
@@ -60,6 +62,7 @@ export default function Home() {
       period: "2018 - 2020",
       title: "QA Engineer",
       company: "StartupTech Labs",
+      location: "Seattle, WA",
       achievements: [
         "Executed manual testing for web and mobile applications",
         "Created detailed test cases and documentation",
@@ -300,7 +303,8 @@ export default function Home() {
                       </div>
                     </div>
                     <h3 className="text-xl font-bold text-foreground mb-2">{job.title}</h3>
-                    <p className="text-accent font-semibold mb-3">{job.company}</p>
+                    <p className="text-accent font-semibold mb-1">{job.company}</p>
+                    <p className="text-muted-foreground text-sm mb-3">{job.location}</p>
                     <ul className="text-muted-foreground space-y-2">
                       {job.achievements.map((achievement, achievementIndex) => (
                         <li key={achievementIndex} className="flex items-start">
