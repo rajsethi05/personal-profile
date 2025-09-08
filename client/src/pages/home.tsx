@@ -166,6 +166,12 @@ export default function Home() {
       icon: Shield,
       skills: ["OWASP", "Burp Suite", "ZAP", "Nessus"],
       color: "secondary"
+    },
+    {
+      title: "AI Tools",
+      icon: Zap,
+      skills: ["Co-pilot"],
+      color: "primary"
     }
   ];
 
