@@ -165,9 +165,12 @@ export default function Home() {
             />
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 animate-slide-up">
-            Senior QA Engineer
+            Raj Kumar Sethi
           </h1>
-          <p className="text-xl sm:text-2xl mb-8 font-light opacity-90 animate-slide-up">
+          <p className="text-xl sm:text-2xl mb-2 font-light opacity-90 animate-slide-up">
+            Senior QA Engineer
+          </p>
+          <p className="text-lg sm:text-xl mb-8 font-light opacity-80 animate-slide-up">
             Ensuring Quality Through Strategic Testing & Automation
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in">
@@ -180,9 +183,8 @@ export default function Home() {
               Download Resume
             </Button>
             <Button
-              variant="outline"
               size="lg"
-              className="border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 transform hover:scale-105 transition-all duration-200"
               data-testid="button-contact"
             >
               <Mail className="mr-2 h-4 w-4" />
