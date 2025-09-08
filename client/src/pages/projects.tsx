@@ -18,6 +18,22 @@ import {
 } from "lucide-react";
 
 export default function Projects() {
+  // Calculate years of experience from March 2014 to today
+  const calculateExperience = () => {
+    const startDate = new Date(2014, 2); // March 2014 (month is 0-indexed)
+    const today = new Date();
+    const years = today.getFullYear() - startDate.getFullYear();
+    const months = today.getMonth() - startDate.getMonth();
+    
+    // If we haven't reached the month yet this year, subtract 1
+    if (months < 0) {
+      return years - 1;
+    }
+    return years;
+  };
+
+  const yearsOfExperience = calculateExperience();
+
   const projects = [
     {
       id: 1,
@@ -242,7 +258,7 @@ export default function Projects() {
               50+ Projects Completed
             </Badge>
             <Badge className="bg-primary/20 text-primary-foreground px-4 py-2">
-              8+ Years Experience
+              {yearsOfExperience}+ Years Experience
             </Badge>
             <Badge className="bg-primary-foreground/20 text-primary-foreground px-4 py-2">
               Multiple Industries

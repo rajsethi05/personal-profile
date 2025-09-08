@@ -17,6 +17,22 @@ import {
 } from "lucide-react";
 
 export default function Home() {
+  // Calculate years of experience from March 2014 to today
+  const calculateExperience = () => {
+    const startDate = new Date(2014, 2); // March 2014 (month is 0-indexed)
+    const today = new Date();
+    const years = today.getFullYear() - startDate.getFullYear();
+    const months = today.getMonth() - startDate.getMonth();
+    
+    // If we haven't reached the month yet this year, subtract 1
+    if (months < 0) {
+      return years - 1;
+    }
+    return years;
+  };
+
+  const yearsOfExperience = calculateExperience();
+
   const workExperience = [
     {
       period: "2022 - Present",
@@ -204,7 +220,7 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <p className="text-lg text-muted-foreground leading-relaxed">
-                With over 8 years of experience in quality assurance, I specialize in building robust testing frameworks 
+                With over {yearsOfExperience} years of experience in quality assurance, I specialize in building robust testing frameworks 
                 and implementing comprehensive QA strategies that ensure software reliability and performance. My expertise 
                 spans across manual testing, test automation, API testing, and performance optimization.
               </p>
@@ -216,7 +232,7 @@ export default function Home() {
               <div className="grid grid-cols-2 gap-6">
                 <div>
                   <h4 className="font-semibold text-foreground mb-2">Experience</h4>
-                  <p className="text-3xl font-bold text-primary">8+ Years</p>
+                  <p className="text-3xl font-bold text-primary">{yearsOfExperience}+ Years</p>
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground mb-2">Projects Completed</h4>
