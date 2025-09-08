@@ -331,7 +331,7 @@ export default function Home() {
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 animate-slide-up">
             Raj Kumar Sethi
           </h1>
-          <p className="text-xl sm:text-2xl mb-2 font-light opacity-90 animate-slide-up">
+          <p className="text-2xl sm:text-3xl lg:text-4xl mb-2 font-bold opacity-90 animate-slide-up">
             Senior QA Engineer
           </p>
           <p className="text-lg sm:text-xl mb-8 font-light opacity-80 animate-slide-up">
