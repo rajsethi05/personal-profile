@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Link } from "wouter";
 import { 
   CheckCircle, 
@@ -13,10 +15,16 @@ import {
   RefreshCw,
   ArrowRight,
   Download,
-  Mail
+  Mail,
+  MapPin,
+  Calendar,
+  Building
 } from "lucide-react";
 
 export default function Home() {
+  const [selectedJob, setSelectedJob] = useState(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   // Calculate years of experience from March 2014 to today
   const calculateExperience = () => {
     const startDate = new Date(2014, 2); // March 2014 (month is 0-indexed)
@@ -33,16 +41,36 @@ export default function Home() {
 
   const yearsOfExperience = calculateExperience();
 
+  const handleJobClick = (job: any) => {
+    setSelectedJob(job);
+    setIsDialogOpen(true);
+  };
+
   const workExperience = [
     {
       period: "2022 - Present",
       title: "Senior QA Engineer",
       company: "TechCorp Solutions",
       location: "San Francisco, CA",
+      teamSize: "12 QA Engineers",
+      technologies: ["Selenium", "Cypress", "Jenkins", "Docker", "Kubernetes", "AWS", "TestRail", "JIRA"],
       achievements: [
         "Led automation testing initiatives reducing manual testing time by 60%",
         "Implemented CI/CD testing pipelines using Jenkins and Docker",
         "Mentored junior QA engineers and established testing best practices"
+      ],
+      responsibilities: [
+        "Lead and mentor a team of 8 junior and mid-level QA engineers",
+        "Design and implement comprehensive test automation frameworks",
+        "Collaborate with product managers and developers on quality requirements",
+        "Conduct code reviews and establish QA best practices across teams",
+        "Drive adoption of modern testing tools and methodologies",
+        "Present quality metrics and insights to senior leadership"
+      ],
+      projects: [
+        "E-commerce Platform Overhaul: Led testing for a major platform redesign serving 2M+ users",
+        "Mobile App Testing Framework: Built comprehensive testing suite for iOS/Android apps",
+        "API Testing Automation: Implemented automated testing for 150+ microservice endpoints"
       ],
       type: "current"
     },
@@ -51,10 +79,25 @@ export default function Home() {
       title: "QA Engineer II",
       company: "Digital Innovation Inc",
       location: "Austin, TX",
+      teamSize: "6 QA Engineers",
+      technologies: ["Selenium", "Cypress", "Postman", "REST Assured", "Git", "Agile/Scrum"],
       achievements: [
         "Developed comprehensive test suites using Selenium and Cypress",
         "Performed API testing using Postman and REST Assured",
         "Collaborated with development teams on Agile/Scrum methodologies"
+      ],
+      responsibilities: [
+        "Design and execute manual and automated test cases",
+        "Develop and maintain test automation frameworks",
+        "Perform functional, regression, and integration testing",
+        "Collaborate with cross-functional teams in Agile environment",
+        "Create and maintain test documentation and reports",
+        "Participate in requirement analysis and test planning"
+      ],
+      projects: [
+        "SaaS Dashboard Automation: Built automated test suite for web-based analytics platform",
+        "API Testing Implementation: Created comprehensive API testing strategy",
+        "Cross-browser Testing: Established testing protocols across multiple browsers and devices"
       ],
       type: "previous"
     },
@@ -63,10 +106,25 @@ export default function Home() {
       title: "QA Engineer",
       company: "StartupTech Labs",
       location: "Seattle, WA",
+      teamSize: "3 QA Engineers",
+      technologies: ["Manual Testing", "JIRA", "TestRail", "Postman", "Chrome DevTools"],
       achievements: [
         "Executed manual testing for web and mobile applications",
         "Created detailed test cases and documentation",
         "Identified and tracked bugs using JIRA and TestRail"
+      ],
+      responsibilities: [
+        "Execute manual testing for web and mobile applications",
+        "Create comprehensive test cases and test documentation",
+        "Identify, document, and track software defects",
+        "Perform user acceptance testing and usability testing",
+        "Collaborate with developers to reproduce and resolve issues",
+        "Participate in sprint planning and retrospective meetings"
+      ],
+      projects: [
+        "Mobile App Testing: Manual testing for startup's first mobile application",
+        "Web Platform QA: End-to-end testing for company's core web platform",
+        "User Experience Testing: Conducted usability testing sessions with real users"
       ],
       type: "early"
     }
@@ -285,7 +343,11 @@ export default function Home() {
                 <div className="timeline-dot absolute left-2 md:left-1/2 transform md:-translate-x-1/2 w-6 h-6 bg-primary rounded-full border-4 border-background shadow-lg"></div>
                 
                 {/* Content card */}
-                <Card className="ml-12 md:ml-0 md:w-5/12 shadow-lg hover:shadow-xl transition-all duration-300">
+                <Card 
+                  className="ml-12 md:ml-0 md:w-5/12 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-105"
+                  onClick={() => handleJobClick(job)}
+                  data-testid={`card-job-${index}`}
+                >
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between mb-3">
                       <Badge 
@@ -492,6 +554,108 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Job Details Dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+          {selectedJob && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-2xl font-bold text-foreground">
+                  {selectedJob.title}
+                </DialogTitle>
+                <DialogDescription className="text-lg">
+                  <div className="flex flex-col space-y-2 mt-2">
+                    <div className="flex items-center space-x-2">
+                      <Building className="w-5 h-5 text-primary" />
+                      <span className="font-semibold text-accent">{selectedJob.company}</span>
+                    </div>
+                    <div className="flex items-center space-x-4">
+                      <div className="flex items-center space-x-2">
+                        <MapPin className="w-4 h-4 text-muted-foreground" />
+                        <span>{selectedJob.location}</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Calendar className="w-4 h-4 text-muted-foreground" />
+                        <span>{selectedJob.period}</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Users className="w-4 h-4 text-muted-foreground" />
+                        <span>{selectedJob.teamSize}</span>
+                      </div>
+                    </div>
+                  </div>
+                </DialogDescription>
+              </DialogHeader>
+
+              <div className="space-y-6 mt-6">
+                {/* Technologies */}
+                <div>
+                  <h4 className="text-lg font-semibold text-foreground mb-3 flex items-center">
+                    <Zap className="w-5 h-5 mr-2 text-primary" />
+                    Technologies & Tools
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedJob.technologies.map((tech, index) => (
+                      <Badge key={index} variant="secondary" className="bg-primary/10 text-primary">
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Key Achievements */}
+                <div>
+                  <h4 className="text-lg font-semibold text-foreground mb-3 flex items-center">
+                    <CheckCircle className="w-5 h-5 mr-2 text-green-500" />
+                    Key Achievements
+                  </h4>
+                  <ul className="space-y-2">
+                    {selectedJob.achievements.map((achievement, index) => (
+                      <li key={index} className="flex items-start space-x-2">
+                        <span className="text-primary mt-1">•</span>
+                        <span className="text-muted-foreground">{achievement}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Responsibilities */}
+                <div>
+                  <h4 className="text-lg font-semibold text-foreground mb-3 flex items-center">
+                    <BarChart3 className="w-5 h-5 mr-2 text-accent" />
+                    Key Responsibilities
+                  </h4>
+                  <ul className="space-y-2">
+                    {selectedJob.responsibilities.map((responsibility, index) => (
+                      <li key={index} className="flex items-start space-x-2">
+                        <span className="text-accent mt-1">•</span>
+                        <span className="text-muted-foreground">{responsibility}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Notable Projects */}
+                <div>
+                  <h4 className="text-lg font-semibold text-foreground mb-3 flex items-center">
+                    <Code className="w-5 h-5 mr-2 text-secondary-foreground" />
+                    Notable Projects
+                  </h4>
+                  <ul className="space-y-3">
+                    {selectedJob.projects.map((project, index) => (
+                      <li key={index} className="flex items-start space-x-2">
+                        <span className="text-secondary-foreground mt-1">•</span>
+                        <span className="text-muted-foreground">{project}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
