@@ -453,15 +453,7 @@ export default function Home() {
                     </div>
                     <h3 className="text-xl font-bold text-foreground mb-2">{job.title}</h3>
                     <p className="text-accent font-semibold mb-1">{job.company}</p>
-                    <p className="text-muted-foreground text-sm mb-3">{job.location}</p>
-                    <ul className="text-muted-foreground space-y-2">
-                      {job.achievements.map((achievement, achievementIndex) => (
-                        <li key={achievementIndex} className="flex items-start">
-                          <span className="text-primary mr-2">•</span>
-                          {achievement}
-                        </li>
-                      ))}
-                    </ul>
+                    <p className="text-muted-foreground text-sm">{job.location}</p>
                   </CardContent>
                 </Card>
               </div>
