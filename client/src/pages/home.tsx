@@ -127,6 +127,87 @@ export default function Home() {
         "User Experience Testing: Conducted usability testing sessions with real users"
       ],
       type: "early"
+    },
+    {
+      period: "2016 - 2018",
+      title: "Junior QA Analyst",
+      company: "CloudFirst Solutions",
+      location: "Portland, OR",
+      teamSize: "4 QA Analysts",
+      technologies: ["Manual Testing", "SQL", "TestLink", "Bugzilla", "Excel"],
+      achievements: [
+        "Successfully identified 200+ critical bugs in cloud-based applications",
+        "Improved test case coverage by 45% through systematic analysis",
+        "Reduced regression testing time by implementing structured test suites"
+      ],
+      responsibilities: [
+        "Perform manual testing on web applications and cloud services",
+        "Write detailed test cases and execute test scenarios",
+        "Document and track defects using bug tracking systems",
+        "Collaborate with development team for bug resolution",
+        "Assist in user acceptance testing and deployment validation",
+        "Create test data and maintain testing environments"
+      ],
+      projects: [
+        "Cloud Migration Testing: Validated application functionality during cloud migration",
+        "E-commerce Platform QA: Tested online shopping platform for small businesses",
+        "Database Integration Testing: Verified data integrity across multiple systems"
+      ],
+      type: "junior"
+    },
+    {
+      period: "2015 - 2016",
+      title: "QA Intern",
+      company: "TechStart Inc",
+      location: "San Jose, CA",
+      teamSize: "2 QA Engineers",
+      technologies: ["Manual Testing", "HTML/CSS", "Basic SQL", "Excel", "TestCase Management"],
+      achievements: [
+        "Completed comprehensive QA training program with 95% score",
+        "Discovered 50+ usability issues during internship period",
+        "Contributed to successful launch of 2 major product releases"
+      ],
+      responsibilities: [
+        "Assist senior QA engineers with test case execution",
+        "Perform basic functional and UI testing",
+        "Document test results and report findings",
+        "Learn and apply software testing fundamentals",
+        "Support test environment setup and maintenance",
+        "Participate in daily standup meetings and team activities"
+      ],
+      projects: [
+        "Web Portal Testing: Supported testing of customer management portal",
+        "Mobile App Validation: Assisted in testing mobile application features",
+        "Documentation Review: Helped review and update testing documentation"
+      ],
+      type: "intern"
+    },
+    {
+      period: "2014 - 2015",
+      title: "Software Tester",
+      company: "Beta Solutions",
+      location: "Denver, CO",
+      teamSize: "5 Testers",
+      technologies: ["Manual Testing", "Windows Testing", "Basic Automation", "TestComplete"],
+      achievements: [
+        "Gained foundational experience in software testing methodologies",
+        "Contributed to testing of 3 desktop applications",
+        "Achieved 100% completion rate for assigned test cases"
+      ],
+      responsibilities: [
+        "Execute manual test cases for desktop applications",
+        "Report software defects and track resolution progress",
+        "Perform installation and compatibility testing",
+        "Support test planning and test case development",
+        "Conduct basic regression testing after bug fixes",
+        "Maintain testing documentation and reports"
+      ],
+      projects: [
+        "Desktop Application Testing: Tested accounting software for small businesses",
+        "Installation Testing: Verified software installation across different OS versions",
+        "Compatibility Testing: Ensured application compatibility with various Windows versions"
+      ],
+      type: "entry"
     }
   ];
 
