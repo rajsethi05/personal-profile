@@ -21,6 +21,9 @@ import {
   Building
 } from "lucide-react";
 import workExperienceData from "@/data/workexp.json";
+import skillsData from "@/data/skills.json";
+import offeringsData from "@/data/offerings.json";
+import projectsData from "@/data/projects.json";
 
 export default function Home() {
   const [selectedJob, setSelectedJob] = useState(null);
@@ -47,112 +50,31 @@ export default function Home() {
     setIsDialogOpen(true);
   };
 
+  // Icon mapping for JSON data
+  const iconMap = {
+    CheckCircle,
+    Code,
+    BarChart3,
+    Zap,
+    Shield,
+    RefreshCw,
+    HelpCircle,
+    Users
+  };
+
   const workExperience = workExperienceData;
+  
+  const skillCategories = skillsData.map(skill => ({
+    ...skill,
+    icon: iconMap[skill.icon]
+  }));
 
-  const skillCategories = [
-    {
-      title: "Testing Tools",
-      icon: CheckCircle,
-      skills: ["Selenium", "Cypress", "Postman", "TestRail", "JIRA"],
-      color: "primary"
-    },
-    {
-      title: "Programming",
-      icon: Code,
-      skills: ["JavaScript", "Python", "Java", "TypeScript", "SQL"],
-      color: "accent"
-    },
-    {
-      title: "Methodologies",
-      icon: BarChart3,
-      skills: ["Agile", "Scrum", "BDD", "TDD", "Risk-Based Testing"],
-      color: "secondary"
-    },
-    {
-      title: "CI/CD & DevOps",
-      icon: Zap,
-      skills: ["Jenkins", "Docker", "GitHub Actions", "AWS", "Kubernetes"],
-      color: "primary"
-    },
-    {
-      title: "Performance Testing",
-      icon: BarChart3,
-      skills: ["JMeter", "LoadRunner", "K6", "Gatling"],
-      color: "accent"
-    },
-    {
-      title: "Security Testing",
-      icon: Shield,
-      skills: ["OWASP", "Burp Suite", "ZAP", "Nessus"],
-      color: "secondary"
-    },
-    {
-      title: "AI Tools",
-      icon: Zap,
-      skills: ["Co-pilot"],
-      color: "primary"
-    }
-  ];
+  const offerings = offeringsData.map(offering => ({
+    ...offering,
+    icon: iconMap[offering.icon]
+  }));
 
-  const offerings = [
-    {
-      icon: BarChart3,
-      title: "Test Strategy & Planning",
-      description: "Develop comprehensive test strategies aligned with your business goals, risk assessment, and resource optimization to maximize testing ROI."
-    },
-    {
-      icon: Zap,
-      title: "Test Automation",
-      description: "Build robust automation frameworks using modern tools like Selenium, Cypress, and API testing to reduce manual effort and improve test coverage."
-    },
-    {
-      icon: BarChart3,
-      title: "Performance Testing",
-      description: "Ensure your applications can handle expected load with comprehensive performance testing using JMeter, LoadRunner, and cloud-based testing solutions."
-    },
-    {
-      icon: RefreshCw,
-      title: "CI/CD Integration",
-      description: "Integrate automated testing into your CI/CD pipeline using Jenkins, GitHub Actions, and containerization for continuous quality assurance."
-    },
-    {
-      icon: HelpCircle,
-      title: "Quality Consulting",
-      description: "Provide expert guidance on QA best practices, process improvement, tool selection, and team training to establish a culture of quality."
-    },
-    {
-      icon: Users,
-      title: "Team Leadership",
-      description: "Lead and mentor QA teams, establish testing standards, coordinate cross-functional collaboration, and drive quality initiatives across the organization."
-    }
-  ];
-
-  const featuredProjects = [
-    {
-      title: "E-commerce Platform Testing",
-      description: "Comprehensive test automation suite for a major e-commerce platform, reducing testing time by 70%.",
-      category: "Test Automation",
-      status: "completed",
-      technologies: ["Selenium", "API Testing", "CI/CD"],
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300"
-    },
-    {
-      title: "Mobile Banking App QA",
-      description: "Security-focused testing for a mobile banking application with 99.9% uptime requirement.",
-      category: "Mobile Testing",
-      status: "completed",
-      technologies: ["Appium", "Security Testing", "Performance"],
-      image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300"
-    },
-    {
-      title: "Microservices API Testing",
-      description: "Complete API testing framework for microservices architecture with 200+ endpoints.",
-      category: "API Testing",
-      status: "completed",
-      technologies: ["REST Assured", "Postman", "Newman"],
-      image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300"
-    }
-  ];
+  const featuredProjects = projectsData;
 
   return (
     <div className="min-h-screen pt-16">
