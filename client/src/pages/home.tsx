@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Link } from "wouter";
 import { 
   CheckCircle, 
@@ -13,144 +15,66 @@ import {
   RefreshCw,
   ArrowRight,
   Download,
-  Mail
+  Mail,
+  MapPin,
+  Calendar,
+  Building
 } from "lucide-react";
+import workExperienceData from "@/data/workexp.json";
+import skillsData from "@/data/skills.json";
+import offeringsData from "@/data/offerings.json";
+import projectsData from "@/data/projects.json";
 
 export default function Home() {
-  const workExperience = [
-    {
-      period: "2022 - Present",
-      title: "Senior QA Engineer",
-      company: "TechCorp Solutions",
-      achievements: [
-        "Led automation testing initiatives reducing manual testing time by 60%",
-        "Implemented CI/CD testing pipelines using Jenkins and Docker",
-        "Mentored junior QA engineers and established testing best practices"
-      ],
-      type: "current"
-    },
-    {
-      period: "2020 - 2022",
-      title: "QA Engineer II",
-      company: "Digital Innovation Inc",
-      achievements: [
-        "Developed comprehensive test suites using Selenium and Cypress",
-        "Performed API testing using Postman and REST Assured",
-        "Collaborated with development teams on Agile/Scrum methodologies"
-      ],
-      type: "previous"
-    },
-    {
-      period: "2018 - 2020",
-      title: "QA Engineer",
-      company: "StartupTech Labs",
-      achievements: [
-        "Executed manual testing for web and mobile applications",
-        "Created detailed test cases and documentation",
-        "Identified and tracked bugs using JIRA and TestRail"
-      ],
-      type: "early"
-    }
-  ];
+  const [selectedJob, setSelectedJob] = useState(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const skillCategories = [
-    {
-      title: "Testing Tools",
-      icon: CheckCircle,
-      skills: ["Selenium", "Cypress", "Postman", "TestRail", "JIRA"],
-      color: "primary"
-    },
-    {
-      title: "Programming",
-      icon: Code,
-      skills: ["JavaScript", "Python", "Java", "TypeScript", "SQL"],
-      color: "accent"
-    },
-    {
-      title: "Methodologies",
-      icon: BarChart3,
-      skills: ["Agile", "Scrum", "BDD", "TDD", "Risk-Based Testing"],
-      color: "secondary"
-    },
-    {
-      title: "CI/CD & DevOps",
-      icon: Zap,
-      skills: ["Jenkins", "Docker", "GitHub Actions", "AWS", "Kubernetes"],
-      color: "primary"
-    },
-    {
-      title: "Performance Testing",
-      icon: BarChart3,
-      skills: ["JMeter", "LoadRunner", "K6", "Gatling"],
-      color: "accent"
-    },
-    {
-      title: "Security Testing",
-      icon: Shield,
-      skills: ["OWASP", "Burp Suite", "ZAP", "Nessus"],
-      color: "secondary"
+  // Calculate years of experience from March 2014 to today
+  const calculateExperience = () => {
+    const startDate = new Date(2014, 2); // March 2014 (month is 0-indexed)
+    const today = new Date();
+    const years = today.getFullYear() - startDate.getFullYear();
+    const months = today.getMonth() - startDate.getMonth();
+    
+    // If we haven't reached the month yet this year, subtract 1
+    if (months < 0) {
+      return years - 1;
     }
-  ];
+    return years;
+  };
 
-  const offerings = [
-    {
-      icon: BarChart3,
-      title: "Test Strategy & Planning",
-      description: "Develop comprehensive test strategies aligned with your business goals, risk assessment, and resource optimization to maximize testing ROI."
-    },
-    {
-      icon: Zap,
-      title: "Test Automation",
-      description: "Build robust automation frameworks using modern tools like Selenium, Cypress, and API testing to reduce manual effort and improve test coverage."
-    },
-    {
-      icon: BarChart3,
-      title: "Performance Testing",
-      description: "Ensure your applications can handle expected load with comprehensive performance testing using JMeter, LoadRunner, and cloud-based testing solutions."
-    },
-    {
-      icon: RefreshCw,
-      title: "CI/CD Integration",
-      description: "Integrate automated testing into your CI/CD pipeline using Jenkins, GitHub Actions, and containerization for continuous quality assurance."
-    },
-    {
-      icon: HelpCircle,
-      title: "Quality Consulting",
-      description: "Provide expert guidance on QA best practices, process improvement, tool selection, and team training to establish a culture of quality."
-    },
-    {
-      icon: Users,
-      title: "Team Leadership",
-      description: "Lead and mentor QA teams, establish testing standards, coordinate cross-functional collaboration, and drive quality initiatives across the organization."
-    }
-  ];
+  const yearsOfExperience = calculateExperience();
 
-  const featuredProjects = [
-    {
-      title: "E-commerce Platform Testing",
-      description: "Comprehensive test automation suite for a major e-commerce platform, reducing testing time by 70%.",
-      category: "Test Automation",
-      status: "completed",
-      technologies: ["Selenium", "API Testing", "CI/CD"],
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300"
-    },
-    {
-      title: "Mobile Banking App QA",
-      description: "Security-focused testing for a mobile banking application with 99.9% uptime requirement.",
-      category: "Mobile Testing",
-      status: "completed",
-      technologies: ["Appium", "Security Testing", "Performance"],
-      image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300"
-    },
-    {
-      title: "Microservices API Testing",
-      description: "Complete API testing framework for microservices architecture with 200+ endpoints.",
-      category: "API Testing",
-      status: "completed",
-      technologies: ["REST Assured", "Postman", "Newman"],
-      image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300"
-    }
-  ];
+  const handleJobClick = (job: any) => {
+    setSelectedJob(job);
+    setIsDialogOpen(true);
+  };
+
+  // Icon mapping for JSON data
+  const iconMap = {
+    CheckCircle,
+    Code,
+    BarChart3,
+    Zap,
+    Shield,
+    RefreshCw,
+    HelpCircle,
+    Users
+  };
+
+  const workExperience = workExperienceData;
+  
+  const skillCategories = skillsData.map(skill => ({
+    ...skill,
+    icon: iconMap[skill.icon]
+  }));
+
+  const offerings = offeringsData.map(offering => ({
+    ...offering,
+    icon: iconMap[offering.icon]
+  }));
+
+  const featuredProjects = projectsData;
 
   return (
     <div className="min-h-screen pt-16">
@@ -161,13 +85,16 @@ export default function Home() {
             <img
               src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=400"
               alt="Senior QA Engineer"
-              className="w-32 h-32 sm:w-40 sm:h-40 rounded-full mx-auto shadow-2xl border-4 border-accent"
+              className="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 rounded-full mx-auto shadow-2xl border-4 border-accent"
             />
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 animate-slide-up">
-            Senior QA Engineer
+            Raj Kumar Sethi
           </h1>
-          <p className="text-xl sm:text-2xl mb-8 font-light opacity-90 animate-slide-up">
+          <p className="text-2xl sm:text-3xl lg:text-4xl mb-2 font-bold opacity-90 animate-slide-up">
+            Senior QA Engineer
+          </p>
+          <p className="text-lg sm:text-xl mb-8 font-light opacity-80 animate-slide-up">
             Ensuring Quality Through Strategic Testing & Automation
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in">
@@ -180,9 +107,8 @@ export default function Home() {
               Download Resume
             </Button>
             <Button
-              variant="outline"
               size="lg"
-              className="border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 transform hover:scale-105 transition-all duration-200"
               data-testid="button-contact"
             >
               <Mail className="mr-2 h-4 w-4" />
@@ -202,7 +128,7 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <p className="text-lg text-muted-foreground leading-relaxed">
-                With over 8 years of experience in quality assurance, I specialize in building robust testing frameworks 
+                With over {yearsOfExperience} years of experience in quality assurance, I specialize in building robust testing frameworks 
                 and implementing comprehensive QA strategies that ensure software reliability and performance. My expertise 
                 spans across manual testing, test automation, API testing, and performance optimization.
               </p>
@@ -214,7 +140,7 @@ export default function Home() {
               <div className="grid grid-cols-2 gap-6">
                 <div>
                   <h4 className="font-semibold text-foreground mb-2">Experience</h4>
-                  <p className="text-3xl font-bold text-primary">8+ Years</p>
+                  <p className="text-3xl font-bold text-primary">{yearsOfExperience}+ Years</p>
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground mb-2">Projects Completed</h4>
@@ -264,7 +190,11 @@ export default function Home() {
                 <div className="timeline-dot absolute left-2 md:left-1/2 transform md:-translate-x-1/2 w-6 h-6 bg-primary rounded-full border-4 border-background shadow-lg"></div>
                 
                 {/* Content card */}
-                <Card className="ml-12 md:ml-0 md:w-5/12 shadow-lg hover:shadow-xl transition-all duration-300">
+                <Card 
+                  className="ml-12 md:ml-0 md:w-5/12 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-105"
+                  onClick={() => handleJobClick(job)}
+                  data-testid={`card-job-${index}`}
+                >
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between mb-3">
                       <Badge 
@@ -282,15 +212,8 @@ export default function Home() {
                       </div>
                     </div>
                     <h3 className="text-xl font-bold text-foreground mb-2">{job.title}</h3>
-                    <p className="text-accent font-semibold mb-3">{job.company}</p>
-                    <ul className="text-muted-foreground space-y-2">
-                      {job.achievements.map((achievement, achievementIndex) => (
-                        <li key={achievementIndex} className="flex items-start">
-                          <span className="text-primary mr-2">•</span>
-                          {achievement}
-                        </li>
-                      ))}
-                    </ul>
+                    <p className="text-accent font-semibold mb-1">{job.company}</p>
+                    <p className="text-muted-foreground text-sm">{job.location}</p>
                   </CardContent>
                 </Card>
               </div>
@@ -470,6 +393,108 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Job Details Dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+          {selectedJob && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-2xl font-bold text-foreground">
+                  {selectedJob.title}
+                </DialogTitle>
+                <DialogDescription className="text-lg">
+                  <div className="flex flex-col space-y-2 mt-2">
+                    <div className="flex items-center space-x-2">
+                      <Building className="w-5 h-5 text-primary" />
+                      <span className="font-semibold text-accent">{selectedJob.company}</span>
+                    </div>
+                    <div className="flex items-center space-x-4">
+                      <div className="flex items-center space-x-2">
+                        <MapPin className="w-4 h-4 text-muted-foreground" />
+                        <span>{selectedJob.location}</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Calendar className="w-4 h-4 text-muted-foreground" />
+                        <span>{selectedJob.period}</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Users className="w-4 h-4 text-muted-foreground" />
+                        <span>{selectedJob.teamSize}</span>
+                      </div>
+                    </div>
+                  </div>
+                </DialogDescription>
+              </DialogHeader>
+
+              <div className="space-y-6 mt-6">
+                {/* Technologies */}
+                <div>
+                  <h4 className="text-lg font-semibold text-foreground mb-3 flex items-center">
+                    <Zap className="w-5 h-5 mr-2 text-primary" />
+                    Technologies & Tools
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedJob.technologies.map((tech, index) => (
+                      <Badge key={index} variant="secondary" className="bg-primary/10 text-primary">
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Key Achievements */}
+                <div>
+                  <h4 className="text-lg font-semibold text-foreground mb-3 flex items-center">
+                    <CheckCircle className="w-5 h-5 mr-2 text-green-500" />
+                    Key Achievements
+                  </h4>
+                  <ul className="space-y-2">
+                    {selectedJob.achievements.map((achievement, index) => (
+                      <li key={index} className="flex items-start space-x-2">
+                        <span className="text-primary mt-1">•</span>
+                        <span className="text-muted-foreground">{achievement}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Responsibilities */}
+                <div>
+                  <h4 className="text-lg font-semibold text-foreground mb-3 flex items-center">
+                    <BarChart3 className="w-5 h-5 mr-2 text-accent" />
+                    Key Responsibilities
+                  </h4>
+                  <ul className="space-y-2">
+                    {selectedJob.responsibilities.map((responsibility, index) => (
+                      <li key={index} className="flex items-start space-x-2">
+                        <span className="text-accent mt-1">•</span>
+                        <span className="text-muted-foreground">{responsibility}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Notable Projects */}
+                <div>
+                  <h4 className="text-lg font-semibold text-foreground mb-3 flex items-center">
+                    <Code className="w-5 h-5 mr-2 text-secondary-foreground" />
+                    Notable Projects
+                  </h4>
+                  <ul className="space-y-3">
+                    {selectedJob.projects.map((project, index) => (
+                      <li key={index} className="flex items-start space-x-2">
+                        <span className="text-secondary-foreground mt-1">•</span>
+                        <span className="text-muted-foreground">{project}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
