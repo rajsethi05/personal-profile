@@ -148,6 +148,14 @@ export default function BlogDetail() {
             </div>
 
             {/* Blog Content */}
+            <style>{`
+              .prose code {
+                color: #000000 !important;
+              }
+              .prose pre code {
+                color: #000000 !important;
+              }
+            `}</style>
             <div
               className="prose prose-lg dark:prose-invert max-w-none
                 prose-headings:text-foreground 
