@@ -337,13 +337,13 @@ export default function BlogEditor() {
             <div className="bg-white dark:bg-gray-800 rounded-lg" data-testid="editor-blog-content">
               <style>{`
                 .ql-snow .ql-editor pre.ql-syntax {
-                  background-color: transparent;
+                  background-color: #f3f4f6;
                   color: #1e293b;
                   border-radius: 0.375rem;
                   padding: 1rem;
                 }
                 .ql-snow .ql-editor code {
-                  background-color: transparent;
+                  background-color: #f3f4f6;
                   color: #1e293b;
                   padding: 0.125rem 0.375rem;
                   border-radius: 0.25rem;

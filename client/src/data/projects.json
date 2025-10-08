@@ -1,5 +1,16 @@
 [
   {
+    "title": "Welcome to Streamlit",
+    "category": "Open Source Lib",
+    "technologies": [
+      "Python"
+    ],
+    "image": "/uploads/profile-1759963640189.png",
+    "description": "Streamlit lets you transform Python scripts into interactive web apps in minutes, instead of weeks. Build dashboards, generate reports, or create chat apps. Once you’ve created an app, you can use our Community Cloud platform to deploy, manage, and share your app.",
+    "project_url": "/project/details/streamlit",
+    "githubUrl": "https://github.com/streamlit/streamlit"
+  },
+  {
     "title": "dsdsds",
     "category": "",
     "technologies": [],
