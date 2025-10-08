@@ -28,6 +28,11 @@ import projectsData from "@/data/projects.json";
 export default function Home() {
   const [selectedJob, setSelectedJob] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [profileImage, setProfileImage] = useState(
+    localStorage.getItem('profileImage') || 
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=400"
+  );
+  const [isUploading, setIsUploading] = useState(false);
 
   // Calculate years of experience from March 2014 to today
   const calculateExperience = () => {
@@ -48,6 +53,55 @@ export default function Home() {
   const handleJobClick = (job: any) => {
     setSelectedJob(job);
     setIsDialogOpen(true);
+  };
+
+  const handleImageClick = () => {
+    const fileInput = document.getElementById('profile-image-input') as HTMLInputElement;
+    fileInput?.click();
+  };
+
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      alert('Please select an image file');
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      alert('File size should be less than 5MB');
+      return;
+    }
+
+    setIsUploading(true);
+
+    try {
+      const response = await fetch('/api/upload-profile-image', {
+        method: 'POST',
+        headers: {
+          'Content-Type': file.type,
+        },
+        body: file,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        const imagePath = data.path;
+        setProfileImage(imagePath);
+        localStorage.setItem('profileImage', imagePath);
+      } else {
+        alert('Upload failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Upload error:', error);
+      alert('Upload failed. Please try again.');
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   // Icon mapping for JSON data
@@ -81,12 +135,27 @@ export default function Home() {
       {/* Hero Section */}
       <section className="hero-gradient min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center text-primary-foreground">
-          <div className="mb-8 animate-fade-in">
-            <img
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=400"
-              alt="Senior QA Engineer"
-              className="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 rounded-full mx-auto shadow-2xl border-4 border-accent"
+          <div className="mb-8 animate-fade-in relative inline-block">
+            <input
+              type="file"
+              id="profile-image-input"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+              data-testid="input-profile-image"
             />
+            <img
+              src={profileImage}
+              alt="Senior QA Engineer"
+              onClick={handleImageClick}
+              className="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 rounded-full mx-auto shadow-2xl border-4 border-accent cursor-pointer hover:opacity-80 transition-opacity"
+              data-testid="img-profile"
+            />
+            {isUploading && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full">
+                <div className="text-white font-semibold">Uploading...</div>
+              </div>
+            )}
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 animate-slide-up">
             Raj Kumar Sethi
