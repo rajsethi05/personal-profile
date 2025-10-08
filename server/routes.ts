@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { writeFile, mkdir } from "fs/promises";
+import { writeFile, mkdir, readFile } from "fs/promises";
 import { join } from "path";
 import express from "express";
 
@@ -124,6 +124,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(500).json({ 
         success: false, 
         error: 'Failed to save blog' 
+      });
+    }
+  });
+
+  // Blog read endpoint
+  app.get("/api/blog/:filename", async (req, res) => {
+    try {
+      const { filename } = req.params;
+      
+      // Remove .json extension if provided
+      const cleanFilename = filename.endsWith('.json') ? filename : `${filename}.json`;
+      const filepath = join(process.cwd(), 'client', 'src', 'data', 'blogs', cleanFilename);
+      
+      // Read the blog file
+      const fileContent = await readFile(filepath, 'utf-8');
+      const blogData = JSON.parse(fileContent);
+      
+      return res.json(blogData);
+    } catch (error) {
+      console.error('Read blog error:', error);
+      return res.status(404).json({ 
+        success: false, 
+        error: 'Blog post not found' 
       });
     }
   });
