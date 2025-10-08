@@ -23,7 +23,6 @@ import {
 import workExperienceData from "@/data/workexp.json";
 import skillsData from "@/data/skills.json";
 import offeringsData from "@/data/offerings.json";
-import projectsData from "@/data/projects.json";
 
 export default function Home() {
   const [selectedJob, setSelectedJob] = useState(null);
@@ -186,8 +185,6 @@ export default function Home() {
     ...offering,
     icon: iconMap[offering.icon]
   }));
-
-  const featuredProjects = projectsData;
 
   return (
     <div className="min-h-screen pt-16">
@@ -456,69 +453,6 @@ export default function Home() {
                 </div>
               </CardContent>
             </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Projects Preview */}
-      <section className="py-20 bg-background">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">Featured Projects</h2>
-            <div className="w-24 h-1 bg-primary mx-auto rounded"></div>
-            <p className="text-xl text-muted-foreground mt-4">Quality assurance projects that delivered results</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredProjects.map((project, index) => (
-              <Card key={index} className="project-card rounded-2xl shadow-lg border border-border overflow-hidden transition-all duration-300">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-48 object-cover"
-                />
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between mb-3">
-                    <Badge className="bg-primary/10 text-primary">
-                      {project.category}
-                    </Badge>
-                    <div className="flex space-x-1">
-                      {[...Array(3)].map((_, i) => (
-                        <div key={i} className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      ))}
-                    </div>
-                  </div>
-                  <h3 className="text-xl font-bold text-foreground mb-3">{project.title}</h3>
-                  <p className="text-muted-foreground mb-4">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.technologies.map((tech, techIndex) => (
-                      <Badge key={techIndex} variant="secondary" className="bg-muted text-muted-foreground">
-                        {tech}
-                      </Badge>
-                    ))}
-                  </div>
-                  <Button
-                    variant="ghost"
-                    className="text-primary font-semibold hover:text-primary/80 p-0"
-                    data-testid={`button-view-project-${index}`}
-                  >
-                    View Details <ArrowRight className="ml-1 h-4 w-4" />
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Link href="/projects">
-              <Button
-                size="lg"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 transform hover:scale-105 transition-all duration-200"
-                data-testid="button-view-all-projects"
-              >
-                View All Projects
-              </Button>
-            </Link>
           </div>
         </div>
       </section>
