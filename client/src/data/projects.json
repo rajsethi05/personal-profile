@@ -1,8 +1,23 @@
 [
   {
+    "title": "Predict Netflix Churn Rate",
+    "category": "Machine Learning, Data Science",
+    "technologies": [
+      "Python",
+      "Jupyter"
+    ],
+    "image": "/uploads/profile-1759961224265.webp",
+    "description": "Netflix is an American subscription video on-demand over-the-top streaming service. The service primarily distributes original and acquired films",
+    "project_url": "/project/details/netflix"
+  },
+  {
     "title": "Test QA Blog",
     "category": "Quality Assurance",
-    "technologies": ["Selenium", "Jest", "Cypress"],
+    "technologies": [
+      "Selenium",
+      "Jest",
+      "Cypress"
+    ],
     "image": "",
     "description": "This is a test summary for the project page",
     "project_url": "/project/details/test-qa-blog"
@@ -11,21 +26,33 @@
     "title": "E-commerce Platform Testing",
     "description": "Comprehensive test automation suite for a major e-commerce platform, reducing testing time by 70%.",
     "category": "Test Automation",
-    "technologies": ["Selenium", "API Testing", "CI/CD"],
+    "technologies": [
+      "Selenium",
+      "API Testing",
+      "CI/CD"
+    ],
     "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300"
   },
   {
     "title": "Mobile Banking App QA",
     "description": "Security-focused testing for a mobile banking application with 99.9% uptime requirement.",
     "category": "Mobile Testing",
-    "technologies": ["Appium", "Security Testing", "Performance"],
+    "technologies": [
+      "Appium",
+      "Security Testing",
+      "Performance"
+    ],
     "image": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300"
   },
   {
     "title": "Microservices API Testing",
     "description": "Complete API testing framework for microservices architecture with 200+ endpoints.",
     "category": "API Testing",
-    "technologies": ["REST Assured", "Postman", "Newman"],
+    "technologies": [
+      "REST Assured",
+      "Postman",
+      "Newman"
+    ],
     "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300"
   }
 ]

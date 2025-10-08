@@ -12,6 +12,7 @@ export default function BlogEditor() {
   const [technologies, setTechnologies] = useState('');
   const [coverImage, setCoverImage] = useState('');
   const [projectSummary, setProjectSummary] = useState('');
+  const [githubUrl, setGithubUrl] = useState('');
   const [content, setContent] = useState('');
   const [isPublishDialogOpen, setIsPublishDialogOpen] = useState(false);
   const [fileName, setFileName] = useState('');
@@ -163,6 +164,7 @@ export default function BlogEditor() {
       image: coverImage,
       description: projectSummary,
       project_url: `/project/details/${fileName}`,
+      githubUrl,
     };
 
     try {
@@ -191,6 +193,7 @@ export default function BlogEditor() {
         setTechnologies('');
         setCoverImage('');
         setProjectSummary('');
+        setGithubUrl('');
         setContent('');
       } else {
         alert('Failed to publish blog. Please try again.');
@@ -304,6 +307,21 @@ export default function BlogEditor() {
               rows={4}
               className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-background text-foreground"
               data-testid="textarea-project-summary"
+            />
+          </div>
+
+          {/* GitHub URL */}
+          <div>
+            <label className="block text-sm font-medium text-foreground mb-2">
+              GitHub URL
+            </label>
+            <Input
+              type="text"
+              value={githubUrl}
+              onChange={(e) => setGithubUrl(e.target.value)}
+              placeholder="https://github.com/username/repository"
+              className="w-full"
+              data-testid="input-github-url"
             />
           </div>
 
