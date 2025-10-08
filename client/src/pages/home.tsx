@@ -141,7 +141,7 @@ export default function Home() {
             <img
               src="/uploads/profile_picture.jpg"
               alt="Senior QA Engineer"
-              className="w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full mx-auto shadow-2xl border-4 border-accent object-contain"
+              className="w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full mx-auto shadow-2xl border-4 border-accent object-cover"
               data-testid="img-profile"
             />
           </div>
