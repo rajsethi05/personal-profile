@@ -45,7 +45,7 @@ export default function BlogDetail() {
   if (loading) {
     return (
       <div className="min-h-screen pt-20 pb-16 px-4 sm:px-6 lg:px-8 bg-background">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="animate-pulse">
             <div className="h-8 bg-muted rounded w-3/4 mb-4"></div>
             <div className="h-64 bg-muted rounded mb-6"></div>
@@ -63,7 +63,7 @@ export default function BlogDetail() {
   if (error || !blog) {
     return (
       <div className="min-h-screen pt-20 pb-16 px-4 sm:px-6 lg:px-8 bg-background">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-6xl mx-auto text-center">
           <h1 className="text-4xl font-bold text-foreground mb-4">Blog Post Not Found</h1>
           <p className="text-muted-foreground mb-8">{error || 'The requested blog post does not exist.'}</p>
           <Link href="/">
@@ -79,7 +79,7 @@ export default function BlogDetail() {
 
   return (
     <div className="min-h-screen pt-20 pb-16 px-4 sm:px-6 lg:px-8 bg-background">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         {/* Back Button */}
         <Link href="/">
           <Button variant="ghost" className="mb-6" data-testid="button-back">
