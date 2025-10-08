@@ -204,7 +204,7 @@ export default function Home() {
               src={profileImage}
               alt="Senior QA Engineer"
               onClick={handleImageClick}
-              className="w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full mx-auto shadow-2xl border-4 border-accent cursor-pointer hover:opacity-80 transition-opacity"
+              className="w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full mx-auto shadow-2xl border-4 border-accent cursor-pointer hover:opacity-80 transition-opacity object-cover"
               data-testid="img-profile"
             />
             {isUploading && (
