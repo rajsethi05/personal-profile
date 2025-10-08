@@ -150,9 +150,16 @@ export default function BlogDetail() {
             {/* Blog Content */}
             <style>{`
               .prose code {
+                background-color: #f3f4f6 !important;
                 color: #000000 !important;
+                padding: 0.2rem 0.4rem !important;
+                border-radius: 0.25rem !important;
+              }
+              .prose pre {
+                background-color: #f3f4f6 !important;
               }
               .prose pre code {
+                background-color: transparent !important;
                 color: #000000 !important;
               }
             `}</style>
