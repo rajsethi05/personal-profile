@@ -72,10 +72,10 @@ export default function BlogDetail() {
           <p className="text-muted-foreground mb-8">
             {error || "The requested blog post does not exist."}
           </p>
-          <Link href="/">
+          <Link href="/projects">
             <Button>
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Home
+              Back to Projects
             </Button>
           </Link>
         </div>
@@ -87,10 +87,10 @@ export default function BlogDetail() {
     <div className="min-h-screen pt-20 pb-16 px-4 sm:px-6 lg:px-8 bg-background">
       <div className="max-w-6xl mx-auto">
         {/* Back Button */}
-        <Link href="/">
+        <Link href="/projects">
           <Button variant="ghost" className="mb-6" data-testid="button-back">
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Home
+            Back to Projects
           </Button>
         </Link>
 
