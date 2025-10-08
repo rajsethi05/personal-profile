@@ -33,6 +33,9 @@ export default function Home() {
     "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=400"
   );
   const [isUploading, setIsUploading] = useState(false);
+  const [isContactDialogOpen, setIsContactDialogOpen] = useState(false);
+  const [contactMessage, setContactMessage] = useState('');
+  const [isSending, setIsSending] = useState(false);
 
   // Calculate years of experience from March 2014 to today
   const calculateExperience = () => {
@@ -101,6 +104,43 @@ export default function Home() {
       alert('Upload failed. Please try again.');
     } finally {
       setIsUploading(false);
+    }
+  };
+
+  const handleSendMessage = async () => {
+    if (!contactMessage.trim()) {
+      alert('Please enter a message');
+      return;
+    }
+
+    setIsSending(true);
+
+    try {
+      const response = await fetch('/api/send-contact-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: 'raj.sethi05@gmail.com',
+          message: contactMessage,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        alert('Message sent successfully!');
+        setContactMessage('');
+        setIsContactDialogOpen(false);
+      } else {
+        alert('Failed to send message. Please try again.');
+      }
+    } catch (error) {
+      console.error('Send error:', error);
+      alert('Failed to send message. Please try again.');
+    } finally {
+      setIsSending(false);
     }
   };
 
@@ -177,6 +217,7 @@ export default function Home() {
             </Button>
             <Button
               size="lg"
+              onClick={() => setIsContactDialogOpen(true)}
               className="bg-primary text-primary-foreground hover:bg-primary/90 transform hover:scale-105 transition-all duration-200"
               data-testid="button-contact"
             >
@@ -562,6 +603,58 @@ export default function Home() {
               </div>
             </>
           )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Contact Dialog */}
+      <Dialog open={isContactDialogOpen} onOpenChange={setIsContactDialogOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-foreground">
+              Contact Raj
+            </DialogTitle>
+            <DialogDescription>
+              Send me a message and I'll get back to you soon.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4 mt-4">
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                value="raj.sethi05@gmail.com"
+                readOnly
+                className="w-full px-3 py-2 border border-border rounded-md bg-muted text-muted-foreground cursor-not-allowed"
+                data-testid="input-contact-email"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-2">
+                Message
+              </label>
+              <textarea
+                value={contactMessage}
+                onChange={(e) => setContactMessage(e.target.value)}
+                placeholder="Enter your message here..."
+                rows={5}
+                className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-background text-foreground"
+                data-testid="textarea-contact-message"
+              />
+            </div>
+
+            <Button
+              onClick={handleSendMessage}
+              disabled={isSending || !contactMessage.trim()}
+              className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+              data-testid="button-send-message"
+            >
+              {isSending ? 'Sending...' : 'Send'}
+            </Button>
+          </div>
         </DialogContent>
       </Dialog>
     </div>
