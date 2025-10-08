@@ -119,14 +119,6 @@ export default function Projects() {
                               </Button>
                             </a>
                           )}
-                          <Button
-                            size="sm"
-                            variant="secondary"
-                            className="h-8 w-8 p-0"
-                            data-testid={`button-external-${index}`}
-                          >
-                            <ExternalLink className="h-4 w-4" />
-                          </Button>
                         </div>
                       </div>
                     </div>
