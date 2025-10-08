@@ -144,6 +144,10 @@ export default function BlogEditor() {
     }
 
     setIsSaving(true);
+    
+    // Convert technologies string to array for compatibility
+    const techArray = technologies.split(',').map(t => t.trim()).filter(t => t);
+    
     const blogData = {
       title,
       category,
@@ -155,7 +159,7 @@ export default function BlogEditor() {
     const projectData = {
       title,
       category,
-      technologies,
+      technologies: techArray,
       image: coverImage,
       description: projectSummary,
     };

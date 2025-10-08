@@ -2,7 +2,11 @@
   {
     "title": "Test QA Blog",
     "category": "Quality Assurance",
-    "technologies": "Selenium, Jest, Cypress",
+    "technologies": [
+      "Selenium",
+      "Jest",
+      "Cypress"
+    ],
     "image": "",
     "description": "This is a test summary for the project page"
   },
