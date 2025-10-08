@@ -27,21 +27,10 @@ import offeringsData from "@/data/offerings.json";
 export default function Home() {
   const [selectedJob, setSelectedJob] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [profileImage, setProfileImage] = useState(
-    localStorage.getItem('profileImage') || 
-    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=400"
-  );
-  const [isUploading, setIsUploading] = useState(false);
   const [isContactDialogOpen, setIsContactDialogOpen] = useState(false);
   const [contactMessage, setContactMessage] = useState('');
   const [fromEmail, setFromEmail] = useState('');
   const [isSending, setIsSending] = useState(false);
-  const [imagePosition, setImagePosition] = useState(() => {
-    const saved = localStorage.getItem('profileImagePosition');
-    return saved ? JSON.parse(saved) : { x: 0, y: 0 };
-  });
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -66,82 +55,6 @@ export default function Home() {
   const handleJobClick = (job: any) => {
     setSelectedJob(job);
     setIsDialogOpen(true);
-  };
-
-  const handleImageClick = () => {
-    const fileInput = document.getElementById('profile-image-input') as HTMLInputElement;
-    fileInput?.click();
-  };
-
-  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    // Validate file type
-    if (!file.type.startsWith('image/')) {
-      alert('Please select an image file');
-      return;
-    }
-
-    // Validate file size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      alert('File size should be less than 5MB');
-      return;
-    }
-
-    setIsUploading(true);
-
-    try {
-      const response = await fetch('/api/upload-profile-image', {
-        method: 'POST',
-        headers: {
-          'Content-Type': file.type,
-        },
-        body: file,
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        const imagePath = data.path;
-        setProfileImage(imagePath);
-        localStorage.setItem('profileImage', imagePath);
-      } else {
-        alert('Upload failed. Please try again.');
-      }
-    } catch (error) {
-      console.error('Upload error:', error);
-      alert('Upload failed. Please try again.');
-    } finally {
-      setIsUploading(false);
-    }
-  };
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (e.button !== 0) return; // Only left mouse button
-    e.preventDefault();
-    setIsDragging(true);
-    setDragStart({
-      x: e.clientX - imagePosition.x,
-      y: e.clientY - imagePosition.y
-    });
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const newPosition = {
-      x: e.clientX - dragStart.x,
-      y: e.clientY - dragStart.y
-    };
-    setImagePosition(newPosition);
-  };
-
-  const handleMouseUp = () => {
-    if (isDragging) {
-      setIsDragging(false);
-      localStorage.setItem('profileImagePosition', JSON.stringify(imagePosition));
-    }
   };
 
   const handleSendMessage = async () => {
@@ -224,41 +137,13 @@ export default function Home() {
       {/* Hero Section */}
       <section className="hero-gradient min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center text-primary-foreground">
-          <div className="mb-8 animate-fade-in relative inline-block">
-            <input
-              type="file"
-              id="profile-image-input"
-              accept="image/*"
-              onChange={handleImageUpload}
-              className="hidden"
-              data-testid="input-profile-image"
+          <div className="mb-8 animate-fade-in">
+            <img
+              src="/uploads/profile_picture.jpg"
+              alt="Senior QA Engineer"
+              className="w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full mx-auto shadow-2xl border-4 border-accent object-cover"
+              data-testid="img-profile"
             />
-            <div 
-              className="w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full mx-auto shadow-2xl border-4 border-accent overflow-hidden relative"
-              onMouseDown={handleMouseDown}
-              onMouseMove={handleMouseMove}
-              onMouseUp={handleMouseUp}
-              onMouseLeave={handleMouseUp}
-              onDoubleClick={handleImageClick}
-              style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
-            >
-              <img
-                src={profileImage}
-                alt="Senior QA Engineer"
-                className="w-full h-full object-cover select-none"
-                style={{
-                  transform: `translate(${imagePosition.x}px, ${imagePosition.y}px)`,
-                  pointerEvents: 'none'
-                }}
-                data-testid="img-profile"
-                draggable={false}
-              />
-            </div>
-            {isUploading && (
-              <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full">
-                <div className="text-white font-semibold">Uploading...</div>
-              </div>
-            )}
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 animate-slide-up">
             Raj Kumar Sethi
