@@ -103,14 +103,22 @@ export default function Projects() {
                           {project.category}
                         </Badge>
                         <div className="flex space-x-2">
-                          <Button
-                            size="sm"
-                            variant="secondary"
-                            className="h-8 w-8 p-0"
-                            data-testid={`button-github-${index}`}
-                          >
-                            <Github className="h-4 w-4" />
-                          </Button>
+                          {(project as any).githubUrl && (
+                            <a
+                              href={(project as any).githubUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <Button
+                                size="sm"
+                                variant="secondary"
+                                className="h-8 w-8 p-0"
+                                data-testid={`button-github-${index}`}
+                              >
+                                <Github className="h-4 w-4" />
+                              </Button>
+                            </a>
+                          )}
                           <Button
                             size="sm"
                             variant="secondary"
