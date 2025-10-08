@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github, Zap } from "lucide-react";
+import { Link } from "wouter";
 import projectsData from "@/data/projects.json";
 
 export default function Projects() {
@@ -121,10 +122,11 @@ export default function Projects() {
 
                   {/* Content Section */}
                   <CardContent className="p-8">
-                    {project.status && (
+                    {(project as any).status && (
                       <div className="flex items-center space-x-2 mb-4">
+                        <div className={`w-2 h-2 rounded-full ${getStatusColor((project as any).status)}`}></div>
                         <span className="text-sm text-muted-foreground font-medium capitalize">
-                          {project.status}
+                          {(project as any).status}
                         </span>
                       </div>
                     )}
@@ -158,12 +160,23 @@ export default function Projects() {
 
                     {/* Action Buttons */}
                     <div className="flex flex-wrap gap-3">
-                      <Button
-                        className="bg-primary text-primary-foreground hover:bg-primary/90"
-                        data-testid={`button-view-details-${index}`}
-                      >
-                        View Details
-                      </Button>
+                      {(project as any).project_url ? (
+                        <Link href={(project as any).project_url}>
+                          <Button
+                            className="bg-primary text-primary-foreground hover:bg-primary/90"
+                            data-testid={`button-view-details-${index}`}
+                          >
+                            View Details
+                          </Button>
+                        </Link>
+                      ) : (
+                        <Button
+                          className="bg-primary text-primary-foreground hover:bg-primary/90"
+                          data-testid={`button-view-details-${index}`}
+                        >
+                          View Details
+                        </Button>
+                      )}
                       <Button
                         variant="outline"
                         data-testid={`button-case-study-${index}`}

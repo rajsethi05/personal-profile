@@ -6,6 +6,7 @@ This is a QA Portfolio web application built as a modern full-stack project show
 - **Contact Form**: Added contact form popup with From Email (mandatory) and To Email (pre-filled) fields. Currently logs to console; can be integrated with email service.
 - **Hidden Blog Editor**: Created at `/project_blog` route with rich text editor, supporting full formatting (bold, italic, colors, images, code blocks, etc.). Includes Publish and Save Draft functionality with JSON file storage.
 - **Profile Picture Upload**: Users can upload and change profile picture, stored in /uploads folder.
+- **Project URL Linking**: When publishing a blog, automatically adds `project_url` field to projects.json linking to the blog detail page. "View Details" button on projects page navigates to linked blog posts.
 
 # User Preferences
 
@@ -84,7 +85,8 @@ Preferred communication style: Simple, everyday language.
   - **Publish**: Opens dialog for filename input, saves blog to `client/src/data/blogs/` AND adds project to `client/src/data/projects.json`
   - **Save Draft**: Auto-generates filename, saves to `client/src/data/draft/`
   - Blog JSON: `{ title, category, technologies, coverImage, description }`
-  - Project JSON: `{ title, category, technologies, image, description (from projectSummary) }`
+  - Project JSON: `{ title, category, technologies, image, description (from projectSummary), project_url: "/project/details/{filename}" }`
+  - **View Details Link**: Projects with project_url automatically link to their blog detail pages from the projects page
 
 ## Interactive Features
 - **Contact Form**: Popup with From Email (required), To Email (pre-filled: raj.sethi05@gmail.com), and Message

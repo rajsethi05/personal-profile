@@ -162,6 +162,7 @@ export default function BlogEditor() {
       technologies: techArray,
       image: coverImage,
       description: projectSummary,
+      project_url: `/project/details/${fileName}`,
     };
 
     try {
