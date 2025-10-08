@@ -10,6 +10,7 @@ interface BlogPost {
   technologies: string;
   coverImage: string;
   description: string;
+  githubUrl?: string;
 }
 
 export default function BlogDetail() {
@@ -185,6 +186,24 @@ export default function BlogDetail() {
               dangerouslySetInnerHTML={{ __html: blog.description }}
               data-testid="content-blog-description"
             />
+
+            {/* GitHub Link Section */}
+            {blog.githubUrl && (
+              <div className="mt-8 pt-6 border-t border-border">
+                <p className="text-lg text-muted-foreground">
+                  Full Project on{" "}
+                  <a
+                    href={blog.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline font-semibold"
+                    data-testid="link-github"
+                  >
+                    Github
+                  </a>
+                </p>
+              </div>
+            )}
           </div>
         </article>
       </div>

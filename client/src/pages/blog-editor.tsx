@@ -112,6 +112,7 @@ export default function BlogEditor() {
       technologies,
       coverImage,
       description: content,
+      githubUrl,
     };
 
     try {
@@ -159,6 +160,7 @@ export default function BlogEditor() {
       technologies,
       coverImage,
       description: content,
+      githubUrl,
     };
 
     const projectData = {

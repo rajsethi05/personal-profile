@@ -7,6 +7,9 @@ This is a QA Portfolio web application built as a modern full-stack project show
 - **Hidden Blog Editor**: Created at `/project_blog` route with rich text editor, supporting full formatting (bold, italic, colors, images, code blocks, etc.). Includes Publish and Save Draft functionality with JSON file storage.
 - **Profile Picture Upload**: Users can upload and change profile picture, stored in /uploads folder.
 - **Project URL Linking**: When publishing a blog, automatically adds `project_url` field to projects.json linking to the blog detail page. "View Details" button on projects page navigates to linked blog posts.
+- **GitHub Integration**: Added GitHub URL field to blog editor; clickable GitHub button on projects page links to repository; "Full Project on Github" link on blog detail pages.
+- **Navigation**: All pages auto-scroll to top on load; "Back to Projects" button on blog details.
+- **Featured Projects**: Removed from home page for cleaner layout.
 
 # User Preferences
 
@@ -72,21 +75,26 @@ Preferred communication style: Simple, everyday language.
 # Portfolio Features
 
 ## Main Pages
-- **Home** (`/`): Profile, work experience, skills, and featured projects
-- **Projects** (`/projects`): Detailed project showcases with descriptions and technologies
+- **Home** (`/`): Profile, work experience, skills, and offerings (featured projects removed)
+- **Projects** (`/projects`): Detailed project showcases with descriptions, technologies, and GitHub links
 - **Certifications** (`/certifications`): Professional certifications and credentials
+- **Project Details** (`/project/details/:filename`): Full blog post with GitHub repository link
 
 ## Hidden/Admin Pages
 - **Blog Editor** (`/project_blog`): Rich text blog editor with publish/draft functionality
-  - Fields: Title, Category, Technologies, Cover Image (upload), Project Summary
+  - Fields: Title, Category, Technologies, Cover Image (upload), Project Summary, GitHub URL
   - Cover Image: Upload button saves images to `/uploads` folder with preview
   - Project Summary: Brief description used for projects page
+  - GitHub URL: Optional repository link displayed on blog details and project cards
   - Rich text editor with formatting: bold, italic, colors, headers, lists, images, code blocks, etc.
+  - Code snippet styling: Light gray background (#f3f4f6) with dark text for visibility
   - **Publish**: Opens dialog for filename input, saves blog to `client/src/data/blogs/` AND adds project to `client/src/data/projects.json`
   - **Save Draft**: Auto-generates filename, saves to `client/src/data/draft/`
-  - Blog JSON: `{ title, category, technologies, coverImage, description }`
-  - Project JSON: `{ title, category, technologies, image, description (from projectSummary), project_url: "/project/details/{filename}" }`
+  - Blog JSON: `{ title, category, technologies, coverImage, description, githubUrl }`
+  - Project JSON: `{ title, category, technologies, image, description (from projectSummary), project_url: "/project/details/{filename}", githubUrl }`
   - **View Details Link**: Projects with project_url automatically link to their blog detail pages from the projects page
+  - **GitHub Button**: Projects page displays clickable GitHub icon when githubUrl exists
+  - **Blog Detail GitHub Link**: "Full Project on Github" link displayed at bottom of blog posts when githubUrl is present
 
 ## Interactive Features
 - **Contact Form**: Popup with From Email (required), To Email (pre-filled: raj.sethi05@gmail.com), and Message
