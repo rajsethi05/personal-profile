@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import { useRoute } from 'wouter';
-import { ArrowLeft } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Link } from 'wouter';
+import { useEffect, useState } from "react";
+import { useRoute } from "wouter";
+import { ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
 
 interface BlogPost {
   title: string;
@@ -13,7 +13,7 @@ interface BlogPost {
 }
 
 export default function BlogDetail() {
-  const [, params] = useRoute('/project/details/:filename');
+  const [, params] = useRoute("/project/details/:filename");
   const [blog, setBlog] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -25,15 +25,17 @@ export default function BlogDetail() {
       try {
         setLoading(true);
         const response = await fetch(`/api/blog/${params.filename}`);
-        
+
         if (!response.ok) {
-          throw new Error('Blog post not found');
+          throw new Error("Blog post not found");
         }
 
         const data = await response.json();
         setBlog(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load blog post');
+        setError(
+          err instanceof Error ? err.message : "Failed to load blog post",
+        );
       } finally {
         setLoading(false);
       }
@@ -64,8 +66,12 @@ export default function BlogDetail() {
     return (
       <div className="min-h-screen pt-20 pb-16 px-4 sm:px-6 lg:px-8 bg-background">
         <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-4xl font-bold text-foreground mb-4">Blog Post Not Found</h1>
-          <p className="text-muted-foreground mb-8">{error || 'The requested blog post does not exist.'}</p>
+          <h1 className="text-4xl font-bold text-foreground mb-4">
+            Blog Post Not Found
+          </h1>
+          <p className="text-muted-foreground mb-8">
+            {error || "The requested blog post does not exist."}
+          </p>
           <Link href="/">
             <Button>
               <ArrowLeft className="mr-2 h-4 w-4" />
@@ -104,7 +110,10 @@ export default function BlogDetail() {
 
           <div className="p-6 sm:p-8 lg:p-12">
             {/* Title */}
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4" data-testid="text-blog-title">
+            <h1
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4"
+              data-testid="text-blog-title"
+            >
               {blog.title}
             </h1>
 
@@ -112,16 +121,26 @@ export default function BlogDetail() {
             <div className="flex flex-wrap gap-4 mb-8">
               {blog.category && (
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium text-muted-foreground">Category:</span>
-                  <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium" data-testid="text-blog-category">
+                  <span className="text-sm font-medium text-muted-foreground">
+                    Category:
+                  </span>
+                  <span
+                    className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium"
+                    data-testid="text-blog-category"
+                  >
                     {blog.category}
                   </span>
                 </div>
               )}
               {blog.technologies && (
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium text-muted-foreground">Technologies:</span>
-                  <span className="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm font-medium" data-testid="text-blog-technologies">
+                  <span className="text-sm font-medium text-muted-foreground">
+                    Technologies:
+                  </span>
+                  <span
+                    className="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm font-medium"
+                    data-testid="text-blog-technologies"
+                  >
                     {blog.technologies}
                   </span>
                 </div>
@@ -129,7 +148,7 @@ export default function BlogDetail() {
             </div>
 
             {/* Blog Content */}
-            <div 
+            <div
               className="prose prose-lg dark:prose-invert max-w-none
                 prose-headings:text-foreground 
                 prose-p:text-muted-foreground
