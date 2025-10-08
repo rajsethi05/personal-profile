@@ -1,7 +1,0 @@
-{
-  "title": "Published Blog Post",
-  "category": "QA",
-  "technologies": "Jest, Playwright",
-  "coverImage": "https://example.com/cover.jpg",
-  "description": "<p>This is the published blog content created by automated QA.</p>"
-}
