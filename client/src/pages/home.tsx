@@ -35,6 +35,7 @@ export default function Home() {
   const [isUploading, setIsUploading] = useState(false);
   const [isContactDialogOpen, setIsContactDialogOpen] = useState(false);
   const [contactMessage, setContactMessage] = useState('');
+  const [fromEmail, setFromEmail] = useState('');
   const [isSending, setIsSending] = useState(false);
 
   // Calculate years of experience from March 2014 to today
@@ -108,8 +109,20 @@ export default function Home() {
   };
 
   const handleSendMessage = async () => {
+    if (!fromEmail.trim()) {
+      alert('Please enter your email address');
+      return;
+    }
+
     if (!contactMessage.trim()) {
       alert('Please enter a message');
+      return;
+    }
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(fromEmail)) {
+      alert('Please enter a valid email address');
       return;
     }
 
@@ -122,7 +135,8 @@ export default function Home() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email: 'raj.sethi05@gmail.com',
+          toEmail: 'raj.sethi05@gmail.com',
+          fromEmail: fromEmail,
           message: contactMessage,
         }),
       });
@@ -132,6 +146,7 @@ export default function Home() {
       if (data.success) {
         alert('Message sent successfully!');
         setContactMessage('');
+        setFromEmail('');
         setIsContactDialogOpen(false);
       } else {
         alert('Failed to send message. Please try again.');
@@ -621,7 +636,21 @@ export default function Home() {
           <div className="space-y-4 mt-4">
             <div>
               <label className="block text-sm font-medium text-foreground mb-2">
-                Email
+                From Email <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="email"
+                value={fromEmail}
+                onChange={(e) => setFromEmail(e.target.value)}
+                placeholder="your.email@example.com"
+                className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-background text-foreground"
+                data-testid="input-from-email"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-2">
+                To Email
               </label>
               <input
                 type="email"
@@ -634,7 +663,7 @@ export default function Home() {
 
             <div>
               <label className="block text-sm font-medium text-foreground mb-2">
-                Message
+                Message <span className="text-red-500">*</span>
               </label>
               <textarea
                 value={contactMessage}
@@ -648,7 +677,7 @@ export default function Home() {
 
             <Button
               onClick={handleSendMessage}
-              disabled={isSending || !contactMessage.trim()}
+              disabled={isSending || !contactMessage.trim() || !fromEmail.trim()}
               className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
               data-testid="button-send-message"
             >

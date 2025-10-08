@@ -60,18 +60,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form endpoint
   app.post("/api/send-contact-email", async (req, res) => {
     try {
-      const { email, message } = req.body;
+      const { toEmail, fromEmail, message } = req.body;
 
-      if (!email || !message) {
+      if (!toEmail || !fromEmail || !message) {
         return res.status(400).json({ 
           success: false, 
-          error: 'Email and message are required' 
+          error: 'To email, from email, and message are required' 
         });
       }
 
       // Log the message for now
       console.log('Contact form submission:');
-      console.log(`To: ${email}`);
+      console.log(`From: ${fromEmail}`);
+      console.log(`To: ${toEmail}`);
       console.log(`Message: ${message}`);
 
       // TODO: Set up email service (Resend/SendGrid) to actually send emails
