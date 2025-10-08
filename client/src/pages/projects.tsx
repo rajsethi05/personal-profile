@@ -11,7 +11,7 @@ export default function Projects() {
     const today = new Date();
     const years = today.getFullYear() - startDate.getFullYear();
     const months = today.getMonth() - startDate.getMonth();
-    
+
     // If we haven't reached the month yet this year, subtract 1
     if (months < 0) {
       return years - 1;
@@ -43,7 +43,8 @@ export default function Projects() {
             QA Projects Portfolio
           </h1>
           <p className="text-xl text-primary-foreground/90 mb-8">
-            Comprehensive quality assurance projects demonstrating expertise across various technologies and industries
+            Comprehensive quality assurance projects demonstrating expertise
+            across various technologies and industries
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Badge className="bg-accent text-accent-foreground px-4 py-2">
@@ -64,10 +65,17 @@ export default function Projects() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-12">
             {projectsData.map((project, index) => (
-              <Card key={index} className="overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300">
-                <div className={`grid lg:grid-cols-2 gap-0 ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
+              <Card
+                key={index}
+                className="overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
+              >
+                <div
+                  className={`grid lg:grid-cols-2 gap-0 ${index % 2 === 1 ? "lg:grid-flow-col-dense" : ""}`}
+                >
                   {/* Image Section */}
-                  <div className={`relative ${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
+                  <div
+                    className={`relative ${index % 2 === 1 ? "lg:col-start-2" : ""}`}
+                  >
                     {project.image ? (
                       <>
                         <img
@@ -79,7 +87,9 @@ export default function Projects() {
                       </>
                     ) : (
                       <div className="w-full h-64 lg:h-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                        <p className="text-muted-foreground">No image available</p>
+                        <p className="text-muted-foreground">
+                          No image available
+                        </p>
                       </div>
                     )}
                     <div className="absolute bottom-4 left-4 right-4">
@@ -88,10 +98,20 @@ export default function Projects() {
                           {project.category}
                         </Badge>
                         <div className="flex space-x-2">
-                          <Button size="sm" variant="secondary" className="h-8 w-8 p-0" data-testid={`button-github-${index}`}>
+                          <Button
+                            size="sm"
+                            variant="secondary"
+                            className="h-8 w-8 p-0"
+                            data-testid={`button-github-${index}`}
+                          >
                             <Github className="h-4 w-4" />
                           </Button>
-                          <Button size="sm" variant="secondary" className="h-8 w-8 p-0" data-testid={`button-external-${index}`}>
+                          <Button
+                            size="sm"
+                            variant="secondary"
+                            className="h-8 w-8 p-0"
+                            data-testid={`button-external-${index}`}
+                          >
                             <ExternalLink className="h-4 w-4" />
                           </Button>
                         </div>
@@ -103,13 +123,18 @@ export default function Projects() {
                   <CardContent className="p-8">
                     {project.status && (
                       <div className="flex items-center space-x-2 mb-4">
-                        <div className={`w-2 h-2 rounded-full ${getStatusColor(project.status)}`}></div>
-                        <span className="text-sm text-muted-foreground font-medium capitalize">{project.status}</span>
+                        <span className="text-sm text-muted-foreground font-medium capitalize">
+                          {project.status}
+                        </span>
                       </div>
                     )}
 
-                    <h3 className="text-2xl font-bold text-foreground mb-3">{project.title}</h3>
-                    <p className="text-muted-foreground mb-6">{project.description}</p>
+                    <h3 className="text-2xl font-bold text-foreground mb-3">
+                      {project.title}
+                    </h3>
+                    <p className="text-muted-foreground mb-6">
+                      {project.description}
+                    </p>
 
                     {/* Technologies */}
                     <div className="mb-6">
@@ -119,7 +144,12 @@ export default function Projects() {
                       </h4>
                       <div className="flex flex-wrap gap-2">
                         {project.technologies.map((tech, techIndex) => (
-                          <Badge key={techIndex} variant="secondary" className="text-xs" data-testid={`badge-tech-${index}-${techIndex}`}>
+                          <Badge
+                            key={techIndex}
+                            variant="secondary"
+                            className="text-xs"
+                            data-testid={`badge-tech-${index}-${techIndex}`}
+                          >
                             {tech}
                           </Badge>
                         ))}
@@ -128,20 +158,20 @@ export default function Projects() {
 
                     {/* Action Buttons */}
                     <div className="flex flex-wrap gap-3">
-                      <Button 
+                      <Button
                         className="bg-primary text-primary-foreground hover:bg-primary/90"
                         data-testid={`button-view-details-${index}`}
                       >
                         View Details
                       </Button>
-                      <Button 
+                      <Button
                         variant="outline"
                         data-testid={`button-case-study-${index}`}
                       >
                         Case Study
                       </Button>
-                      <Button 
-                        variant="ghost" 
+                      <Button
+                        variant="ghost"
                         size="sm"
                         data-testid={`button-contact-project-${index}`}
                       >
@@ -162,19 +192,20 @@ export default function Projects() {
                   Have a Similar Project in Mind?
                 </h3>
                 <p className="text-muted-foreground mb-6">
-                  Let's discuss how I can help you achieve similar results with comprehensive QA solutions 
-                  tailored to your specific needs and requirements.
+                  Let's discuss how I can help you achieve similar results with
+                  comprehensive QA solutions tailored to your specific needs and
+                  requirements.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button 
+                  <Button
                     size="lg"
                     className="bg-primary text-primary-foreground hover:bg-primary/90"
                     data-testid="button-discuss-project"
                   >
                     Discuss Your Project
                   </Button>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     size="lg"
                     data-testid="button-get-quote"
                   >
