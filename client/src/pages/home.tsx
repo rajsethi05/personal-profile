@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -37,6 +37,10 @@ export default function Home() {
   const [contactMessage, setContactMessage] = useState('');
   const [fromEmail, setFromEmail] = useState('');
   const [isSending, setIsSending] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // Calculate years of experience from March 2014 to today
   const calculateExperience = () => {

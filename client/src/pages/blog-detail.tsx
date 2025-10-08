@@ -19,6 +19,8 @@ export default function BlogDetail() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+    
     const loadBlog = async () => {
       if (!params?.filename) return;
 

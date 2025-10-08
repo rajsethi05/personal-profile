@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -6,6 +7,9 @@ import { Link } from "wouter";
 import projectsData from "@/data/projects.json";
 
 export default function Projects() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   // Calculate years of experience from March 2014 to today
   const calculateExperience = () => {
     const startDate = new Date(2014, 2); // March 2014 (month is 0-indexed)
