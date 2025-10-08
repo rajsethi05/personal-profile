@@ -2,6 +2,11 @@
 
 This is a QA Portfolio web application built as a modern full-stack project showcasing quality assurance expertise, certifications, and projects. The application features a React frontend with shadcn/ui components and an Express.js backend, designed to demonstrate professional QA engineering capabilities through an interactive portfolio interface.
 
+## Recent Updates (October 2025)
+- **Contact Form**: Added contact form popup with From Email (mandatory) and To Email (pre-filled) fields. Currently logs to console; can be integrated with email service.
+- **Hidden Blog Editor**: Created at `/project_blog` route with rich text editor, supporting full formatting (bold, italic, colors, images, code blocks, etc.). Includes Publish and Save Draft functionality with JSON file storage.
+- **Profile Picture Upload**: Users can upload and change profile picture, stored in /uploads folder.
+
 # User Preferences
 
 Preferred communication style: Simple, everyday language.
@@ -52,6 +57,7 @@ Preferred communication style: Simple, everyday language.
 - **Wouter**: Lightweight routing library
 - **Tailwind CSS**: Utility-first CSS framework
 - **Lucide React**: Icon library for consistent iconography
+- **React Quill**: Rich text editor with full formatting support for blog creation
 
 ## Development Tools
 - **Vite**: Frontend build tool and development server
@@ -61,3 +67,33 @@ Preferred communication style: Simple, everyday language.
 
 ## Hosting Platform
 - **Replit**: Development environment with integrated deployment and runtime error monitoring
+
+# Portfolio Features
+
+## Main Pages
+- **Home** (`/`): Profile, work experience, skills, and featured projects
+- **Projects** (`/projects`): Detailed project showcases with descriptions and technologies
+- **Certifications** (`/certifications`): Professional certifications and credentials
+
+## Hidden/Admin Pages
+- **Blog Editor** (`/project_blog`): Rich text blog editor with publish/draft functionality
+  - Fields: Title, Category, Technologies, Cover Image URL
+  - Rich text editor with formatting: bold, italic, colors, headers, lists, images, code blocks, etc.
+  - **Publish**: Opens dialog for filename input, saves to `client/src/data/blogs/`
+  - **Save Draft**: Auto-generates filename, saves to `client/src/data/draft/`
+  - JSON structure: `{ title, category, technologies, coverImage, description }`
+
+## Interactive Features
+- **Contact Form**: Popup with From Email (required), To Email (pre-filled: raj.sethi05@gmail.com), and Message
+  - Email validation included
+  - Backend endpoint: `/api/send-contact-email` (currently logs to console)
+  - Ready for email service integration (Resend/SendGrid/Gmail)
+- **Profile Picture Upload**: Click profile image to upload custom photo
+  - Saves to `/uploads` folder
+  - Persists selection in localStorage
+  - 5MB max file size, supports JPG/PNG/WebP
+
+## Data Storage
+- Work experience, skills, offerings, and projects stored in JSON files under `client/src/data/`
+- Blog posts: `client/src/data/blogs/` (published) and `client/src/data/draft/` (drafts)
+- Profile images: `/uploads` folder

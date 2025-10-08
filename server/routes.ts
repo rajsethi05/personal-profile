@@ -91,6 +91,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Blog save endpoint
+  app.post("/api/save-blog", async (req, res) => {
+    try {
+      const { blogData, isDraft, fileName } = req.body;
+
+      if (!blogData || !blogData.title) {
+        return res.status(400).json({ 
+          success: false, 
+          error: 'Blog data and title are required' 
+        });
+      }
+
+      const timestamp = Date.now();
+      const folder = isDraft ? 'draft' : 'blogs';
+      const name = isDraft ? `draft-${timestamp}` : (fileName || `blog-${timestamp}`);
+      const filepath = join(process.cwd(), 'client', 'src', 'data', folder, `${name}.json`);
+      
+      // Create folder if it doesn't exist
+      await mkdir(join(process.cwd(), 'client', 'src', 'data', folder), { recursive: true });
+      
+      // Write blog data to file
+      await writeFile(filepath, JSON.stringify(blogData, null, 2), 'utf-8');
+      
+      return res.json({ 
+        success: true,
+        fileName: `${name}.json`,
+        message: isDraft ? 'Draft saved successfully' : 'Blog published successfully'
+      });
+    } catch (error) {
+      console.error('Save blog error:', error);
+      return res.status(500).json({ 
+        success: false, 
+        error: 'Failed to save blog' 
+      });
+    }
+  });
+
   const httpServer = createServer(app);
 
   return httpServer;
