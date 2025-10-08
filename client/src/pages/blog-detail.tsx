@@ -155,8 +155,15 @@ export default function BlogDetail() {
                 padding: 0.2rem 0.4rem !important;
                 border-radius: 0.25rem !important;
               }
+              .prose pre.ql-syntax {
+                background-color: #f3f4f6 !important;
+                color: #000000 !important;
+                padding: 1rem !important;
+                border-radius: 0.375rem !important;
+              }
               .prose pre {
                 background-color: #f3f4f6 !important;
+                color: #000000 !important;
               }
               .prose pre code {
                 background-color: transparent !important;
