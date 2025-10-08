@@ -94,7 +94,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Blog save endpoint
   app.post("/api/save-blog", async (req, res) => {
     try {
-      const { blogData, isDraft, fileName } = req.body;
+      const { blogData, projectData, isDraft, fileName } = req.body;
 
       if (!blogData || !blogData.title) {
         return res.status(400).json({ 
@@ -113,6 +113,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Write blog data to file
       await writeFile(filepath, JSON.stringify(blogData, null, 2), 'utf-8');
+      
+      // If publishing (not draft) and projectData is provided, add to projects.json
+      if (!isDraft && projectData) {
+        const projectsFilePath = join(process.cwd(), 'client', 'src', 'data', 'projects.json');
+        
+        try {
+          // Read existing projects
+          const projectsContent = await readFile(projectsFilePath, 'utf-8');
+          const projects = JSON.parse(projectsContent);
+          
+          // Add new project to the beginning of the array
+          projects.unshift(projectData);
+          
+          // Write updated projects back to file
+          await writeFile(projectsFilePath, JSON.stringify(projects, null, 2), 'utf-8');
+        } catch (error) {
+          console.error('Error updating projects.json:', error);
+          // Continue even if projects.json update fails
+        }
+      }
       
       return res.json({ 
         success: true,

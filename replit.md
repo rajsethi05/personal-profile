@@ -77,11 +77,14 @@ Preferred communication style: Simple, everyday language.
 
 ## Hidden/Admin Pages
 - **Blog Editor** (`/project_blog`): Rich text blog editor with publish/draft functionality
-  - Fields: Title, Category, Technologies, Cover Image URL
+  - Fields: Title, Category, Technologies, Cover Image (upload), Project Summary
+  - Cover Image: Upload button saves images to `/uploads` folder with preview
+  - Project Summary: Brief description used for projects page
   - Rich text editor with formatting: bold, italic, colors, headers, lists, images, code blocks, etc.
-  - **Publish**: Opens dialog for filename input, saves to `client/src/data/blogs/`
+  - **Publish**: Opens dialog for filename input, saves blog to `client/src/data/blogs/` AND adds project to `client/src/data/projects.json`
   - **Save Draft**: Auto-generates filename, saves to `client/src/data/draft/`
-  - JSON structure: `{ title, category, technologies, coverImage, description }`
+  - Blog JSON: `{ title, category, technologies, coverImage, description }`
+  - Project JSON: `{ title, category, technologies, image, description (from projectSummary) }`
 
 ## Interactive Features
 - **Contact Form**: Popup with From Email (required), To Email (pre-filled: raj.sethi05@gmail.com), and Message

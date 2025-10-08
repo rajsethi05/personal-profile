@@ -4,17 +4,19 @@ import 'react-quill/dist/quill.snow.css';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { FileText, Save } from "lucide-react";
+import { FileText, Save, Upload } from "lucide-react";
 
 export default function BlogEditor() {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
   const [technologies, setTechnologies] = useState('');
   const [coverImage, setCoverImage] = useState('');
+  const [projectSummary, setProjectSummary] = useState('');
   const [content, setContent] = useState('');
   const [isPublishDialogOpen, setIsPublishDialogOpen] = useState(false);
   const [fileName, setFileName] = useState('');
   const [isSaving, setIsSaving] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
   const modules = {
     toolbar: [
@@ -43,6 +45,46 @@ export default function BlogEditor() {
     'blockquote', 'code-block',
     'link', 'image', 'video'
   ];
+
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      alert('Please select an image file');
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      alert('File size should be less than 5MB');
+      return;
+    }
+
+    setIsUploading(true);
+
+    try {
+      const response = await fetch('/api/upload-profile-image', {
+        method: 'POST',
+        headers: {
+          'Content-Type': file.type,
+        },
+        body: file,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setCoverImage(data.path);
+      } else {
+        alert('Upload failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Upload error:', error);
+      alert('Upload failed. Please try again.');
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   const handlePublish = () => {
     if (!title.trim()) {
@@ -76,6 +118,7 @@ export default function BlogEditor() {
         body: JSON.stringify({
           blogData,
           isDraft: true,
+          projectSummary,
         }),
       });
 
@@ -109,6 +152,14 @@ export default function BlogEditor() {
       description: content,
     };
 
+    const projectData = {
+      title,
+      category,
+      technologies,
+      image: coverImage,
+      description: projectSummary,
+    };
+
     try {
       const response = await fetch('/api/save-blog', {
         method: 'POST',
@@ -117,6 +168,7 @@ export default function BlogEditor() {
         },
         body: JSON.stringify({
           blogData,
+          projectData,
           isDraft: false,
           fileName,
         }),
@@ -133,6 +185,7 @@ export default function BlogEditor() {
         setCategory('');
         setTechnologies('');
         setCoverImage('');
+        setProjectSummary('');
         setContent('');
       } else {
         alert('Failed to publish blog. Please try again.');
@@ -199,15 +252,53 @@ export default function BlogEditor() {
           {/* Cover Image */}
           <div>
             <label className="block text-sm font-medium text-foreground mb-2">
-              Cover Image URL
+              Cover Image
             </label>
-            <Input
-              type="text"
-              value={coverImage}
-              onChange={(e) => setCoverImage(e.target.value)}
-              placeholder="Enter image URL"
-              className="w-full"
-              data-testid="input-blog-cover-image"
+            <div className="flex items-center gap-4">
+              <input
+                type="file"
+                id="cover-image-input"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="hidden"
+                data-testid="input-cover-image-file"
+              />
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => document.getElementById('cover-image-input')?.click()}
+                disabled={isUploading}
+                data-testid="button-upload-cover"
+              >
+                <Upload className="mr-2 h-4 w-4" />
+                {isUploading ? 'Uploading...' : 'Upload Image'}
+              </Button>
+              {coverImage && (
+                <div className="flex items-center gap-2">
+                  <img
+                    src={coverImage}
+                    alt="Cover preview"
+                    className="h-16 w-16 object-cover rounded border"
+                    data-testid="img-cover-preview"
+                  />
+                  <span className="text-sm text-muted-foreground">Image uploaded</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Project Summary */}
+          <div>
+            <label className="block text-sm font-medium text-foreground mb-2">
+              Project Summary
+            </label>
+            <textarea
+              value={projectSummary}
+              onChange={(e) => setProjectSummary(e.target.value)}
+              placeholder="Brief summary for the projects page..."
+              rows={4}
+              className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-background text-foreground"
+              data-testid="textarea-project-summary"
             />
           </div>
 
