@@ -60,16 +60,6 @@ export default function Certifications() {
             Industry-recognized certifications demonstrating expertise and
             commitment to excellence
           </p>
-          {!loading && certificates.length > 0 && (
-            <div className="flex flex-wrap justify-center gap-4">
-              <Badge className="bg-accent text-accent-foreground px-4 py-2">
-                {certificates.length} {certificates.length === 1 ? 'Certification' : 'Certifications'}
-              </Badge>
-              <Badge className="bg-primary/20 text-primary-foreground px-4 py-2">
-                Professional Growth
-              </Badge>
-            </div>
-          )}
         </div>
       </section>
 
