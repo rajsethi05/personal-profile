@@ -2,23 +2,29 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { Link } from "wouter";
-import { 
-  CheckCircle, 
-  Code, 
-  Zap, 
-  Shield, 
-  BarChart3, 
-  Users, 
-  HelpCircle, 
+import {
+  CheckCircle,
+  Code,
+  Zap,
+  Shield,
+  BarChart3,
+  Users,
+  HelpCircle,
   RefreshCw,
   ArrowRight,
   Download,
   Mail,
   MapPin,
   Calendar,
-  Building
+  Building,
 } from "lucide-react";
 import workExperienceData from "@/data/workexp.json";
 
@@ -41,33 +47,33 @@ export default function Home() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    
+
     const loadProfileData = async () => {
       try {
         setLoading(true);
-        const profileId = import.meta.env.VITE_PROFILE_ID || 'qa';
-        console.log('🔍 Loading home data for profile:', profileId);
-        
+        const profileId = import.meta.env.VITE_PROFILE_ID || "qa";
+        console.log("🔍 Loading home data for profile:", profileId);
+
         let homeData, offeringsData;
-        
-        if (profileId === 'ai') {
-          homeData = (await import('@/data/ai_home.json')).default;
-          offeringsData = (await import('@/data/ai_offerings.json')).default;
+
+        if (profileId === "ai") {
+          homeData = (await import("@/data/ai_home.json")).default;
+          offeringsData = (await import("@/data/ai_offerings.json")).default;
         } else {
-          homeData = (await import('@/data/qa_home.json')).default;
-          offeringsData = (await import('@/data/qa_offerings.json')).default;
+          homeData = (await import("@/data/qa_home.json")).default;
+          offeringsData = (await import("@/data/qa_offerings.json")).default;
         }
-        
-        console.log('🔍 Loaded profile data:', homeData);
+
+        console.log("🔍 Loaded profile data:", homeData);
         setProfileData(homeData);
         setOfferings(offeringsData);
       } catch (error) {
-        console.error('Error loading profile data:', error);
+        console.error("Error loading profile data:", error);
       } finally {
         setLoading(false);
       }
     };
-    
+
     loadProfileData();
   }, []);
 
@@ -77,7 +83,7 @@ export default function Home() {
     const today = new Date();
     const years = today.getFullYear() - startDate.getFullYear();
     const months = today.getMonth() - startDate.getMonth();
-    
+
     // If we haven't reached the month yet this year, subtract 1
     if (months < 0) {
       return years - 1;
@@ -101,21 +107,22 @@ export default function Home() {
     Shield,
     RefreshCw,
     HelpCircle,
-    Users
+    Users,
   };
 
   const workExperience = workExperienceData;
-  
-  const skillCategories = profileData?.profile.skills.map((skill: any) => ({
-    ...skill,
-    icon: iconMap[skill.icon]
-  })) || [];
+
+  const skillCategories =
+    profileData?.profile.skills.map((skill: any) => ({
+      ...skill,
+      icon: iconMap[skill.icon],
+    })) || [];
 
   const offeringsWithIcons = offerings.map((offering: any) => ({
     ...offering,
-    icon: iconMap[offering.icon]
+    icon: iconMap[offering.icon],
   }));
-  
+
   if (loading || !profileData) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -155,9 +162,9 @@ export default function Home() {
             >
               <a
                 href={
-                  import.meta.env.VITE_PROFILE_ID === 'ai'
-                    ? '/uploads/ai_resume/Raj_Sethi_Resume.pdf'
-                    : '/uploads/qa_resume/Raj_Sethi_Resume.pdf'
+                  import.meta.env.VITE_PROFILE_ID === "ai"
+                    ? "/uploads/ai_resume/Raj_Sethi_Resume.pdf"
+                    : "/uploads/qa_resume/Raj_Sethi_Resume.pdf"
                 }
                 download="Raj_Sethi_Resume.pdf"
               >
@@ -184,7 +191,9 @@ export default function Home() {
       <section className="py-20 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">About Me</h2>
+            <h2 className="text-4xl font-bold text-foreground mb-4">
+              About Me
+            </h2>
             <div className="w-24 h-1 bg-primary mx-auto rounded"></div>
           </div>
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -194,11 +203,17 @@ export default function Home() {
               </p>
               <div className="grid grid-cols-2 gap-6">
                 <div>
-                  <h4 className="font-semibold text-foreground mb-2">Experience</h4>
-                  <p className="text-3xl font-bold text-primary">{yearsOfExperience}+ Years</p>
+                  <h4 className="font-semibold text-foreground mb-2">
+                    Experience
+                  </h4>
+                  <p className="text-3xl font-bold text-primary">
+                    {yearsOfExperience}+ Years
+                  </p>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-foreground mb-2">Projects Completed</h4>
+                  <h4 className="font-semibold text-foreground mb-2">
+                    Projects Completed
+                  </h4>
                   <p className="text-3xl font-bold text-accent">50+</p>
                 </div>
               </div>
@@ -213,7 +228,9 @@ export default function Home() {
                 <CardContent className="p-6">
                   <div className="flex items-center space-x-3">
                     <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                    <span className="font-semibold text-foreground">Available for Projects</span>
+                    <span className="font-semibold text-foreground">
+                      Available for Projects
+                    </span>
                   </div>
                 </CardContent>
               </Card>
@@ -226,49 +243,69 @@ export default function Home() {
       <section className="py-20 bg-muted">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">Work Experience</h2>
+            <h2 className="text-4xl font-bold text-foreground mb-4">
+              Work Experience
+            </h2>
             <div className="w-24 h-1 bg-primary mx-auto rounded"></div>
           </div>
-          
+
           <div className="relative">
             {/* Timeline line */}
             <div className="absolute left-4 md:left-1/2 transform md:-translate-x-px top-0 bottom-0 w-1 timeline-line rounded-full"></div>
-            
+
             {workExperience.map((job, index) => (
               <div
                 key={index}
                 className={`timeline-item relative flex items-center mb-12 md:justify-between group ${
-                  index % 2 === 1 ? 'md:flex-row-reverse' : ''
+                  index % 2 === 1 ? "md:flex-row-reverse" : ""
                 }`}
               >
                 {/* Timeline dot */}
                 <div className="timeline-dot absolute left-2 md:left-1/2 transform md:-translate-x-1/2 w-6 h-6 bg-primary rounded-full border-4 border-background shadow-lg"></div>
-                
+
                 {/* Content card */}
-                <Card 
+                <Card
                   className="ml-12 md:ml-0 md:w-5/12 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-105"
                   onClick={() => handleJobClick(job)}
                   data-testid={`card-job-${index}`}
                 >
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between mb-3">
-                      <Badge 
-                        variant={job.type === 'current' ? 'default' : 'secondary'}
-                        className={job.type === 'current' ? 'bg-primary text-primary-foreground' : ''}
+                      <Badge
+                        variant={
+                          job.type === "current" ? "default" : "secondary"
+                        }
+                        className={
+                          job.type === "current"
+                            ? "bg-primary text-primary-foreground"
+                            : ""
+                        }
                       >
                         {job.period}
                       </Badge>
-                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-                        job.type === 'current' ? 'bg-primary' : 'bg-secondary'
-                      }`}>
-                        <CheckCircle className={`w-4 h-4 ${
-                          job.type === 'current' ? 'text-primary-foreground' : 'text-secondary-foreground'
-                        }`} />
+                      <div
+                        className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                          job.type === "current" ? "bg-primary" : "bg-secondary"
+                        }`}
+                      >
+                        <CheckCircle
+                          className={`w-4 h-4 ${
+                            job.type === "current"
+                              ? "text-primary-foreground"
+                              : "text-secondary-foreground"
+                          }`}
+                        />
                       </div>
                     </div>
-                    <h3 className="text-xl font-bold text-foreground mb-2">{job.title}</h3>
-                    <p className="text-accent font-semibold mb-1">{job.company}</p>
-                    <p className="text-muted-foreground text-sm">{job.location}</p>
+                    <h3 className="text-xl font-bold text-foreground mb-2">
+                      {job.title}
+                    </h3>
+                    <p className="text-accent font-semibold mb-1">
+                      {job.company}
+                    </p>
+                    <p className="text-muted-foreground text-sm">
+                      {job.location}
+                    </p>
                   </CardContent>
                 </Card>
               </div>
@@ -281,7 +318,9 @@ export default function Home() {
       <section className="py-20 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">Skills & Technologies</h2>
+            <h2 className="text-4xl font-bold text-foreground mb-4">
+              Skills & Technologies
+            </h2>
             <div className="w-24 h-1 bg-primary mx-auto rounded"></div>
           </div>
 
@@ -292,16 +331,28 @@ export default function Home() {
                 <Card key={index} className="shadow-lg border border-border">
                   <CardContent className="p-6">
                     <div className="flex items-center mb-4">
-                      <div className={`w-12 h-12 rounded-lg flex items-center justify-center mr-4 ${
-                        category.color === 'primary' ? 'bg-primary/10' :
-                        category.color === 'accent' ? 'bg-accent/10' : 'bg-secondary/10'
-                      }`}>
-                        <IconComponent className={`w-6 h-6 ${
-                          category.color === 'primary' ? 'text-primary' :
-                          category.color === 'accent' ? 'text-accent' : 'text-secondary-foreground'
-                        }`} />
+                      <div
+                        className={`w-12 h-12 rounded-lg flex items-center justify-center mr-4 ${
+                          category.color === "primary"
+                            ? "bg-primary/10"
+                            : category.color === "accent"
+                              ? "bg-accent/10"
+                              : "bg-secondary/10"
+                        }`}
+                      >
+                        <IconComponent
+                          className={`w-6 h-6 ${
+                            category.color === "primary"
+                              ? "text-primary"
+                              : category.color === "accent"
+                                ? "text-accent"
+                                : "text-secondary-foreground"
+                          }`}
+                        />
                       </div>
-                      <h3 className="text-xl font-semibold text-foreground">{category.title}</h3>
+                      <h3 className="text-xl font-semibold text-foreground">
+                        {category.title}
+                      </h3>
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {category.skills.map((skill: any, skillIndex: number) => (
@@ -309,9 +360,11 @@ export default function Home() {
                           key={skillIndex}
                           variant="secondary"
                           className={`skill-badge cursor-pointer transition-all duration-200 ${
-                            category.color === 'primary' ? 'bg-primary/10 text-primary hover:bg-primary/20' :
-                            category.color === 'accent' ? 'bg-accent/10 text-accent hover:bg-accent/20' :
-                            'bg-secondary text-secondary-foreground hover:bg-secondary/80'
+                            category.color === "primary"
+                              ? "bg-primary/10 text-primary hover:bg-primary/20"
+                              : category.color === "accent"
+                                ? "bg-accent/10 text-accent hover:bg-accent/20"
+                                : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                           }`}
                         >
                           {skill}
@@ -330,21 +383,30 @@ export default function Home() {
       <section className="py-20 bg-muted">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">What I Offer</h2>
+            <h2 className="text-4xl font-bold text-foreground mb-4">
+              What I Offer
+            </h2>
             <div className="w-24 h-1 bg-primary mx-auto rounded"></div>
-            <p className="text-xl text-muted-foreground mt-4">Comprehensive QA solutions tailored to your needs</p>
+            <p className="text-xl text-muted-foreground mt-4">
+              Comprehensive solutions tailored to your needs
+            </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {offeringsWithIcons.map((offering, index) => {
               const IconComponent = offering.icon;
               return (
-                <Card key={index} className="shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <Card
+                  key={index}
+                  className="shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                >
                   <CardContent className="p-8 text-center">
                     <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6 mx-auto">
                       <IconComponent className="w-8 h-8 text-primary" />
                     </div>
-                    <h3 className="text-xl font-bold text-foreground mb-4">{offering.title}</h3>
+                    <h3 className="text-xl font-bold text-foreground mb-4">
+                      {offering.title}
+                    </h3>
                     <p className="text-muted-foreground leading-relaxed">
                       {offering.description}
                     </p>
@@ -358,7 +420,9 @@ export default function Home() {
           <div className="text-center mt-16">
             <Card className="shadow-xl max-w-2xl mx-auto">
               <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-foreground mb-4">Ready to Get Started?</h3>
+                <h3 className="text-2xl font-bold text-foreground mb-4">
+                  Ready to Get Started?
+                </h3>
                 <p className="text-muted-foreground mb-6">
                   {profileData.profile.footnote}
                 </p>
@@ -398,7 +462,9 @@ export default function Home() {
                   <div className="flex flex-col space-y-2 mt-2">
                     <div className="flex items-center space-x-2">
                       <Building className="w-5 h-5 text-primary" />
-                      <span className="font-semibold text-accent">{selectedJob.company}</span>
+                      <span className="font-semibold text-accent">
+                        {selectedJob.company}
+                      </span>
                     </div>
                     <div className="flex items-center space-x-4">
                       <div className="flex items-center space-x-2">
@@ -426,11 +492,17 @@ export default function Home() {
                     Technologies & Tools
                   </h4>
                   <div className="flex flex-wrap gap-2">
-                    {selectedJob.technologies.map((tech: any, index: number) => (
-                      <Badge key={index} variant="secondary" className="bg-primary/10 text-primary">
-                        {tech}
-                      </Badge>
-                    ))}
+                    {selectedJob.technologies.map(
+                      (tech: any, index: number) => (
+                        <Badge
+                          key={index}
+                          variant="secondary"
+                          className="bg-primary/10 text-primary"
+                        >
+                          {tech}
+                        </Badge>
+                      ),
+                    )}
                   </div>
                 </div>
 
@@ -441,12 +513,16 @@ export default function Home() {
                     Key Achievements
                   </h4>
                   <ul className="space-y-2">
-                    {selectedJob.achievements.map((achievement: any, index: number) => (
-                      <li key={index} className="flex items-start space-x-2">
-                        <span className="text-primary mt-1">•</span>
-                        <span className="text-muted-foreground">{achievement}</span>
-                      </li>
-                    ))}
+                    {selectedJob.achievements.map(
+                      (achievement: any, index: number) => (
+                        <li key={index} className="flex items-start space-x-2">
+                          <span className="text-primary mt-1">•</span>
+                          <span className="text-muted-foreground">
+                            {achievement}
+                          </span>
+                        </li>
+                      ),
+                    )}
                   </ul>
                 </div>
 
@@ -457,12 +533,16 @@ export default function Home() {
                     Key Responsibilities
                   </h4>
                   <ul className="space-y-2">
-                    {selectedJob.responsibilities.map((responsibility: any, index: number) => (
-                      <li key={index} className="flex items-start space-x-2">
-                        <span className="text-accent mt-1">•</span>
-                        <span className="text-muted-foreground">{responsibility}</span>
-                      </li>
-                    ))}
+                    {selectedJob.responsibilities.map(
+                      (responsibility: any, index: number) => (
+                        <li key={index} className="flex items-start space-x-2">
+                          <span className="text-accent mt-1">•</span>
+                          <span className="text-muted-foreground">
+                            {responsibility}
+                          </span>
+                        </li>
+                      ),
+                    )}
                   </ul>
                 </div>
 
@@ -475,7 +555,9 @@ export default function Home() {
                   <ul className="space-y-3">
                     {selectedJob.projects.map((project: any, index: number) => (
                       <li key={index} className="flex items-start space-x-2">
-                        <span className="text-secondary-foreground mt-1">•</span>
+                        <span className="text-secondary-foreground mt-1">
+                          •
+                        </span>
                         <span className="text-muted-foreground">{project}</span>
                       </li>
                     ))}
@@ -486,7 +568,6 @@ export default function Home() {
           )}
         </DialogContent>
       </Dialog>
-
     </div>
   );
 }
