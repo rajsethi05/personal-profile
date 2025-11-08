@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Award, ExternalLink } from "lucide-react";
+import { Award, ExternalLink, X } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogClose,
+} from "@/components/ui/dialog";
 
 interface Certificate {
   cert_path: string;
@@ -17,6 +22,8 @@ interface CertsData {
 export default function Certifications() {
   const [certificates, setCertificates] = useState<Certificate[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedCert, setSelectedCert] = useState<Certificate | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -93,11 +100,17 @@ export default function Certifications() {
                   data-testid={`card-certification-${index}`}
                 >
                   <CardContent className="p-0">
-                    <div className="overflow-hidden">
+                    <div 
+                      className="cursor-pointer hover:opacity-90 transition-opacity"
+                      onClick={() => {
+                        setSelectedCert(cert);
+                        setIsDialogOpen(true);
+                      }}
+                    >
                       <img
                         src={cert.cert_path}
                         alt={`Certification ${index + 1}`}
-                        className="w-full h-auto object-contain transition-transform duration-300 hover:scale-110"
+                        className="w-full h-auto object-contain"
                         data-testid={`img-certification-${index}`}
                       />
                     </div>
@@ -131,6 +144,26 @@ export default function Certifications() {
           )}
         </div>
       </section>
+
+      {/* Certificate Preview Dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] p-0">
+          <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground z-10">
+            <X className="h-6 w-6 text-white bg-black/50 rounded-full p-1" />
+            <span className="sr-only">Close</span>
+          </DialogClose>
+          {selectedCert && (
+            <div className="w-full h-full flex items-center justify-center p-4">
+              <img
+                src={selectedCert.cert_path}
+                alt="Certificate"
+                className="max-w-full max-h-[85vh] object-contain"
+                data-testid="img-certificate-preview"
+              />
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
