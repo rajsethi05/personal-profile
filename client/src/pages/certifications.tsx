@@ -4,18 +4,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Award } from "lucide-react";
 
-interface Certificate {
-  filename: string;
-  title?: string;
-  issuer?: string;
-}
-
-interface CertificationsData {
-  certificates: Certificate[];
+interface CertsData {
+  qa: string[];
+  ai: string[];
 }
 
 export default function Certifications() {
-  const [certificates, setCertifications] = useState<Certificate[]>([]);
+  const [certPaths, setCertPaths] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -27,23 +22,19 @@ export default function Certifications() {
         const profileId = import.meta.env.VITE_PROFILE_ID || 'qa';
         console.log('🔍 Loading certifications for profile:', profileId);
         
-        const certFile = profileId === 'ai' 
-          ? '/uploads/ai_certifications.json' 
-          : '/uploads/qa_certifications.json';
-        
-        console.log('🔍 Loading certifications from:', certFile);
-        
-        const response = await fetch(certFile);
+        const response = await fetch('/uploads/certs.json');
         if (!response.ok) {
           throw new Error('Failed to load certifications');
         }
         
-        const data: CertificationsData = await response.json();
-        console.log('🔍 Loaded certifications:', data.certificates);
-        setCertifications(data.certificates);
+        const data: CertsData = await response.json();
+        const certs = profileId === 'ai' ? data.ai : data.qa;
+        
+        console.log('🔍 Loaded certificate paths:', certs);
+        setCertPaths(certs);
       } catch (error) {
         console.error('Error loading certifications:', error);
-        setCertifications([]);
+        setCertPaths([]);
       } finally {
         setLoading(false);
       }
@@ -63,10 +54,10 @@ export default function Certifications() {
           <p className="text-xl text-primary-foreground/90 mb-8">
             Industry-recognized certifications demonstrating expertise and commitment to excellence
           </p>
-          {!loading && certificates.length > 0 && (
+          {!loading && certPaths.length > 0 && (
             <div className="flex flex-wrap justify-center gap-4">
               <Badge className="bg-accent text-accent-foreground px-4 py-2">
-                {certificates.length} {certificates.length === 1 ? 'Certification' : 'Certifications'}
+                {certPaths.length} {certPaths.length === 1 ? 'Certification' : 'Certifications'}
               </Badge>
               <Badge className="bg-primary/20 text-primary-foreground px-4 py-2">
                 Professional Growth
@@ -92,34 +83,20 @@ export default function Certifications() {
               <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent"></div>
               <p className="mt-4 text-muted-foreground">Loading certifications...</p>
             </div>
-          ) : certificates.length > 0 ? (
+          ) : certPaths.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {certificates.map((cert, index) => {
-                const profileId = import.meta.env.VITE_PROFILE_ID || 'qa';
-                const certFolder = profileId === 'ai' ? '/uploads/ai_certifications/' : '/uploads/qa_certifications/';
-                const imgPath = certFolder + cert.filename;
-                
-                return (
-                  <Card key={index} className="overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-testid={`card-certification-${index}`}>
-                    <CardContent className="p-0">
-                      <img 
-                        src={imgPath} 
-                        alt={cert.title || `Certification ${index + 1}`}
-                        className="w-full h-auto object-contain"
-                        data-testid={`img-certification-${index}`}
-                      />
-                      {cert.title && (
-                        <div className="p-4 bg-muted">
-                          <h3 className="font-semibold text-foreground">{cert.title}</h3>
-                          {cert.issuer && (
-                            <p className="text-sm text-muted-foreground mt-1">{cert.issuer}</p>
-                          )}
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                );
-              })}
+              {certPaths.map((certPath, index) => (
+                <Card key={index} className="overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-testid={`card-certification-${index}`}>
+                  <CardContent className="p-0">
+                    <img 
+                      src={certPath} 
+                      alt={`Certification ${index + 1}`}
+                      className="w-full h-auto object-contain"
+                      data-testid={`img-certification-${index}`}
+                    />
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           ) : (
             <div className="text-center py-12">
