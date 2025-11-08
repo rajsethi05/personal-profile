@@ -27,18 +27,10 @@ export default function BlogDetail() {
 
       try {
         setLoading(true);
-        const response = await fetch(`/api/blog/${params.filename}`);
-
-        if (!response.ok) {
-          throw new Error("Blog post not found");
-        }
-
-        const data = await response.json();
-        setBlog(data);
+        const blogModule = await import(`../data/blogs/${params.filename}.json`);
+        setBlog(blogModule.default);
       } catch (err) {
-        setError(
-          err instanceof Error ? err.message : "Failed to load blog post",
-        );
+        setError("Blog post not found");
       } finally {
         setLoading(false);
       }
