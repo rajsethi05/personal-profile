@@ -93,12 +93,14 @@ export default function Certifications() {
                   data-testid={`card-certification-${index}`}
                 >
                   <CardContent className="p-0">
-                    <img
-                      src={cert.cert_path}
-                      alt={`Certification ${index + 1}`}
-                      className="w-full h-auto object-contain"
-                      data-testid={`img-certification-${index}`}
-                    />
+                    <div className="overflow-hidden">
+                      <img
+                        src={cert.cert_path}
+                        alt={`Certification ${index + 1}`}
+                        className="w-full h-auto object-contain transition-transform duration-300 hover:scale-110"
+                        data-testid={`img-certification-${index}`}
+                      />
+                    </div>
                     <div className="p-4">
                       <Button
                         asChild
@@ -127,53 +129,6 @@ export default function Certifications() {
               </p>
             </div>
           )}
-        </div>
-      </section>
-
-      {/* Call to Action */}
-      <section className="py-20 bg-muted">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Card className="shadow-xl">
-            <CardContent className="p-8">
-              <h3 className="text-2xl font-bold text-foreground mb-4">
-                Interested in My Expertise?
-              </h3>
-              <p className="text-muted-foreground mb-6">
-                These certifications represent my commitment to staying current
-                with industry best practices and emerging technologies in
-                quality assurance and software testing.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button
-                  size="lg"
-                  asChild
-                  className="bg-primary text-primary-foreground hover:bg-primary/90"
-                  data-testid="button-discuss-expertise"
-                >
-                  <a href="mailto:raj.sethi05@gmail.com">
-                    Discuss Your Testing Needs
-                  </a>
-                </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  asChild
-                  data-testid="button-view-resume"
-                >
-                  <a
-                    href={
-                      import.meta.env.VITE_PROFILE_ID === 'ai'
-                        ? '/uploads/ai_resume/Raj_Sethi_Resume.pdf'
-                        : '/uploads/qa_resume/Raj_Sethi_Resume.pdf'
-                    }
-                    download="Raj_Sethi_Resume.pdf"
-                  >
-                    Download Full Resume
-                  </a>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
         </div>
       </section>
     </div>

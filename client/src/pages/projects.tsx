@@ -266,9 +266,8 @@ export default function Projects() {
                   Have a Similar Project in Mind?
                 </h3>
                 <p className="text-muted-foreground mb-6">
-                  Let's discuss how I can help you achieve similar results with
-                  comprehensive QA solutions tailored to your specific needs and
-                  requirements.
+                  Let's connect and discuss how we can help each other or
+                  collaborate to work in the idea.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button
@@ -276,14 +275,7 @@ export default function Projects() {
                     className="bg-primary text-primary-foreground hover:bg-primary/90"
                     data-testid="button-discuss-project"
                   >
-                    Discuss Your Project
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    data-testid="button-get-quote"
-                  >
-                    Get a Quote
+                    <a href="mailto:raj.sethi05@gmail.com">Let's Discuss</a>
                   </Button>
                 </div>
               </CardContent>
