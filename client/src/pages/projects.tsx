@@ -27,11 +27,16 @@ export default function Projects() {
       try {
         setLoading(true);
         const profileId = import.meta.env.VITE_PROFILE_ID || 'default';
+        console.log('🔍 VITE_PROFILE_ID:', import.meta.env.VITE_PROFILE_ID);
+        console.log('🔍 profileId:', profileId);
+        
         const projectFile = profileId === 'qa' 
           ? '/uploads/qa_projects.json' 
           : profileId === 'ai'
           ? '/uploads/ai_projects.json'
           : '/uploads/qa_projects.json';
+        
+        console.log('🔍 Loading projects from:', projectFile);
         
         const response = await fetch(projectFile);
         if (!response.ok) {
