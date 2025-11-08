@@ -1,0 +1,11 @@
+[
+  {
+    "title": "GenAI Testing",
+    "category": "AI Testing",
+    "technologies": ["Python", "Selenium", "OpenAI"],
+    "image": "client/public/uploads/qa_blogs/genai_testing.png",
+    "project_url": "client/public/uploads/qa_blogs/genai_testing.md",
+    "description": "Comprehensive test automation suite for a major e-commerce platform, reducing testing time by 70%.",
+    "github_url": "https://github.com/rajsethi05/seleniumpython"
+  }
+]

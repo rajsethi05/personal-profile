@@ -1,7 +1,0 @@
-{
-  "title": "Test Blog Post",
-  "category": "Testing",
-  "technologies": "Selenium, Cypress",
-  "coverImage": "https://example.com/image.jpg",
-  "description": "<p>This is a test blog draft created by automated QA.</p>"
-}
