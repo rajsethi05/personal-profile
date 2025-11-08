@@ -31,6 +31,10 @@ export default defineConfig({
   },
   server: {
     host: true,
+    strictPort: false,
+    hmr: {
+      clientPort: 443,
+    },
     fs: {
       strict: true,
       deny: ["**/.*"],
