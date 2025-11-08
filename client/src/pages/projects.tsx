@@ -221,23 +221,14 @@ export default function Projects() {
 
                     {/* Action Buttons */}
                     <div className="flex flex-wrap gap-3">
-                      {project.project_url ? (
-                        <Link href={project.project_url}>
-                          <Button
-                            className="bg-primary text-primary-foreground hover:bg-primary/90"
-                            data-testid={`button-view-details-${index}`}
-                          >
-                            View Details
-                          </Button>
-                        </Link>
-                      ) : (
+                      <Link href={`/project-details/${index}`}>
                         <Button
                           className="bg-primary text-primary-foreground hover:bg-primary/90"
                           data-testid={`button-view-details-${index}`}
                         >
                           View Details
                         </Button>
-                      )}
+                      </Link>
                       <Button
                         variant="outline"
                         data-testid={`button-case-study-${index}`}
