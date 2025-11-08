@@ -102,11 +102,21 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in">
             <Button
               size="lg"
+              asChild
               className="bg-accent text-accent-foreground hover:bg-accent/90 transform hover:scale-105 transition-all duration-200"
               data-testid="button-download-resume"
             >
-              <Download className="mr-2 h-4 w-4" />
-              Download Resume
+              <a
+                href={
+                  import.meta.env.VITE_PROFILE_ID === 'ai'
+                    ? '/uploads/ai_resume/Raj_Sethi_Resume.pdf'
+                    : '/uploads/qa_resume/Raj_Sethi_Resume.pdf'
+                }
+                download="Raj_Sethi_Resume.pdf"
+              >
+                <Download className="mr-2 h-4 w-4" />
+                Download Resume
+              </a>
             </Button>
             <Button
               size="lg"

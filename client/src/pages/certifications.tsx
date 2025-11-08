@@ -146,17 +146,30 @@ export default function Certifications() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
                   size="lg"
+                  asChild
                   className="bg-primary text-primary-foreground hover:bg-primary/90"
                   data-testid="button-discuss-expertise"
                 >
-                  Discuss Your Testing Needs
+                  <a href="mailto:raj.sethi05@gmail.com">
+                    Discuss Your Testing Needs
+                  </a>
                 </Button>
                 <Button
                   variant="outline"
                   size="lg"
+                  asChild
                   data-testid="button-view-resume"
                 >
-                  Download Full Resume
+                  <a
+                    href={
+                      import.meta.env.VITE_PROFILE_ID === 'ai'
+                        ? '/uploads/ai_resume/Raj_Sethi_Resume.pdf'
+                        : '/uploads/qa_resume/Raj_Sethi_Resume.pdf'
+                    }
+                    download="Raj_Sethi_Resume.pdf"
+                  >
+                    Download Full Resume
+                  </a>
                 </Button>
               </div>
             </CardContent>
