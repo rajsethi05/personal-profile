@@ -114,8 +114,8 @@ export default function Projects() {
             Projects Portfolio
           </h1>
           <p className="text-xl text-primary-foreground/90 mb-8">
-            Comprehensive quality assurance projects demonstrating expertise
-            across various technologies and industries.
+            Comprehensive projects demonstrating expertise across various
+            technologies and industries.
           </p>
         </div>
       </section>
