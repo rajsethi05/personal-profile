@@ -25,7 +25,7 @@ import skillsData from "@/data/skills.json";
 import offeringsData from "@/data/offerings.json";
 
 export default function Home() {
-  const [selectedJob, setSelectedJob] = useState(null);
+  const [selectedJob, setSelectedJob] = useState<any>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function Home() {
   };
 
   // Icon mapping for JSON data
-  const iconMap = {
+  const iconMap: Record<string, any> = {
     CheckCircle,
     Code,
     BarChart3,
@@ -67,12 +67,12 @@ export default function Home() {
 
   const workExperience = workExperienceData;
   
-  const skillCategories = skillsData.map(skill => ({
+  const skillCategories = skillsData.map((skill: any) => ({
     ...skill,
     icon: iconMap[skill.icon]
   }));
 
-  const offerings = offeringsData.map(offering => ({
+  const offerings = offeringsData.map((offering: any) => ({
     ...offering,
     icon: iconMap[offering.icon]
   }));
@@ -254,7 +254,7 @@ export default function Home() {
                       <h3 className="text-xl font-semibold text-foreground">{category.title}</h3>
                     </div>
                     <div className="flex flex-wrap gap-2">
-                      {category.skills.map((skill, skillIndex) => (
+                      {category.skills.map((skill: any, skillIndex: number) => (
                         <Badge
                           key={skillIndex}
                           variant="secondary"
@@ -377,7 +377,7 @@ export default function Home() {
                     Technologies & Tools
                   </h4>
                   <div className="flex flex-wrap gap-2">
-                    {selectedJob.technologies.map((tech, index) => (
+                    {selectedJob.technologies.map((tech: any, index: number) => (
                       <Badge key={index} variant="secondary" className="bg-primary/10 text-primary">
                         {tech}
                       </Badge>
@@ -392,7 +392,7 @@ export default function Home() {
                     Key Achievements
                   </h4>
                   <ul className="space-y-2">
-                    {selectedJob.achievements.map((achievement, index) => (
+                    {selectedJob.achievements.map((achievement: any, index: number) => (
                       <li key={index} className="flex items-start space-x-2">
                         <span className="text-primary mt-1">•</span>
                         <span className="text-muted-foreground">{achievement}</span>
@@ -408,7 +408,7 @@ export default function Home() {
                     Key Responsibilities
                   </h4>
                   <ul className="space-y-2">
-                    {selectedJob.responsibilities.map((responsibility, index) => (
+                    {selectedJob.responsibilities.map((responsibility: any, index: number) => (
                       <li key={index} className="flex items-start space-x-2">
                         <span className="text-accent mt-1">•</span>
                         <span className="text-muted-foreground">{responsibility}</span>
@@ -424,7 +424,7 @@ export default function Home() {
                     Notable Projects
                   </h4>
                   <ul className="space-y-3">
-                    {selectedJob.projects.map((project, index) => (
+                    {selectedJob.projects.map((project: any, index: number) => (
                       <li key={index} className="flex items-start space-x-2">
                         <span className="text-secondary-foreground mt-1">•</span>
                         <span className="text-muted-foreground">{project}</span>

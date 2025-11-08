@@ -1,15 +1,15 @@
 # Overview
 
-This is a QA Portfolio web application built as a modern full-stack project showcasing quality assurance expertise, certifications, and projects. The application features a React frontend with shadcn/ui components and an Express.js backend, designed to demonstrate professional QA engineering capabilities through an interactive portfolio interface.
+This is a QA Portfolio web application built as a static React site showcasing quality assurance expertise, certifications, and projects. The application features a React frontend with shadcn/ui components, designed to demonstrate professional QA engineering capabilities through an interactive portfolio interface. All content is stored in JSON files and deployed to GitHub Pages.
 
-## Recent Updates (October 2025)
-- **Contact Form**: Added contact form popup with From Email (mandatory) and To Email (pre-filled) fields. Currently logs to console; can be integrated with email service.
-- **Hidden Blog Editor**: Created at `/project_blog` route with rich text editor, supporting full formatting (bold, italic, colors, images, code blocks, etc.). Includes Publish and Save Draft functionality with JSON file storage.
-- **Profile Picture Upload**: Users can upload and change profile picture, stored in /uploads folder.
-- **Project URL Linking**: When publishing a blog, automatically adds `project_url` field to projects.json linking to the blog detail page. "View Details" button on projects page navigates to linked blog posts.
-- **GitHub Integration**: Added GitHub URL field to blog editor; clickable GitHub button on projects page links to repository; "Full Project on Github" link on blog detail pages.
-- **Navigation**: All pages auto-scroll to top on load; "Back to Projects" button on blog details.
-- **Featured Projects**: Removed from home page for cleaner layout.
+## Recent Updates (November 2025)
+- **Converted to Static Site**: Removed all backend (Express.js) dependencies for GitHub Pages deployment
+- **Contact Method**: Changed from form to mailto link (opens user's email client)
+- **Profile Picture**: Static image at `/uploads/profile_picture.jpg`, no upload functionality
+- **Blog Editor**: Removed - blogs are now managed by editing JSON files directly
+- **GitHub Integration**: Clickable GitHub button on projects page links to repository; "Full Project on Github" link on blog detail pages
+- **Navigation**: All pages auto-scroll to top on load; "Back to Projects" button on blog details
+- **Featured Projects**: Removed from home page for cleaner layout
 
 # User Preferences
 
@@ -17,31 +17,20 @@ Preferred communication style: Simple, everyday language.
 
 # System Architecture
 
-## Frontend Architecture
+## Static Site Architecture
 - **Framework**: React 18 with TypeScript for type safety and modern development
-- **Routing**: Wouter for lightweight client-side routing
+- **Routing**: Wouter for lightweight client-side routing  
 - **UI Components**: shadcn/ui component library built on Radix UI primitives for accessible, customizable components
 - **Styling**: Tailwind CSS with custom design tokens and CSS variables for theming
-- **State Management**: TanStack Query for server state management and data fetching
 - **Build Tool**: Vite for fast development and optimized production builds
-
-## Backend Architecture
-- **Runtime**: Node.js with Express.js framework for RESTful API endpoints
-- **Language**: TypeScript with ES modules for modern JavaScript features
-- **Data Storage**: In-memory storage implementation with interface for future database integration
-- **Development**: Hot module replacement and development middleware integration
-
-## Database Design
-- **ORM**: Drizzle ORM configured for PostgreSQL with type-safe database operations
-- **Schema**: User entity with username/password fields and UUID primary keys
-- **Migrations**: Drizzle Kit for database schema versioning and deployment
-- **Connection**: Neon Database serverless PostgreSQL integration ready
+- **Data Storage**: Static JSON files in `client/src/data/` directory
+- **Deployment**: GitHub Pages with base path `/personal-profile/`
 
 ## Development Environment
-- **Monorepo Structure**: Shared schema and utilities between client and server
-- **Build Pipeline**: Separate build processes for frontend (Vite) and backend (esbuild)
-- **Development Server**: Integrated Vite dev server with Express API proxy
-- **Type Safety**: Shared TypeScript configuration across all packages
+- **Development Server**: Vite development server with hot module replacement
+- **Build Process**: `vite build` generates static files to `dist/public/`
+- **Preview**: `vite preview` for testing production build locally
+- **Type Safety**: TypeScript with strict type checking
 
 ## UI/UX Design Decisions
 - **Design System**: Consistent spacing, typography, and color schemes using CSS custom properties
@@ -51,62 +40,53 @@ Preferred communication style: Simple, everyday language.
 
 # External Dependencies
 
-## Database Services
-- **Neon Database**: Serverless PostgreSQL hosting for production data storage
-- **Drizzle ORM**: Type-safe database operations and schema management
-
 ## Frontend Libraries
 - **Radix UI**: Headless UI components for accessibility and customization
-- **TanStack Query**: Server state management and caching
+- **TanStack Query**: Client state management (simplified for static site)
 - **Wouter**: Lightweight routing library
 - **Tailwind CSS**: Utility-first CSS framework
 - **Lucide React**: Icon library for consistent iconography
-- **React Quill**: Rich text editor with full formatting support for blog creation
+- **React Hook Form**: Form validation and management
+- **Framer Motion**: Animation library for smooth transitions
 
 ## Development Tools
 - **Vite**: Frontend build tool and development server
 - **TypeScript**: Static type checking and enhanced developer experience
-- **ESBuild**: Fast JavaScript bundler for backend builds
 - **PostCSS**: CSS processing and optimization
 
-## Hosting Platform
-- **Replit**: Development environment with integrated deployment and runtime error monitoring
+## Hosting Platforms
+- **GitHub Pages**: Static site hosting for production deployment
+- **Replit**: Development environment (optional)
 
 # Portfolio Features
 
-## Main Pages
-- **Home** (`/`): Profile, work experience, skills, and offerings (featured projects removed)
-- **Projects** (`/projects`): Detailed project showcases with descriptions, technologies, and GitHub links
-- **Certifications** (`/certifications`): Professional certifications and credentials
+## Pages
+- **Home** (`/`): Profile, work experience, skills, and offerings with static profile picture
+- **Projects** (`/projects`): Project showcases with descriptions, technologies, and GitHub links
+- **Certifications** (`/certifications`): Professional certifications and credentials  
 - **Project Details** (`/project/details/:filename`): Full blog post with GitHub repository link
 
-## Hidden/Admin Pages
-- **Blog Editor** (`/project_blog`): Rich text blog editor with publish/draft functionality
-  - Fields: Title, Category, Technologies, Cover Image (upload), Project Summary, GitHub URL
-  - Cover Image: Upload button saves images to `/uploads` folder with preview
-  - Project Summary: Brief description used for projects page
-  - GitHub URL: Optional repository link displayed on blog details and project cards
-  - Rich text editor with formatting: bold, italic, colors, headers, lists, images, code blocks, etc.
-  - Code snippet styling: Light gray background (#f3f4f6) with dark text for visibility
-  - **Publish**: Opens dialog for filename input, saves blog to `client/src/data/blogs/` AND adds project to `client/src/data/projects.json`
-  - **Save Draft**: Auto-generates filename, saves to `client/src/data/draft/`
-  - Blog JSON: `{ title, category, technologies, coverImage, description, githubUrl }`
-  - Project JSON: `{ title, category, technologies, image, description (from projectSummary), project_url: "/project/details/{filename}", githubUrl }`
-  - **View Details Link**: Projects with project_url automatically link to their blog detail pages from the projects page
-  - **GitHub Button**: Projects page displays clickable GitHub icon when githubUrl exists
-  - **Blog Detail GitHub Link**: "Full Project on Github" link displayed at bottom of blog posts when githubUrl is present
-
 ## Interactive Features
-- **Contact Form**: Popup with From Email (required), To Email (pre-filled: raj.sethi05@gmail.com), and Message
-  - Email validation included
-  - Backend endpoint: `/api/send-contact-email` (currently logs to console)
-  - Ready for email service integration (Resend/SendGrid/Gmail)
-- **Profile Picture Upload**: Click profile image to upload custom photo
-  - Saves to `/uploads` folder
-  - Persists selection in localStorage
-  - 5MB max file size, supports JPG/PNG/WebP
+- **Contact Method**: "Get In Touch" button opens mailto link to raj.sethi05@gmail.com
+- **GitHub Integration**: 
+  - Clickable GitHub icon on project cards links to repository
+  - "Full Project on Github" link at bottom of blog detail pages
+- **Navigation**: Smooth scroll-to-top on page load, "Back to Projects" button on blog details
+- **Responsive Design**: Mobile-first design with breakpoint-based layouts
 
-## Data Storage
-- Work experience, skills, offerings, and projects stored in JSON files under `client/src/data/`
-- Blog posts: `client/src/data/blogs/` (published) and `client/src/data/draft/` (drafts)
-- Profile images: `/uploads` folder
+## Content Management
+- **Data Storage**: All content in static JSON files under `client/src/data/`
+  - `workexp.json`: Work experience entries
+  - `skills.json`: Technical skills organized by category
+  - `offerings.json`: QA services and offerings
+  - `projects.json`: Project metadata with links to blog details
+  - `blogs/*.json`: Individual blog post content
+- **Blog Posts**: Located in `client/src/data/blogs/`
+- **Static Assets**: Profile picture at `/uploads/profile_picture.jpg`
+
+## Updating Content
+To add or modify content:
+1. Edit the appropriate JSON file in `client/src/data/`
+2. For new blog posts, create JSON file in `client/src/data/blogs/`
+3. Add entry to `projects.json` with `project_url` linking to blog
+4. Rebuild and redeploy to GitHub Pages
