@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { useRoute, Link } from "wouter";
-import { ArrowLeft, Github, ExternalLink, Zap } from "lucide-react";
+import { ArrowLeft, Github, ExternalLink, Zap, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
+import { Document, Page, pdfjs } from "react-pdf";
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 interface Project {
   title: string;
@@ -25,6 +28,10 @@ export default function ProjectDetails() {
   const [markdownContent, setMarkdownContent] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [fileType, setFileType] = useState<"markdown" | "pdf" | null>(null);
+  const [numPages, setNumPages] = useState<number>(0);
+  const [pageNumber, setPageNumber] = useState<number>(1);
+  const [pdfUrl, setPdfUrl] = useState<string>("");
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -59,14 +66,22 @@ export default function ProjectDetails() {
         setProject(selectedProject);
 
         if (selectedProject.project_url) {
-          const mdPath = selectedProject.project_url.startsWith("/")
+          const filePath = selectedProject.project_url.startsWith("/")
             ? selectedProject.project_url
             : `/${selectedProject.project_url}`;
           
-          const mdResponse = await fetch(mdPath);
-          if (mdResponse.ok) {
-            const mdText = await mdResponse.text();
-            setMarkdownContent(mdText);
+          const isPdf = filePath.toLowerCase().endsWith('.pdf');
+          
+          if (isPdf) {
+            setFileType("pdf");
+            setPdfUrl(filePath);
+          } else {
+            setFileType("markdown");
+            const mdResponse = await fetch(filePath);
+            if (mdResponse.ok) {
+              const mdText = await mdResponse.text();
+              setMarkdownContent(mdText);
+            }
           }
         }
       } catch (err) {
@@ -204,32 +219,82 @@ export default function ProjectDetails() {
         </div>
       </section>
 
-      {/* Markdown Content */}
+      {/* Content Section */}
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <article className="prose prose-lg dark:prose-invert max-w-none
-            prose-headings:text-foreground prose-headings:font-bold
-            prose-p:text-muted-foreground prose-p:leading-relaxed
-            prose-a:text-primary prose-a:no-underline hover:prose-a:underline
-            prose-strong:text-foreground prose-strong:font-semibold
-            prose-code:text-primary prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded
-            prose-pre:bg-muted prose-pre:border prose-pre:border-border
-            prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:text-muted-foreground
-            prose-img:rounded-lg prose-img:shadow-lg
-            prose-hr:border-border
-            prose-ul:text-muted-foreground
-            prose-ol:text-muted-foreground
-            prose-li:text-muted-foreground
-            prose-table:text-muted-foreground"
-            data-testid="content-markdown"
-          >
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              rehypePlugins={[rehypeRaw]}
+          {fileType === "pdf" && pdfUrl ? (
+            <div className="space-y-6">
+              <div className="bg-muted/50 rounded-lg p-4">
+                <div className="flex items-center justify-between mb-4">
+                  <p className="text-sm text-muted-foreground">
+                    Page {pageNumber} of {numPages}
+                  </p>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setPageNumber(prev => Math.max(prev - 1, 1))}
+                      disabled={pageNumber <= 1}
+                      data-testid="button-pdf-prev"
+                    >
+                      <ChevronLeft className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setPageNumber(prev => Math.min(prev + 1, numPages))}
+                      disabled={pageNumber >= numPages}
+                      data-testid="button-pdf-next"
+                    >
+                      <ChevronRight className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+                <div className="bg-white rounded-lg overflow-hidden shadow-lg" data-testid="content-pdf">
+                  <Document
+                    file={pdfUrl}
+                    onLoadSuccess={({ numPages }) => setNumPages(numPages)}
+                    loading={
+                      <div className="flex items-center justify-center p-8">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                      </div>
+                    }
+                  >
+                    <Page
+                      pageNumber={pageNumber}
+                      width={Math.min(800, window.innerWidth - 40)}
+                      renderTextLayer={true}
+                      renderAnnotationLayer={true}
+                    />
+                  </Document>
+                </div>
+              </div>
+            </div>
+          ) : fileType === "markdown" && markdownContent ? (
+            <article className="prose prose-lg dark:prose-invert max-w-none
+              prose-headings:text-foreground prose-headings:font-bold
+              prose-p:text-muted-foreground prose-p:leading-relaxed
+              prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+              prose-strong:text-foreground prose-strong:font-semibold
+              prose-code:text-primary prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+              prose-pre:bg-muted prose-pre:border prose-pre:border-border
+              prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:text-muted-foreground
+              prose-img:rounded-lg prose-img:shadow-lg
+              prose-hr:border-border
+              prose-ul:text-muted-foreground
+              prose-ol:text-muted-foreground
+              prose-li:text-muted-foreground
+              prose-table:text-muted-foreground"
+              data-testid="content-markdown"
             >
-              {markdownContent}
-            </ReactMarkdown>
-          </article>
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeRaw]}
+              >
+                {markdownContent}
+              </ReactMarkdown>
+            </article>
+          ) : null}
 
           {/* GitHub Link Footer */}
           {project.github_url && (
