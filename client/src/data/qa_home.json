@@ -1,0 +1,52 @@
+{
+  "profile": {
+    "title": "Senior QA Engineer",
+    "subTitle": "Ensuring Quality Through Strategic Testing & Automation"
+    "aboutMe": "With over 11 years of experience in quality assurance, I specialize in building robust testing frameworks and implementing comprehensive QA strategies that ensure software reliability and performance. My expertise spans across manual testing, test automation, API testing, and performance optimization.I'm passionate about creating testing solutions that not only catch bugs but also improve development workflows and team productivity. My approach combines technical excellence with strategic thinking to deliver quality software that exceeds user expectations.",
+    "skills":[
+  {
+    "title": "Testing Tools",
+    "icon": "CheckCircle",
+    "skills": ["Selenium", "Cypress", "Postman", "TestRail", "JIRA"],
+    "color": "primary"
+  },
+  {
+    "title": "Programming",
+    "icon": "Code",
+    "skills": ["JavaScript", "Python", "Java", "TypeScript", "SQL"],
+    "color": "accent"
+  },
+  {
+    "title": "Methodologies",
+    "icon": "BarChart3",
+    "skills": ["Agile", "Scrum", "BDD", "TDD", "Ri Testing"],
+    "color": "secondary"
+  },
+  {
+    "title": "CI/CD & DevOps",
+    "icon": "Zap",
+    "skills": ["Jenkins", "Docker", "GitHub Actions", "AWS", "Kubernetes"],
+    "color": "primary"
+  },
+  {
+    "title": "Performance Testing",
+    "icon": "BarChart3",
+    "skills": ["JMeter", "LoadRunner", "K6", "Gatling"],
+    "color": "accent"
+  },
+  {
+    "title": "Security Testing",
+    "icon": "Shield",
+    "skills": ["OWASP", "Burp Suite", "ZAP", "Nessus"],
+    "color": "secondary"
+  },
+  {
+    "title": "AI Tools",
+    "icon": "Zap",
+    "skills": ["Co-pilot"],
+    "color": "primary"
+  }
+],
+    "footnote": "Dedicated to delivering exceptional software quality through strategic testing and automation."
+  }
+}
