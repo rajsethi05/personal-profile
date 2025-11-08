@@ -2,15 +2,20 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Award } from "lucide-react";
+import { Award, ExternalLink } from "lucide-react";
+
+interface Certificate {
+  cert_path: string;
+  cert_url: string;
+}
 
 interface CertsData {
-  qa: string[];
-  ai: string[];
+  qa: Certificate[];
+  ai: Certificate[];
 }
 
 export default function Certifications() {
-  const [certPaths, setCertPaths] = useState<string[]>([]);
+  const [certificates, setCertificates] = useState<Certificate[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -30,11 +35,11 @@ export default function Certifications() {
         const data: CertsData = await response.json();
         const certs = profileId === "ai" ? data.ai : data.qa;
 
-        console.log("🔍 Loaded certificate paths:", certs);
-        setCertPaths(certs);
+        console.log("🔍 Loaded certificates:", certs);
+        setCertificates(certs);
       } catch (error) {
         console.error("Error loading certifications:", error);
-        setCertPaths([]);
+        setCertificates([]);
       } finally {
         setLoading(false);
       }
@@ -55,6 +60,16 @@ export default function Certifications() {
             Industry-recognized certifications demonstrating expertise and
             commitment to excellence
           </p>
+          {!loading && certificates.length > 0 && (
+            <div className="flex flex-wrap justify-center gap-4">
+              <Badge className="bg-accent text-accent-foreground px-4 py-2">
+                {certificates.length} {certificates.length === 1 ? 'Certification' : 'Certifications'}
+              </Badge>
+              <Badge className="bg-primary/20 text-primary-foreground px-4 py-2">
+                Professional Growth
+              </Badge>
+            </div>
+          )}
         </div>
       </section>
 
@@ -79,9 +94,9 @@ export default function Certifications() {
                 Loading certifications...
               </p>
             </div>
-          ) : certPaths.length > 0 ? (
+          ) : certificates.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {certPaths.map((certPath, index) => (
+              {certificates.map((cert, index) => (
                 <Card
                   key={index}
                   className="overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
@@ -89,11 +104,27 @@ export default function Certifications() {
                 >
                   <CardContent className="p-0">
                     <img
-                      src={certPath}
+                      src={cert.cert_path}
                       alt={`Certification ${index + 1}`}
                       className="w-full h-auto object-contain"
                       data-testid={`img-certification-${index}`}
                     />
+                    <div className="p-4">
+                      <Button
+                        asChild
+                        className="w-full"
+                        data-testid={`button-verify-${index}`}
+                      >
+                        <a
+                          href={cert.cert_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Verify Credentials
+                          <ExternalLink className="ml-2 w-4 h-4" />
+                        </a>
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
