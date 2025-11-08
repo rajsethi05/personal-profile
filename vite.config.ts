@@ -4,6 +4,7 @@ import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
 export default defineConfig({
+  base: "/personal-profile/",
   plugins: [
     react(),
     runtimeErrorOverlay(),
@@ -29,6 +30,8 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
+    // TODO: Remove this when we have a proper way to handle CORS
+    allowedHosts: true,
     fs: {
       strict: true,
       deny: ["**/.*"],

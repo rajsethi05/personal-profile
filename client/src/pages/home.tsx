@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -23,11 +23,14 @@ import {
 import workExperienceData from "@/data/workexp.json";
 import skillsData from "@/data/skills.json";
 import offeringsData from "@/data/offerings.json";
-import projectsData from "@/data/projects.json";
 
 export default function Home() {
-  const [selectedJob, setSelectedJob] = useState(null);
+  const [selectedJob, setSelectedJob] = useState<any>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // Calculate years of experience from March 2014 to today
   const calculateExperience = () => {
@@ -51,7 +54,7 @@ export default function Home() {
   };
 
   // Icon mapping for JSON data
-  const iconMap = {
+  const iconMap: Record<string, any> = {
     CheckCircle,
     Code,
     BarChart3,
@@ -64,17 +67,15 @@ export default function Home() {
 
   const workExperience = workExperienceData;
   
-  const skillCategories = skillsData.map(skill => ({
+  const skillCategories = skillsData.map((skill: any) => ({
     ...skill,
     icon: iconMap[skill.icon]
   }));
 
-  const offerings = offeringsData.map(offering => ({
+  const offerings = offeringsData.map((offering: any) => ({
     ...offering,
     icon: iconMap[offering.icon]
   }));
-
-  const featuredProjects = projectsData;
 
   return (
     <div className="min-h-screen pt-16">
@@ -83,9 +84,10 @@ export default function Home() {
         <div className="max-w-4xl mx-auto text-center text-primary-foreground">
           <div className="mb-8 animate-fade-in">
             <img
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=400"
+              src="/uploads/profile_picture.jpg"
               alt="Senior QA Engineer"
-              className="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 rounded-full mx-auto shadow-2xl border-4 border-accent"
+              className="w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full mx-auto shadow-2xl border-4 border-accent object-cover"
+              data-testid="img-profile"
             />
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 animate-slide-up">
@@ -108,11 +110,14 @@ export default function Home() {
             </Button>
             <Button
               size="lg"
+              asChild
               className="bg-primary text-primary-foreground hover:bg-primary/90 transform hover:scale-105 transition-all duration-200"
               data-testid="button-contact"
             >
-              <Mail className="mr-2 h-4 w-4" />
-              Get In Touch
+              <a href="mailto:raj.sethi05@gmail.com">
+                <Mail className="mr-2 h-4 w-4" />
+                Get In Touch
+              </a>
             </Button>
           </div>
         </div>
@@ -249,7 +254,7 @@ export default function Home() {
                       <h3 className="text-xl font-semibold text-foreground">{category.title}</h3>
                     </div>
                     <div className="flex flex-wrap gap-2">
-                      {category.skills.map((skill, skillIndex) => (
+                      {category.skills.map((skill: any, skillIndex: number) => (
                         <Badge
                           key={skillIndex}
                           variant="secondary"
@@ -331,69 +336,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Projects Preview */}
-      <section className="py-20 bg-background">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">Featured Projects</h2>
-            <div className="w-24 h-1 bg-primary mx-auto rounded"></div>
-            <p className="text-xl text-muted-foreground mt-4">Quality assurance projects that delivered results</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredProjects.map((project, index) => (
-              <Card key={index} className="project-card rounded-2xl shadow-lg border border-border overflow-hidden transition-all duration-300">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-48 object-cover"
-                />
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between mb-3">
-                    <Badge className="bg-primary/10 text-primary">
-                      {project.category}
-                    </Badge>
-                    <div className="flex space-x-1">
-                      {[...Array(3)].map((_, i) => (
-                        <div key={i} className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      ))}
-                    </div>
-                  </div>
-                  <h3 className="text-xl font-bold text-foreground mb-3">{project.title}</h3>
-                  <p className="text-muted-foreground mb-4">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.technologies.map((tech, techIndex) => (
-                      <Badge key={techIndex} variant="secondary" className="bg-muted text-muted-foreground">
-                        {tech}
-                      </Badge>
-                    ))}
-                  </div>
-                  <Button
-                    variant="ghost"
-                    className="text-primary font-semibold hover:text-primary/80 p-0"
-                    data-testid={`button-view-project-${index}`}
-                  >
-                    View Details <ArrowRight className="ml-1 h-4 w-4" />
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Link href="/projects">
-              <Button
-                size="lg"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 transform hover:scale-105 transition-all duration-200"
-                data-testid="button-view-all-projects"
-              >
-                View All Projects
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* Job Details Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
@@ -435,7 +377,7 @@ export default function Home() {
                     Technologies & Tools
                   </h4>
                   <div className="flex flex-wrap gap-2">
-                    {selectedJob.technologies.map((tech, index) => (
+                    {selectedJob.technologies.map((tech: any, index: number) => (
                       <Badge key={index} variant="secondary" className="bg-primary/10 text-primary">
                         {tech}
                       </Badge>
@@ -450,7 +392,7 @@ export default function Home() {
                     Key Achievements
                   </h4>
                   <ul className="space-y-2">
-                    {selectedJob.achievements.map((achievement, index) => (
+                    {selectedJob.achievements.map((achievement: any, index: number) => (
                       <li key={index} className="flex items-start space-x-2">
                         <span className="text-primary mt-1">•</span>
                         <span className="text-muted-foreground">{achievement}</span>
@@ -466,7 +408,7 @@ export default function Home() {
                     Key Responsibilities
                   </h4>
                   <ul className="space-y-2">
-                    {selectedJob.responsibilities.map((responsibility, index) => (
+                    {selectedJob.responsibilities.map((responsibility: any, index: number) => (
                       <li key={index} className="flex items-start space-x-2">
                         <span className="text-accent mt-1">•</span>
                         <span className="text-muted-foreground">{responsibility}</span>
@@ -482,7 +424,7 @@ export default function Home() {
                     Notable Projects
                   </h4>
                   <ul className="space-y-3">
-                    {selectedJob.projects.map((project, index) => (
+                    {selectedJob.projects.map((project: any, index: number) => (
                       <li key={index} className="flex items-start space-x-2">
                         <span className="text-secondary-foreground mt-1">•</span>
                         <span className="text-muted-foreground">{project}</span>
@@ -495,6 +437,7 @@ export default function Home() {
           )}
         </DialogContent>
       </Dialog>
+
     </div>
   );
 }
