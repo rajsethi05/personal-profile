@@ -27,10 +27,6 @@ import offeringsData from "@/data/offerings.json";
 export default function Home() {
   const [selectedJob, setSelectedJob] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isContactDialogOpen, setIsContactDialogOpen] = useState(false);
-  const [contactMessage, setContactMessage] = useState('');
-  const [fromEmail, setFromEmail] = useState('');
-  const [isSending, setIsSending] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -55,57 +51,6 @@ export default function Home() {
   const handleJobClick = (job: any) => {
     setSelectedJob(job);
     setIsDialogOpen(true);
-  };
-
-  const handleSendMessage = async () => {
-    if (!fromEmail.trim()) {
-      alert('Please enter your email address');
-      return;
-    }
-
-    if (!contactMessage.trim()) {
-      alert('Please enter a message');
-      return;
-    }
-
-    // Basic email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(fromEmail)) {
-      alert('Please enter a valid email address');
-      return;
-    }
-
-    setIsSending(true);
-
-    try {
-      const response = await fetch('/api/send-contact-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          toEmail: 'raj.sethi05@gmail.com',
-          fromEmail: fromEmail,
-          message: contactMessage,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        alert('Message sent successfully!');
-        setContactMessage('');
-        setFromEmail('');
-        setIsContactDialogOpen(false);
-      } else {
-        alert('Failed to send message. Please try again.');
-      }
-    } catch (error) {
-      console.error('Send error:', error);
-      alert('Failed to send message. Please try again.');
-    } finally {
-      setIsSending(false);
-    }
   };
 
   // Icon mapping for JSON data
@@ -165,12 +110,14 @@ export default function Home() {
             </Button>
             <Button
               size="lg"
-              onClick={() => setIsContactDialogOpen(true)}
+              asChild
               className="bg-primary text-primary-foreground hover:bg-primary/90 transform hover:scale-105 transition-all duration-200"
               data-testid="button-contact"
             >
-              <Mail className="mr-2 h-4 w-4" />
-              Get In Touch
+              <a href="mailto:raj.sethi05@gmail.com">
+                <Mail className="mr-2 h-4 w-4" />
+                Get In Touch
+              </a>
             </Button>
           </div>
         </div>
@@ -491,71 +438,6 @@ export default function Home() {
         </DialogContent>
       </Dialog>
 
-      {/* Contact Dialog */}
-      <Dialog open={isContactDialogOpen} onOpenChange={setIsContactDialogOpen}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-foreground">
-              Contact Raj
-            </DialogTitle>
-            <DialogDescription>
-              Send me a message and I'll get back to you soon.
-            </DialogDescription>
-          </DialogHeader>
-
-          <div className="space-y-4 mt-4">
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
-                From Email <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="email"
-                value={fromEmail}
-                onChange={(e) => setFromEmail(e.target.value)}
-                placeholder="your.email@example.com"
-                className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-background text-foreground"
-                data-testid="input-from-email"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
-                To Email
-              </label>
-              <input
-                type="email"
-                value="raj.sethi05@gmail.com"
-                readOnly
-                className="w-full px-3 py-2 border border-border rounded-md bg-muted text-muted-foreground cursor-not-allowed"
-                data-testid="input-contact-email"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
-                Message <span className="text-red-500">*</span>
-              </label>
-              <textarea
-                value={contactMessage}
-                onChange={(e) => setContactMessage(e.target.value)}
-                placeholder="Enter your message here..."
-                rows={5}
-                className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-background text-foreground"
-                data-testid="textarea-contact-message"
-              />
-            </div>
-
-            <Button
-              onClick={handleSendMessage}
-              disabled={isSending || !contactMessage.trim() || !fromEmail.trim()}
-              className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
-              data-testid="button-send-message"
-            >
-              {isSending ? 'Sending...' : 'Send'}
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
