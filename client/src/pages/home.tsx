@@ -21,15 +21,54 @@ import {
   Building
 } from "lucide-react";
 import workExperienceData from "@/data/workexp.json";
-import skillsData from "@/data/skills.json";
-import offeringsData from "@/data/offerings.json";
+
+interface ProfileData {
+  profile: {
+    title: string;
+    subTitle: string;
+    aboutMe: string;
+    skills: any[];
+    footnote: string;
+  };
+}
 
 export default function Home() {
   const [selectedJob, setSelectedJob] = useState<any>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [profileData, setProfileData] = useState<ProfileData | null>(null);
+  const [offerings, setOfferings] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    
+    const loadProfileData = async () => {
+      try {
+        setLoading(true);
+        const profileId = import.meta.env.VITE_PROFILE_ID || 'qa';
+        console.log('🔍 Loading home data for profile:', profileId);
+        
+        let homeData, offeringsData;
+        
+        if (profileId === 'ai') {
+          homeData = (await import('@/data/ai_home.json')).default;
+          offeringsData = (await import('@/data/ai_offerings.json')).default;
+        } else {
+          homeData = (await import('@/data/qa_home.json')).default;
+          offeringsData = (await import('@/data/qa_offerings.json')).default;
+        }
+        
+        console.log('🔍 Loaded profile data:', homeData);
+        setProfileData(homeData);
+        setOfferings(offeringsData);
+      } catch (error) {
+        console.error('Error loading profile data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    loadProfileData();
   }, []);
 
   // Calculate years of experience from March 2014 to today
@@ -67,15 +106,23 @@ export default function Home() {
 
   const workExperience = workExperienceData;
   
-  const skillCategories = skillsData.map((skill: any) => ({
+  const skillCategories = profileData?.profile.skills.map((skill: any) => ({
     ...skill,
     icon: iconMap[skill.icon]
-  }));
+  })) || [];
 
-  const offerings = offeringsData.map((offering: any) => ({
+  const offeringsWithIcons = offerings.map((offering: any) => ({
     ...offering,
     icon: iconMap[offering.icon]
   }));
+  
+  if (loading || !profileData) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen pt-16">
@@ -94,10 +141,10 @@ export default function Home() {
             Raj Kumar Sethi
           </h1>
           <p className="text-2xl sm:text-3xl lg:text-4xl mb-2 font-bold opacity-90 animate-slide-up">
-            Senior QA Engineer
+            {profileData.profile.title}
           </p>
           <p className="text-lg sm:text-xl mb-8 font-light opacity-80 animate-slide-up">
-            Ensuring Quality Through Strategic Testing & Automation
+            {profileData.profile.subTitle}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in">
             <Button
@@ -143,14 +190,7 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <p className="text-lg text-muted-foreground leading-relaxed">
-                With over {yearsOfExperience} years of experience in quality assurance, I specialize in building robust testing frameworks 
-                and implementing comprehensive QA strategies that ensure software reliability and performance. My expertise 
-                spans across manual testing, test automation, API testing, and performance optimization.
-              </p>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                I'm passionate about creating testing solutions that not only catch bugs but also improve development 
-                workflows and team productivity. My approach combines technical excellence with strategic thinking to 
-                deliver quality software that exceeds user expectations.
+                {profileData.profile.aboutMe}
               </p>
               <div className="grid grid-cols-2 gap-6">
                 <div>
@@ -296,7 +336,7 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {offerings.map((offering, index) => {
+            {offeringsWithIcons.map((offering, index) => {
               const IconComponent = offering.icon;
               return (
                 <Card key={index} className="shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
@@ -318,10 +358,9 @@ export default function Home() {
           <div className="text-center mt-16">
             <Card className="shadow-xl max-w-2xl mx-auto">
               <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-foreground mb-4">Ready to Elevate Your Quality Assurance?</h3>
+                <h3 className="text-2xl font-bold text-foreground mb-4">Ready to Get Started?</h3>
                 <p className="text-muted-foreground mb-6">
-                  Let's discuss how I can help improve your testing processes, reduce bugs, 
-                  and deliver better software quality for your users.
+                  {profileData.profile.footnote}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button
