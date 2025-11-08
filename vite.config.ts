@@ -30,11 +30,8 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
-    host: true,
-    strictPort: false,
-    hmr: {
-      clientPort: 443,
-    },
+    // TODO: Remove this when we have a proper way to handle CORS
+    allowedHosts: true,
     fs: {
       strict: true,
       deny: ["**/.*"],
