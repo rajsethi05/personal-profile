@@ -1,4 +1,14 @@
 {
-  "qa": ["/uploads/qa_certifications/qa_certifications.png"],
-  "ai": ["/uploads/ai_certifications/data_visualiazation.png"]
+  "qa": [
+    {
+      "cert_path": "/uploads/qa_certifications/qa_certifications.png",
+      "cert_url": "https://www.datacamp.com/completed/statement-of-accomplishment/course/f5eac7aea79b53cf465d65723c6afa345a38dae6"
+    }
+  ],
+  "ai": [
+    {
+      "cert_path": "/uploads/ai_certifications/data_visualiazation.png",
+      "cert_url": "https://www.datacamp.com/completed/statement-of-accomplishment/course/f5eac7aea79b53cf465d65723c6afa34"
+    }
+  ]
 }
