@@ -4,8 +4,18 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Award } from "lucide-react";
 
+interface Certificate {
+  filename: string;
+  title?: string;
+  issuer?: string;
+}
+
+interface CertificationsData {
+  certificates: Certificate[];
+}
+
 export default function Certifications() {
-  const [certImages, setCertImages] = useState<string[]>([]);
+  const [certificates, setCertifications] = useState<Certificate[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -17,41 +27,23 @@ export default function Certifications() {
         const profileId = import.meta.env.VITE_PROFILE_ID || 'qa';
         console.log('🔍 Loading certifications for profile:', profileId);
         
-        const certFolder = profileId === 'ai' 
-          ? '/uploads/ai_certifications/' 
-          : '/uploads/qa_certifications/';
+        const certFile = profileId === 'ai' 
+          ? '/uploads/ai_certifications.json' 
+          : '/uploads/qa_certifications.json';
         
-        console.log('🔍 Certification folder:', certFolder);
+        console.log('🔍 Loading certifications from:', certFile);
         
-        // Fetch the directory listing (we'll need to manually list the files)
-        // Since we can't list directory contents in the browser, we'll try to load known images
-        // For now, let's use a simple approach: try to load images with common patterns
-        
-        const possibleImages = [
-          'data_visualiazation.png',
-          'cert1.png', 'cert2.png', 'cert3.png', 'cert4.png', 'cert5.png',
-          'cert1.jpg', 'cert2.jpg', 'cert3.jpg', 'cert4.jpg', 'cert5.jpg',
-          'certificate1.png', 'certificate2.png', 'certificate3.png',
-          'istqb.png', 'aws.png', 'selenium.png', 'agile.png'
-        ];
-        
-        const validImages: string[] = [];
-        
-        for (const img of possibleImages) {
-          const imgPath = certFolder + img;
-          try {
-            const response = await fetch(imgPath, { method: 'HEAD' });
-            if (response.ok) {
-              validImages.push(imgPath);
-            }
-          } catch (e) {
-            // Image doesn't exist, skip
-          }
+        const response = await fetch(certFile);
+        if (!response.ok) {
+          throw new Error('Failed to load certifications');
         }
         
-        setCertImages(validImages);
+        const data: CertificationsData = await response.json();
+        console.log('🔍 Loaded certifications:', data.certificates);
+        setCertifications(data.certificates);
       } catch (error) {
         console.error('Error loading certifications:', error);
+        setCertifications([]);
       } finally {
         setLoading(false);
       }
@@ -69,19 +61,18 @@ export default function Certifications() {
             Professional Certifications
           </h1>
           <p className="text-xl text-primary-foreground/90 mb-8">
-            Industry-recognized certifications demonstrating expertise in quality assurance, testing methodologies, and emerging technologies
+            Industry-recognized certifications demonstrating expertise and commitment to excellence
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Badge className="bg-accent text-accent-foreground px-4 py-2">
-              8+ Active Certifications
-            </Badge>
-            <Badge className="bg-primary/20 text-primary-foreground px-4 py-2">
-              Multiple Specializations
-            </Badge>
-            <Badge className="bg-primary-foreground/20 text-primary-foreground px-4 py-2">
-              Continuously Updated
-            </Badge>
-          </div>
+          {!loading && certificates.length > 0 && (
+            <div className="flex flex-wrap justify-center gap-4">
+              <Badge className="bg-accent text-accent-foreground px-4 py-2">
+                {certificates.length} {certificates.length === 1 ? 'Certification' : 'Certifications'}
+              </Badge>
+              <Badge className="bg-primary/20 text-primary-foreground px-4 py-2">
+                Professional Growth
+              </Badge>
+            </div>
+          )}
         </div>
       </section>
 
@@ -101,20 +92,34 @@ export default function Certifications() {
               <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent"></div>
               <p className="mt-4 text-muted-foreground">Loading certifications...</p>
             </div>
-          ) : certImages.length > 0 ? (
+          ) : certificates.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {certImages.map((imgPath, index) => (
-                <Card key={index} className="overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-testid={`card-certification-${index}`}>
-                  <CardContent className="p-0">
-                    <img 
-                      src={imgPath} 
-                      alt={`Certification ${index + 1}`}
-                      className="w-full h-auto object-contain"
-                      data-testid={`img-certification-${index}`}
-                    />
-                  </CardContent>
-                </Card>
-              ))}
+              {certificates.map((cert, index) => {
+                const profileId = import.meta.env.VITE_PROFILE_ID || 'qa';
+                const certFolder = profileId === 'ai' ? '/uploads/ai_certifications/' : '/uploads/qa_certifications/';
+                const imgPath = certFolder + cert.filename;
+                
+                return (
+                  <Card key={index} className="overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-testid={`card-certification-${index}`}>
+                    <CardContent className="p-0">
+                      <img 
+                        src={imgPath} 
+                        alt={cert.title || `Certification ${index + 1}`}
+                        className="w-full h-auto object-contain"
+                        data-testid={`img-certification-${index}`}
+                      />
+                      {cert.title && (
+                        <div className="p-4 bg-muted">
+                          <h3 className="font-semibold text-foreground">{cert.title}</h3>
+                          {cert.issuer && (
+                            <p className="text-sm text-muted-foreground mt-1">{cert.issuer}</p>
+                          )}
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
           ) : (
             <div className="text-center py-12">
