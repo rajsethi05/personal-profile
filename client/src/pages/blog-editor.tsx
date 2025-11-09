@@ -255,7 +255,7 @@ export default function BlogEditor() {
             </CardHeader>
             <CardContent>
               {previewMode ? (
-                <div className="min-h-[500px] p-4 border border-border rounded-lg">
+                <div className="min-h-[700px] p-4 border border-border rounded-lg">
                   <article className="prose prose-lg dark:prose-invert max-w-none">
                     <ReactMarkdown
                       remarkPlugins={[remarkGfm]}
@@ -272,7 +272,7 @@ export default function BlogEditor() {
                   onChange={setContent}
                   modules={modules}
                   formats={formats}
-                  className="h-[500px] mb-12"
+                  className="h-[700px] mb-12"
                   placeholder="Start writing your blog post..."
                 />
               )}
@@ -286,12 +286,7 @@ export default function BlogEditor() {
             </CardHeader>
             <CardContent className="space-y-2 text-sm text-muted-foreground">
               <ol className="list-decimal list-inside space-y-1">
-                <li>Fill in all required fields (Title and Content)</li>
-                <li>Use the rich text editor to format your blog post</li>
-                <li>Click "Preview" to see how it will look in markdown</li>
-                <li>Click "Download JSON" to save the blog data</li>
                 <li>Manually save the JSON file to: <code className="text-primary bg-background px-1 rounded">client/public/uploads/qa_blogs/</code> or <code className="text-primary bg-background px-1 rounded">ai_blogs/</code></li>
-                <li>Update the corresponding projects.json to reference your new blog</li>
               </ol>
             </CardContent>
           </Card>
