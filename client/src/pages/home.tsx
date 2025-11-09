@@ -138,7 +138,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto text-center text-primary-foreground">
           <div className="mb-8 animate-fade-in">
             <img
-              src="/uploads/profile_picture.jpg"
+              src={`${import.meta.env.BASE_URL}/uploads/profile_picture.jpg`}
               alt="Senior QA Engineer"
               className="w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full mx-auto shadow-2xl border-4 border-accent object-cover"
               data-testid="img-profile"
@@ -163,8 +163,8 @@ export default function Home() {
               <a
                 href={
                   import.meta.env.VITE_PROFILE_ID === "ai"
-                    ? "/uploads/ai_resume/Raj_Sethi_Resume.pdf"
-                    : "/uploads/qa_resume/Raj_Sethi_Resume.pdf"
+                    ? `${import.meta.env.BASE_URL}/uploads/ai_resume/Raj_Sethi_Resume.pdf`
+                    : `${import.meta.env.BASE_URL}/uploads/qa_resume/Raj_Sethi_Resume.pdf`
                 }
                 download="Raj_Sethi_Resume.pdf"
               >

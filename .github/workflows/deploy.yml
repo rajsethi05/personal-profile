@@ -3,6 +3,11 @@ name: Build and Deploy to GitHub Pages
 on:
   push:
     branches: [ main ]
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - ready_for_review
 
 permissions:
   contents: read
@@ -35,6 +40,9 @@ jobs:
       env:
         NODE_ENV: production
         VITE_PROFILE_ID: qa
+        
+    - name: Create .nojekyll file
+      run: touch dist/.nojekyll
         
     - name: Setup Pages
       uses: actions/configure-pages@v4

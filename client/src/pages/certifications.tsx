@@ -34,7 +34,7 @@ export default function Certifications() {
         const profileId = import.meta.env.VITE_PROFILE_ID || "qa";
         console.log("🔍 Loading certifications for profile:", profileId);
 
-        const response = await fetch("/uploads/certs.json");
+        const response = await fetch(`${import.meta.env.BASE_URL}uploads/certs.json`);
         if (!response.ok) {
           throw new Error("Failed to load certifications");
         }
@@ -42,8 +42,15 @@ export default function Certifications() {
         const data: CertsData = await response.json();
         const certs = profileId === "ai" ? data.ai : data.qa;
 
-        console.log("🔍 Loaded certificates:", certs);
-        setCertificates(certs);
+        const transformedCerts = certs.map(cert => ({
+          ...cert,
+          cert_path: cert.cert_path.startsWith('/') 
+            ? `${import.meta.env.BASE_URL}${cert.cert_path.substring(1)}`
+            : `${import.meta.env.BASE_URL}${cert.cert_path}`
+        }));
+
+        console.log("🔍 transformedCerts certificates:", transformedCerts);
+        setCertificates(transformedCerts);
       } catch (error) {
         console.error("Error loading certifications:", error);
         setCertificates([]);

@@ -32,10 +32,10 @@ export default function Projects() {
 
         const projectFile =
           profileId === "qa"
-            ? "/uploads/qa_projects.json"
+            ? `${import.meta.env.BASE_URL}uploads/qa_projects.json`
             : profileId === "ai"
-              ? "/uploads/ai_projects.json"
-              : "/uploads/qa_projects.json";
+              ? `${import.meta.env.BASE_URL}uploads/ai_projects.json`
+              : `${import.meta.env.BASE_URL}uploads/qa_projects.json`;
 
         console.log("🔍 Loading projects from:", projectFile);
 
@@ -46,13 +46,29 @@ export default function Projects() {
 
         const data = await response.json();
 
-        const transformedData = data.map((project: any) => ({
-          ...project,
-          image: project.image?.replace("client/public", "") || project.image,
-          project_url:
-            project.project_url?.replace("client/public", "") ||
-            project.project_url,
-        }));
+        const transformedData = data.map((project: any) => {
+          const baseUrl = import.meta.env.BASE_URL;
+          let image = project.image?.replace("client/public", "") || project.image;
+          let projectUrl = project.project_url?.replace("client/public", "") || project.project_url;
+          
+          if (image && image.startsWith('/')) {
+            image = `${baseUrl}${image.substring(1)}`;
+          } else if (image && !image.startsWith('http')) {
+            image = `${baseUrl}${image}`;
+          }
+          
+          if (projectUrl && projectUrl.startsWith('/')) {
+            projectUrl = `${baseUrl}${projectUrl.substring(1)}`;
+          } else if (projectUrl && !projectUrl.startsWith('http')) {
+            projectUrl = `${baseUrl}${projectUrl}`;
+          }
+          
+          return {
+            ...project,
+            image,
+            project_url: projectUrl,
+          };
+        });
 
         setProjects(transformedData);
       } catch (error) {
