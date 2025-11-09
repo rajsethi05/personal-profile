@@ -9,7 +9,7 @@ export default function Footer() {
           <div>
             <div className="flex space-x-4">
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/raj-sethi-b3730218/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors duration-200"
@@ -18,22 +18,13 @@ export default function Footer() {
                 <Linkedin className="w-6 h-6" />
               </a>
               <a
-                href="https://github.com"
+                href="https://github.com/rajsethi05"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors duration-200"
                 data-testid="link-github"
               >
                 <Github className="w-6 h-6" />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors duration-200"
-                data-testid="link-twitter"
-              >
-                <Twitter className="w-6 h-6" />
               </a>
             </div>
           </div>
@@ -82,11 +73,6 @@ export default function Footer() {
               </div>
             </div>
           </div>
-        </div>
-        <div className="border-t border-border mt-8 pt-8 text-center">
-          <p className="text-muted-foreground">
-            © 2024 Senior QA Engineer Portfolio. All rights reserved.
-          </p>
         </div>
       </div>
     </footer>
