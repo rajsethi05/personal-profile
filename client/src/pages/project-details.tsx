@@ -216,31 +216,18 @@ export default function ProjectDetails() {
 
       {/* Content Section */}
       <section className="py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className={fileType === "pdf" ? "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" : "max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"}>
           {fileType === "pdf" && pdfUrl ? (
-            <div className="space-y-6">
-              <Card className="overflow-hidden">
-                <CardContent className="p-0">
-                  <iframe
-                    src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`}
-                    className="w-full h-[800px] border-0"
-                    title="PDF Viewer"
-                    data-testid="content-pdf"
-                  />
-                </CardContent>
-              </Card>
-              <div className="text-center">
-                <Button
-                  asChild
-                  variant="outline"
-                  data-testid="button-download-pdf"
-                >
-                  <a href={pdfUrl} download>
-                    Download PDF
-                  </a>
-                </Button>
-              </div>
-            </div>
+            <Card className="overflow-hidden">
+              <CardContent className="p-0">
+                <iframe
+                  src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`}
+                  className="w-full h-[800px] border-0"
+                  title="PDF Viewer"
+                  data-testid="content-pdf"
+                />
+              </CardContent>
+            </Card>
           ) : fileType === "markdown" && markdownContent ? (
             <article className="prose prose-lg dark:prose-invert max-w-none
               prose-headings:text-foreground prose-headings:font-bold
