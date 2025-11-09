@@ -25,7 +25,7 @@ export default function ProjectDetails() {
   const [markdownContent, setMarkdownContent] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [fileType, setFileType] = useState<"markdown" | "pdf" | null>(null);
+  const [fileType, setFileType] = useState<"markdown" | "pdf" | "json" | null>(null);
   const [pdfUrl, setPdfUrl] = useState<string>("");
 
   useEffect(() => {
@@ -66,10 +66,18 @@ export default function ProjectDetails() {
             : `/${selectedProject.project_url}`;
           
           const isPdf = filePath.toLowerCase().endsWith('.pdf');
+          const isJson = filePath.toLowerCase().endsWith('.json');
           
           if (isPdf) {
             setFileType("pdf");
             setPdfUrl(filePath);
+          } else if (isJson) {
+            setFileType("json");
+            const jsonResponse = await fetch(filePath);
+            if (jsonResponse.ok) {
+              const jsonData = await jsonResponse.json();
+              setMarkdownContent(jsonData.content || "");
+            }
           } else {
             setFileType("markdown");
             const mdResponse = await fetch(filePath);
@@ -228,7 +236,7 @@ export default function ProjectDetails() {
                 />
               </CardContent>
             </Card>
-          ) : fileType === "markdown" && markdownContent ? (
+          ) : (fileType === "markdown" || fileType === "json") && markdownContent ? (
             <Card>
               <CardContent className="p-8">
                 <article className="prose prose-lg dark:prose-invert max-w-none"

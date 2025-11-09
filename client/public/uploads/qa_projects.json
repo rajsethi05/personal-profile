@@ -10,11 +10,11 @@
   },
   {
     "title": "EDA of Test Failure",
-  "category": "AI Testing",
-  "technologies": [],
-  "image": "uploads/qa_blogs/EDA_failures.png",
-  "project_url": "",
-  "description": "Data analysis of all the test failures. Understanding the data give better visualization of problem and help find best solution",
-  "github_url": "https://github.com/rajsethi05/seleniumpython"
+    "category": "AI Testing",
+    "technologies": ["Python", "Pandas", "Matplotlib"],
+    "image": "uploads/qa_blogs/EDA_failures.png",
+    "project_url": "uploads/qa_blogs/eda_failures.json",
+    "description": "Data analysis of all the test failures. Understanding the data give better visualization of problem and help find best solution",
+    "github_url": "https://github.com/rajsethi05/seleniumpython"
   }
 ]
