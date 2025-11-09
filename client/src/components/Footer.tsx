@@ -69,16 +69,16 @@ export default function Footer() {
               <div className="flex items-center">
                 <Mail className="w-5 h-5 text-primary mr-3" />
                 <span className="text-muted-foreground">
-                  qa.engineer@email.com
+                  raj.sethi05@gmail.com
                 </span>
               </div>
               <div className="flex items-center">
                 <Phone className="w-5 h-5 text-primary mr-3" />
-                <span className="text-muted-foreground">+1 (555) 123-4567</span>
+                <span className="text-muted-foreground">+1 438-528-9901</span>
               </div>
               <div className="flex items-center">
                 <MapPin className="w-5 h-5 text-primary mr-3" />
-                <span className="text-muted-foreground">San Francisco, CA</span>
+                <span className="text-muted-foreground">CANADA</span>
               </div>
             </div>
           </div>
