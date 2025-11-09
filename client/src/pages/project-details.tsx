@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRoute, Link } from "wouter";
-import { ArrowLeft, Github, ExternalLink, Zap } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
@@ -138,169 +136,146 @@ export default function ProjectDetails() {
   }
 
   return (
-    <div className="min-h-screen pt-16 bg-background">
-      {/* Hero Banner */}
-      <section className="relative h-96 overflow-hidden">
-        {project.image ? (
-          <>
-            <img
-              src={project.image.startsWith("/") ? project.image : `/${project.image}`}
-              alt={project.title}
-              className="w-full h-full object-cover"
-              data-testid="img-project-banner"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-background"></div>
-          </>
-        ) : (
-          <div className="w-full h-full hero-gradient"></div>
-        )}
-        
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center px-4 max-w-4xl">
-            <Badge className="mb-4 bg-primary text-primary-foreground" data-testid="badge-category">
-              {project.category}
-            </Badge>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4" data-testid="text-project-title">
+    <div className="min-h-screen pt-20 pb-16 px-4 sm:px-6 lg:px-8 bg-background">
+      <div className="max-w-6xl mx-auto">
+        {/* Back Button */}
+        <Link href="/projects">
+          <Button variant="ghost" className="mb-6" data-testid="button-back">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Projects
+          </Button>
+        </Link>
+
+        {/* Project Header */}
+        <article className="bg-card rounded-lg shadow-lg overflow-hidden">
+          {/* Cover Image */}
+          {project.image && (
+            <div className="w-full h-64 sm:h-96 overflow-hidden">
+              <img
+                src={project.image.startsWith("/") ? project.image : `/${project.image}`}
+                alt={project.title}
+                className="w-full h-full object-cover"
+                data-testid="img-project-cover"
+              />
+            </div>
+          )}
+
+          <div className="p-6 sm:p-8 lg:p-12">
+            {/* Title */}
+            <h1
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4"
+              data-testid="text-project-title"
+            >
               {project.title}
             </h1>
-            <p className="text-xl text-white/90 mb-6" data-testid="text-project-description">
+
+            {/* Description */}
+            <p className="text-lg text-muted-foreground mb-8" data-testid="text-project-description">
               {project.description}
             </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              {project.github_url && (
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-white text-black hover:bg-white/90"
-                  data-testid="button-github"
+
+            {/* Meta Information */}
+            <div className="flex flex-wrap gap-4 mb-8">
+              {project.category && (
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium text-muted-foreground">
+                    Category:
+                  </span>
+                  <span
+                    className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium"
+                    data-testid="text-project-category"
+                  >
+                    {project.category}
+                  </span>
+                </div>
+              )}
+              {project.technologies && project.technologies.length > 0 && (
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-sm font-medium text-muted-foreground">
+                    Technologies:
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {project.technologies.map((tech, index) => (
+                      <span
+                        key={index}
+                        className="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm font-medium"
+                        data-testid={`text-project-tech-${index}`}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Project Content */}
+            {fileType === "pdf" && pdfUrl ? (
+              <div className="my-8">
+                <iframe
+                  src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`}
+                  className="w-full h-[800px] border-0 rounded-lg"
+                  title="PDF Viewer"
+                  data-testid="content-pdf"
+                />
+              </div>
+            ) : (fileType === "markdown" || fileType === "json") && markdownContent ? (
+              <div
+                className="prose prose-lg dark:prose-invert max-w-none
+                  prose-headings:text-foreground 
+                  prose-p:text-muted-foreground
+                  prose-a:text-primary
+                  prose-strong:text-foreground
+                  prose-code:text-foreground
+                  prose-pre:bg-muted
+                  prose-blockquote:border-primary
+                  prose-img:rounded-lg"
+                data-testid="content-markdown"
+              >
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  rehypePlugins={[rehypeRaw]}
+                  components={{
+                    img: ({src, alt, ...props}) => {
+                      if (!src) return null;
+                      return (
+                        <img 
+                          src={src} 
+                          alt={alt || ""} 
+                          className="rounded-lg shadow-lg max-w-full h-auto my-4" 
+                          loading="lazy"
+                          style={{ display: 'block', margin: '1.5rem auto' }}
+                        />
+                      );
+                    }
+                  }}
+                  urlTransform={(url) => url}
                 >
+                  {markdownContent}
+                </ReactMarkdown>
+              </div>
+            ) : null}
+
+            {/* GitHub Link Section */}
+            {project.github_url && (
+              <div className="mt-8 pt-6 border-t border-border">
+                <p className="text-lg text-muted-foreground">
+                  Full Project on{" "}
                   <a
                     href={project.github_url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="text-primary hover:underline font-semibold"
+                    data-testid="link-github"
                   >
-                    <Github className="mr-2 h-5 w-5" />
-                    View on GitHub
+                    Github
                   </a>
-                </Button>
-              )}
-              <Link href="/projects">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="bg-transparent border-white text-white hover:bg-white/10"
-                  data-testid="button-back-projects"
-                >
-                  <ArrowLeft className="mr-2 h-4 w-4" />
-                  Back to Projects
-                </Button>
-              </Link>
-            </div>
+                </p>
+              </div>
+            )}
           </div>
-        </div>
-      </section>
-
-      {/* Technologies Section */}
-      <section className="py-12 bg-muted/50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center mb-6">
-            <Zap className="w-6 h-6 mr-2 text-primary" />
-            <h2 className="text-2xl font-bold text-foreground">Technologies & Tools</h2>
-          </div>
-          <div className="flex flex-wrap gap-3 justify-center">
-            {project.technologies.map((tech, index) => (
-              <Badge
-                key={index}
-                variant="secondary"
-                className="text-base px-4 py-2 bg-background hover:bg-primary hover:text-primary-foreground transition-all cursor-pointer"
-                data-testid={`badge-tech-${index}`}
-              >
-                {tech}
-              </Badge>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Content Section */}
-      <section className="py-16">
-        <div className={fileType === "pdf" ? "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" : "max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"}>
-          {fileType === "pdf" && pdfUrl ? (
-            <Card className="overflow-hidden">
-              <CardContent className="p-0">
-                <iframe
-                  src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`}
-                  className="w-full h-[800px] border-0"
-                  title="PDF Viewer"
-                  data-testid="content-pdf"
-                />
-              </CardContent>
-            </Card>
-          ) : (fileType === "markdown" || fileType === "json") && markdownContent ? (
-            <Card>
-              <CardContent className="p-8">
-                <article className="prose prose-lg dark:prose-invert max-w-none"
-                  data-testid="content-markdown"
-                >
-                  <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
-                    rehypePlugins={[rehypeRaw]}
-                    components={{
-                      img: ({src, alt, ...props}) => {
-                        if (!src) return null;
-                        return (
-                          <img 
-                            src={src} 
-                            alt={alt || ""} 
-                            className="rounded-lg shadow-lg max-w-full h-auto my-4" 
-                            loading="lazy"
-                            style={{ display: 'block', margin: '1.5rem auto' }}
-                          />
-                        );
-                      }
-                    }}
-                    urlTransform={(url) => url}
-                  >
-                    {markdownContent}
-                  </ReactMarkdown>
-                </article>
-              </CardContent>
-            </Card>
-          ) : null}
-
-          {/* GitHub Link Footer */}
-          {project.github_url && (
-            <div className="mt-12 pt-8 border-t border-border">
-              <Card className="bg-muted/50">
-                <CardContent className="p-6 text-center">
-                  <h3 className="text-xl font-bold text-foreground mb-3">
-                    Want to see the code?
-                  </h3>
-                  <p className="text-muted-foreground mb-4">
-                    Check out the complete project repository on GitHub
-                  </p>
-                  <Button
-                    asChild
-                    size="lg"
-                    className="bg-primary text-primary-foreground hover:bg-primary/90"
-                    data-testid="button-github-footer"
-                  >
-                    <a
-                      href={project.github_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Github className="mr-2 h-5 w-5" />
-                      View Full Project on GitHub
-                      <ExternalLink className="ml-2 h-4 w-4" />
-                    </a>
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
-          )}
-        </div>
-      </section>
+        </article>
+      </div>
     </div>
   );
 }
