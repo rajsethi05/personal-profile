@@ -222,7 +222,7 @@ export default function ProjectDetails() {
               <Card className="overflow-hidden">
                 <CardContent className="p-0">
                   <iframe
-                    src={pdfUrl}
+                    src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`}
                     className="w-full h-[800px] border-0"
                     title="PDF Viewer"
                     data-testid="content-pdf"
