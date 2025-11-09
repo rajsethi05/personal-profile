@@ -7,5 +7,14 @@
     "project_url": "uploads/qa_blogs/genai_testing.md",
     "description": "Comprehensive test automation suite for a major e-commerce platform, reducing testing time by 70%.",
     "github_url": "https://github.com/rajsethi05/seleniumpython"
+  },
+  {
+    "title": "EDA of Test Failure",
+  "category": "AI Testing",
+  "technologies": [],
+  "image": "uploads/qa_blogs/EDA_failures.png",
+  "project_url": "",
+  "description": "Data analysis of all the test failures. Understanding the data give better visualization of problem and help find best solution",
+  "github_url": "https://github.com/rajsethi05/seleniumpython"
   }
 ]
