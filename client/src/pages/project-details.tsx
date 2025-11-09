@@ -38,10 +38,10 @@ export default function ProjectDetails() {
         
         const projectFile =
           profileId === "qa"
-            ? "/uploads/qa_projects.json"
+            ? `${import.meta.env.BASE_URL}uploads/qa_projects.json`
             : profileId === "ai"
-              ? "/uploads/ai_projects.json"
-              : "/uploads/qa_projects.json";
+              ? `${import.meta.env.BASE_URL}uploads/ai_projects.json`
+              : `${import.meta.env.BASE_URL}uploads/qa_projects.json`;
 
         const response = await fetch(projectFile);
         if (!response.ok) {
@@ -59,9 +59,17 @@ export default function ProjectDetails() {
         setProject(selectedProject);
 
         if (selectedProject.project_url) {
-          const filePath = selectedProject.project_url.startsWith("/")
-            ? selectedProject.project_url
-            : `/${selectedProject.project_url}`;
+          let filePath: string;
+          
+          if (selectedProject.project_url.startsWith('http://') || selectedProject.project_url.startsWith('https://')) {
+            filePath = selectedProject.project_url;
+          } else {
+            const baseUrl = import.meta.env.BASE_URL;
+            const relativePath = selectedProject.project_url.startsWith("/")
+              ? selectedProject.project_url.substring(1)
+              : selectedProject.project_url;
+            filePath = `${baseUrl}${relativePath}`;
+          }
           
           const isPdf = filePath.toLowerCase().endsWith('.pdf');
           const isJson = filePath.toLowerCase().endsWith('.json');
@@ -152,7 +160,13 @@ export default function ProjectDetails() {
           {project.image && (
             <div className="w-full h-64 sm:h-96 overflow-hidden">
               <img
-                src={project.image.startsWith("/") ? project.image : `/${project.image}`}
+                src={
+                  project.image.startsWith('http') 
+                    ? project.image 
+                    : project.image.startsWith('/') 
+                      ? `${import.meta.env.BASE_URL}${project.image.substring(1)}`
+                      : `${import.meta.env.BASE_URL}${project.image}`
+                }
                 alt={project.title}
                 className="w-full h-full object-cover"
                 data-testid="img-project-cover"
