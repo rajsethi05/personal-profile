@@ -229,29 +229,25 @@ export default function ProjectDetails() {
               </CardContent>
             </Card>
           ) : fileType === "markdown" && markdownContent ? (
-            <article className="prose prose-lg dark:prose-invert max-w-none
-              prose-headings:text-foreground prose-headings:font-bold
-              prose-p:text-muted-foreground prose-p:leading-relaxed
-              prose-a:text-primary prose-a:no-underline hover:prose-a:underline
-              prose-strong:text-foreground prose-strong:font-semibold
-              prose-code:text-primary prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded
-              prose-pre:bg-muted prose-pre:border prose-pre:border-border
-              prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:text-muted-foreground
-              prose-img:rounded-lg prose-img:shadow-lg
-              prose-hr:border-border
-              prose-ul:text-muted-foreground
-              prose-ol:text-muted-foreground
-              prose-li:text-muted-foreground
-              prose-table:text-muted-foreground"
-              data-testid="content-markdown"
-            >
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                rehypePlugins={[rehypeRaw]}
-              >
-                {markdownContent}
-              </ReactMarkdown>
-            </article>
+            <Card>
+              <CardContent className="p-8">
+                <article className="prose prose-lg dark:prose-invert max-w-none"
+                  data-testid="content-markdown"
+                >
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeRaw]}
+                    components={{
+                      img: ({node, ...props}) => (
+                        <img {...props} className="rounded-lg shadow-lg max-w-full h-auto" loading="lazy" />
+                      )
+                    }}
+                  >
+                    {markdownContent}
+                  </ReactMarkdown>
+                </article>
+              </CardContent>
+            </Card>
           ) : null}
 
           {/* GitHub Link Footer */}
