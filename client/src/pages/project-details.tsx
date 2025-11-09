@@ -1,17 +1,12 @@
 import { useEffect, useState } from "react";
 import { useRoute, Link } from "wouter";
-import { ArrowLeft, Github, ExternalLink, Zap, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, Github, ExternalLink, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import { Document, Page, pdfjs } from "react-pdf";
-import 'react-pdf/dist/Page/AnnotationLayer.css';
-import 'react-pdf/dist/Page/TextLayer.css';
-
-pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 interface Project {
   title: string;
@@ -31,8 +26,6 @@ export default function ProjectDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [fileType, setFileType] = useState<"markdown" | "pdf" | null>(null);
-  const [numPages, setNumPages] = useState<number>(0);
-  const [pageNumber, setPageNumber] = useState<number>(1);
   const [pdfUrl, setPdfUrl] = useState<string>("");
 
   useEffect(() => {
@@ -226,50 +219,26 @@ export default function ProjectDetails() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {fileType === "pdf" && pdfUrl ? (
             <div className="space-y-6">
-              <div className="bg-muted/50 rounded-lg p-4">
-                <div className="flex items-center justify-between mb-4">
-                  <p className="text-sm text-muted-foreground">
-                    Page {pageNumber} of {numPages}
-                  </p>
-                  <div className="flex gap-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setPageNumber(prev => Math.max(prev - 1, 1))}
-                      disabled={pageNumber <= 1}
-                      data-testid="button-pdf-prev"
-                    >
-                      <ChevronLeft className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setPageNumber(prev => Math.min(prev + 1, numPages))}
-                      disabled={pageNumber >= numPages}
-                      data-testid="button-pdf-next"
-                    >
-                      <ChevronRight className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-                <div className="bg-white rounded-lg overflow-hidden shadow-lg" data-testid="content-pdf">
-                  <Document
-                    file={pdfUrl}
-                    onLoadSuccess={({ numPages }) => setNumPages(numPages)}
-                    loading={
-                      <div className="flex items-center justify-center p-8">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-                      </div>
-                    }
-                  >
-                    <Page
-                      pageNumber={pageNumber}
-                      width={Math.min(800, window.innerWidth - 40)}
-                      renderTextLayer={true}
-                      renderAnnotationLayer={true}
-                    />
-                  </Document>
-                </div>
+              <Card className="overflow-hidden">
+                <CardContent className="p-0">
+                  <iframe
+                    src={pdfUrl}
+                    className="w-full h-[800px] border-0"
+                    title="PDF Viewer"
+                    data-testid="content-pdf"
+                  />
+                </CardContent>
+              </Card>
+              <div className="text-center">
+                <Button
+                  asChild
+                  variant="outline"
+                  data-testid="button-download-pdf"
+                >
+                  <a href={pdfUrl} download>
+                    Download PDF
+                  </a>
+                </Button>
               </div>
             </div>
           ) : fileType === "markdown" && markdownContent ? (
