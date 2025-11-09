@@ -27,8 +27,17 @@ export default function BlogDetail() {
 
       try {
         setLoading(true);
-        const blogModule = await import(`../data/blogs/${params.filename}.json`);
-        setBlog(blogModule.default);
+        const profileId = import.meta.env.VITE_PROFILE_ID || "qa";
+        const blogPath = profileId === "qa" 
+          ? `/uploads/qa_blogs/${params.filename}.json`
+          : `/uploads/ai_blogs/${params.filename}.json`;
+        
+        const response = await fetch(blogPath);
+        if (!response.ok) {
+          throw new Error("Blog post not found");
+        }
+        const blogData = await response.json();
+        setBlog(blogData);
       } catch (err) {
         setError("Blog post not found");
       } finally {
