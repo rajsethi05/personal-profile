@@ -229,19 +229,6 @@ export default function Projects() {
                           View Details
                         </Button>
                       </Link>
-                      <Button
-                        variant="outline"
-                        data-testid={`button-case-study-${index}`}
-                      >
-                        Case Study
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        data-testid={`button-contact-project-${index}`}
-                      >
-                        Discuss Similar Project
-                      </Button>
                     </div>
                   </CardContent>
                 </div>
