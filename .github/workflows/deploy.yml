@@ -36,10 +36,13 @@ jobs:
       run: npm ci
       
     - name: Build project
-      run: npm run build
+      run: npm run build -- --base=/personal-profile/
       env:
         NODE_ENV: production
         VITE_PROFILE_ID: qa
+        
+    - name: Create .nojekyll file
+      run: touch dist/public/.nojekyll
         
     - name: Setup Pages
       uses: actions/configure-pages@v4
