@@ -7,7 +7,6 @@ This is a QA Portfolio web application built as a static React site showcasing q
 #### Dev Server:
 - `npm install`
 - `VITE_PROFILE_ID=qa npm run dev`
-- - `VITE_PROFILE_ID=qi npm run dev`
 
 #### Prod Server:
 - `npm install`
