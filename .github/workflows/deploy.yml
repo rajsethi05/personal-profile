@@ -36,13 +36,13 @@ jobs:
       run: npm ci
       
     - name: Build project
-      run: npm run build -- --base=/personal-profile/
+      run: npm run build
       env:
         NODE_ENV: production
         VITE_PROFILE_ID: qa
         
     - name: Create .nojekyll file
-      run: touch dist/public/.nojekyll
+      run: touch dist/.nojekyll
         
     - name: Setup Pages
       uses: actions/configure-pages@v4
@@ -50,7 +50,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        path: './dist/public'
+        path: './dist'
 
   deploy:
     environment:
