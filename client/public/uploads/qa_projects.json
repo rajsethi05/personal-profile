@@ -1,0 +1,20 @@
+[
+  {
+    "title": "GenAI Testing",
+    "category": "AI Testing",
+    "technologies": ["Python", "Selenium", "OpenAI"],
+    "image": "uploads/qa_blogs/genai_testing.png",
+    "project_url": "uploads/qa_blogs/genai_testing.md",
+    "description": "Comprehensive test automation suite for a major e-commerce platform, reducing testing time by 70%.",
+    "github_url": "https://github.com/rajsethi05/seleniumpython"
+  },
+  {
+    "title": "EDA of Test Failure",
+    "category": "AI Testing",
+    "technologies": ["Python", "Pandas", "Matplotlib"],
+    "image": "uploads/qa_blogs/EDA_failures.png",
+    "project_url": "uploads/qa_blogs/eda_failures.json",
+    "description": "Data analysis of all the test failures. Understanding the data give better visualization of problem and help find best solution",
+    "github_url": "https://github.com/rajsethi05/seleniumpython"
+  }
+]

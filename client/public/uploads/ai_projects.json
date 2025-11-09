@@ -1,0 +1,11 @@
+[
+  {
+    "title": "Predict Netflix Churn Rate",
+    "category": "Machine Learning, Data Science",
+    "technologies": ["Python", "Jupyter"],
+    "image": "uploads/ai_blogs/netflix_churn.png",
+    "project_url": "uploads/ai_blogs/netflix_churn.pdf",
+    "description": "Netflix is an American subscription video on-demand over-the-top streaming service. The service primarily distributes original and acquired films",
+    "github_url": "https://github.com/rajsethi05/DigiApp"
+  }
+]

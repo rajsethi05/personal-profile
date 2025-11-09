@@ -1,4 +1,9 @@
-[
+{
+  "profile": {
+    "title": "Senior QA Engineer",
+    "subTitle": "Ensuring Quality Through Strategic Testing & Automation",
+    "aboutMe": "With over 11 years of experience in quality assurance, I specialize in building robust testing frameworks and implementing comprehensive QA strategies that ensure software reliability and performance. My expertise spans across manual testing, test automation, API testing, and performance optimization. I'm passionate about creating testing solutions that not only catch bugs but also improve development workflows and team productivity. My approach combines technical excellence with strategic thinking to deliver quality software that exceeds user expectations.",
+    "skills":[
   {
     "title": "Testing Tools",
     "icon": "CheckCircle",
@@ -14,7 +19,7 @@
   {
     "title": "Methodologies",
     "icon": "BarChart3",
-    "skills": ["Agile", "Scrum", "BDD", "TDD", "Risk-Based Testing"],
+    "skills": ["Agile", "Scrum", "BDD", "TDD", "Ri Testing"],
     "color": "secondary"
   },
   {
@@ -41,4 +46,7 @@
     "skills": ["Co-pilot"],
     "color": "primary"
   }
-]
+],
+    "footnote": "Dedicated to delivering exceptional software quality through strategic testing and automation."
+  }
+}

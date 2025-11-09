@@ -27,11 +27,11 @@ export default function Header() {
           <div className="flex items-center">
             <Link href="/">
               <span className="text-2xl font-bold text-primary cursor-pointer hover:text-primary/80 transition-colors">
-                QA Portfolio
+                Raj Kumar Sethi
               </span>
             </Link>
           </div>
-          
+
           <div className="hidden md:flex space-x-8">
             {navigation.map((item) => (
               <Link key={item.name} href={item.href}>

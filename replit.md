@@ -4,6 +4,8 @@ This is a QA Portfolio web application built as a static React site showcasing q
 
 ## Recent Updates (November 2025)
 - **Converted to Static Site**: Removed all backend (Express.js) dependencies for GitHub Pages deployment
+- **Environment Variables**: Added VITE_PROFILE_ID for multi-profile support (set at build time)
+- **Base URL**: Changed from `/personal-profile/` to `/` for flexible deployment
 - **Contact Method**: Changed from form to mailto link (opens user's email client)
 - **Profile Picture**: Static image at `/uploads/profile_picture.jpg`, no upload functionality
 - **Blog Editor**: Removed - blogs are now managed by editing JSON files directly
@@ -24,13 +26,15 @@ Preferred communication style: Simple, everyday language.
 - **Styling**: Tailwind CSS with custom design tokens and CSS variables for theming
 - **Build Tool**: Vite for fast development and optimized production builds
 - **Data Storage**: Static JSON files in `client/src/data/` directory
-- **Deployment**: GitHub Pages with base path `/personal-profile/`
+- **Environment Variables**: VITE_PROFILE_ID for profile-based content loading
+- **Deployment**: GitHub Pages (or any static hosting) with base path `/`
 
 ## Development Environment
-- **Development Server**: Vite development server with hot module replacement
+- **Development Server**: Vite development server with hot module replacement on port 5000
 - **Build Process**: `vite build` generates static files to `dist/public/`
 - **Preview**: `vite preview` for testing production build locally
 - **Type Safety**: TypeScript with strict type checking
+- **Environment Config**: `.env` file for local development (VITE_PROFILE_ID=default)
 
 ## UI/UX Design Decisions
 - **Design System**: Consistent spacing, typography, and color schemes using CSS custom properties

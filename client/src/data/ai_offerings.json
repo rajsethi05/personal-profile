@@ -1,18 +1,13 @@
 [
   {
     "icon": "BarChart3",
-    "title": "Test Strategy & Planning",
-    "description": "Develop comprehensive test strategies aligned with your business goals, risk assessment, and resource optimization to maximize testing ROI."
+    "title": "Model Development",
+    "description": "Develop comprehensive ML Model aligned with your business goals, risk assessment, and resource optimization to maximize testing ROI."
   },
   {
     "icon": "Zap",
-    "title": "Test Automation",
-    "description": "Build robust automation frameworks using modern tools like Selenium, Cypress, and API testing to reduce manual effort and improve test coverage."
-  },
-  {
-    "icon": "BarChart3",
-    "title": "Performance Testing",
-    "description": "Ensure your applications can handle expected load with comprehensive performance testing using JMeter, LoadRunner, and cloud-based testing solutions."
+    "title": "AI Agent Building",
+    "description": "Build robust AI Agents using MVC, LLMs and RAG"
   },
   {
     "icon": "RefreshCw",

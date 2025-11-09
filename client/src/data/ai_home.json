@@ -1,0 +1,34 @@
+{
+  "profile": {
+    "title": "Senior QA Engineer",
+    "subTitle": "AI Enthusiast | Data Scientist | Machine Learning Engineer",
+    "aboutMe": "With 11+ years in IT, I'm a seasoned Quality Assurance Engineer leveraging a deep foundation in software quality, testing methodologies, and system architecture. I am now strategically pivoting my extensive experience to master the Artificial Intelligence field, aiming to apply my quality-driven mindset to developing, testing, and ensuring the reliability of innovative AI systems.",
+    "skills":[
+  {
+    "title": "Testing Tools",
+    "icon": "CheckCircle",
+    "skills": ["Selenium", "Cypress", "Postman", "TestRail", "JIRA"],
+    "color": "primary"
+  },
+  {
+    "title": "AI Programming",
+    "icon": "Code",
+    "skills": ["Python", "Java", "SQL"],
+    "color": "accent"
+  },
+  {
+    "title": "ML Tech",
+    "icon": "BarChart3",
+    "skills": ["Regression", "Classification", "Clustering","Deep Learning", "NLP"],
+    "color": "secondary"
+  },
+  {
+    "title": "CI/CD & MLOPs",
+    "icon": "Zap",
+    "skills": ["Amazon SageMaker", "Docker", "GitHub Actions"],
+    "color": "primary"
+  }
+],
+    "footnote": "Dedicated to delivering exceptional AI software solutions that drive innovation and success."
+  }
+}
