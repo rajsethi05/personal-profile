@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRoute, Link } from "wouter";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -265,9 +265,10 @@ export default function ProjectDetails() {
                     href={project.github_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-primary hover:underline font-semibold"
+                    className="text-primary hover:underline font-semibold inline-flex items-center gap-1"
                     data-testid="link-github"
                   >
+                    <Github className="h-5 w-5" />
                     Github
                   </a>
                 </p>
