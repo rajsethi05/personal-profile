@@ -246,10 +246,20 @@ export default function ProjectDetails() {
                     remarkPlugins={[remarkGfm]}
                     rehypePlugins={[rehypeRaw]}
                     components={{
-                      img: ({node, ...props}) => (
-                        <img {...props} className="rounded-lg shadow-lg max-w-full h-auto" loading="lazy" />
-                      )
+                      img: ({src, alt, ...props}) => {
+                        if (!src) return null;
+                        return (
+                          <img 
+                            src={src} 
+                            alt={alt || ""} 
+                            className="rounded-lg shadow-lg max-w-full h-auto my-4" 
+                            loading="lazy"
+                            style={{ display: 'block', margin: '1.5rem auto' }}
+                          />
+                        );
+                      }
                     }}
+                    urlTransform={(url) => url}
                   >
                     {markdownContent}
                   </ReactMarkdown>
