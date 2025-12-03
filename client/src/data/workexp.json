@@ -1,164 +1,109 @@
 [
   {
-    "period": "2022 - Present",
+    "period": "July 2024 - Present",
     "title": "Senior QA Engineer",
-    "company": "TechCorp Solutions",
-    "location": "San Francisco, CA",
-    "teamSize": "12 QA Engineers",
-    "technologies": ["Selenium", "Cypress", "Jenkins", "Docker", "Kubernetes", "AWS", "TestRail", "JIRA"],
-    "achievements": [
-      "Led automation testing initiatives reducing manual testing time by 60%",
-      "Implemented CI/CD testing pipelines using Jenkins and Docker",
-      "Mentored junior QA engineers and established testing best practices"
-    ],
+    "company": "Acumatica",
+    "location": "Ottawa, CA",
+    "technologies": ["Selenium", "C#", "JIRA"],
     "responsibilities": [
-      "Lead and mentor a team of 8 junior and mid-level QA engineers",
-      "Design and implement comprehensive test automation frameworks",
-      "Collaborate with product managers and developers on quality requirements",
-      "Conduct code reviews and establish QA best practices across teams",
-      "Drive adoption of modern testing tools and methodologies",
-      "Present quality metrics and insights to senior leadership"
-    ],
-    "projects": [
-      "E-commerce Platform Overhaul: Led testing for a major platform redesign serving 2M+ users",
-      "Mobile App Testing Framework: Built comprehensive testing suite for iOS/Android apps",
-      "API Testing Automation: Implemented automated testing for 150+ microservice endpoints"
+      "Develop, and maintain robust automation frameworks for Acumatica ERP modules using Selenium WebDriver with C#, ensuring scalability and maintainability.",
+      "Collaborate with product owners and developers to analyze business requirements, design comprehensive test strategies, and implement automated test coverage for new features.",
+      "Led end-to-end regression testing for release cycle, integrating automated test execution into CI/CD pipelines to accelerate release validation.",
+      "Improved test automation coverage by optimizing framework and automating verification for defect fixes and regression-prone areas."
     ],
     "type": "current"
   },
   {
-    "period": "2020 - 2022",
-    "title": "QA Engineer II",
-    "company": "Digital Innovation Inc",
-    "location": "Austin, TX",
-    "teamSize": "6 QA Engineers",
-    "technologies": ["Selenium", "Cypress", "Postman", "REST Assured", "Git", "Agile/Scrum"],
-    "achievements": [
-      "Developed comprehensive test suites using Selenium and Cypress",
-      "Performed API testing using Postman and REST Assured",
-      "Collaborated with development teams on Agile/Scrum methodologies"
-    ],
+    "period": "June 2021 - July 2024",
+    "title": "Senior QA Engineer",
+    "company": "Behavox Software",
+    "location": "Montreal, CA",
+    "technologies": ["Cucumber", "Cypress", "pytest", "GitLab", "GCP", "Kafka"],
     "responsibilities": [
-      "Design and execute manual and automated test cases",
-      "Develop and maintain test automation frameworks",
-      "Perform functional, regression, and integration testing",
-      "Collaborate with cross-functional teams in Agile environment",
-      "Create and maintain test documentation and reports",
-      "Participate in requirement analysis and test planning"
+      "Responsible for testing and automation of Data intensive B2B application.",
+      "Developing tests across pyramid (API, integration, e2e) with pytest and Cypress frameworks utilizing Docker and GCP resources such as BigQuery, Kafka, Pubsub etc.",
+      "Designing, executing, and documenting e2e and integration tests using Xray for feature validation and UAT.",
+      "Creating and maintaining test suite running in CI/CD pipelines for pre-merge feature testing.",
+      "Implementing seamless data ingestion pipelines for development and UAT environments.",
+      "Perform regression/smoke testing during release schedule and provide go/no-go feedback for the release.",
+      "Help performance testing team with test data creation and test runs to find bottleneck in the system."
     ],
-    "projects": [
-      "SaaS Dashboard Automation: Built automated test suite for web-based analytics platform",
-      "API Testing Implementation: Created comprehensive API testing strategy",
-      "Cross-browser Testing: Established testing protocols across multiple browsers and devices"
-    ],
-    "type": "previous"
+    "achievements": [
+      "Collaborated with test manager to reduced release cycle from 8 to 3 weeks, doubling yearly releases from 6 to 12.",
+      "Built Cucumber and pytest frameworks from scratch for specialized application, trained team and automated 2500+ test cases.",
+      "Enhanced Cypress framework, improving performance and speeding up QA process."
+    ]
   },
   {
-    "period": "2018 - 2020",
+    "period": "Jan 2020 - May 2021",
+    "title": "QA Practice Lead",
+    "company": "Fidor Solutions",
+    "location": "Dubai, UAE",
+    "technologies": [
+      "Selenium+Python",
+      "TestRail",
+      "Postman",
+      "AWS",
+      "Jenkins",
+      "Appium",
+      "OWASP ZAP"
+    ],
+    "responsibilities": [
+      "Led 3 junior QAs, offering mentorship in QA processes and automation.",
+      "Contributed to Fintech product design, presenting feature demos to marketing.",
+      "Conducted thorough sprint feature testing, documenting in TestRail, tracking bugs in JIRA.",
+      "Automated UI, API, and Mobile testing with Selenium, Python, and Appium.",
+      "Introduced new tools and QA guidelines to expedite release time."
+    ],
+    "achievements": [
+      "Created QA infrastructure from scratch, including automated framework with nightly pipelines and bug logging for daily regression testing.",
+      "Introduced OWASP ZAP Automation for Dynamic Security Testing, improving system security.",
+      "Maintained 80% automation goal, executing 1500 test cases in 3 hours."
+    ]
+  },
+  {
+    "period": "Oct 2018 - Nov 2019",
+    "title": "SDET",
+    "company": "Aera Technologies",
+    "location": "Pune, IN",
+    "technologies": ["Selenium+Java", "Jmeter", "Browser Stack", "SQL"],
+    "responsibilities": [
+      "Automated Regression and Sanity tests by integrating UI and API automation with Gradle, Selenium, and RestAPI using the Page Object framework.",
+      "Coordinated automation script execution across browsers and platforms with BrowserStack for extensive testing coverage.",
+      "Performed basic performance testing on select applications with JMeter to guarantee optimal system functionality under diverse load conditions."
+    ]
+  },
+  {
+    "period": "Nov 2016 - Oct 2018",
     "title": "QA Engineer",
-    "company": "StartupTech Labs",
-    "location": "Seattle, WA",
-    "teamSize": "3 QA Engineers",
-    "technologies": ["Manual Testing", "JIRA", "TestRail", "Postman", "Chrome DevTools"],
-    "achievements": [
-      "Executed manual testing for web and mobile applications",
-      "Created detailed test cases and documentation",
-      "Identified and tracked bugs using JIRA and TestRail"
-    ],
+    "company": "Accenture India",
+    "location": "Pune, IN",
+    "technologies": ["Selenium+Java", "TestNG", "Jenkins"],
     "responsibilities": [
-      "Execute manual testing for web and mobile applications",
-      "Create comprehensive test cases and test documentation",
-      "Identify, document, and track software defects",
-      "Perform user acceptance testing and usability testing",
-      "Collaborate with developers to reproduce and resolve issues",
-      "Participate in sprint planning and retrospective meetings"
+      "Collaborated as QA engineer in Agile teams of 6 developers per team, spanning 20 teams, testing Banking Applications.",
+      "Designed and tested sprint-developed applications, identifying and documenting bugs in JIRA pre-deployment to UAT.",
+      "Automated regression test cases for UI and Backend (SOAP) with Selenium WebDriver, Java, and TestNG for robust testing processes."
     ],
-    "projects": [
-      "Mobile App Testing: Manual testing for startup's first mobile application",
-      "Web Platform QA: End-to-end testing for company's core web platform",
-      "User Experience Testing: Conducted usability testing sessions with real users"
-    ],
-    "type": "early"
+    "achievements": [
+      "Worked onsite at client location in Frankfurt, Germany, for 6 months in the UAT team, executing and developing a 3000 test-case suite.",
+      "Innovatively integrated features into the UAT framework, saving 2 hours daily in execution time."
+    ]
   },
   {
-    "period": "2016 - 2018",
-    "title": "Junior QA Analyst",
-    "company": "CloudFirst Solutions",
-    "location": "Portland, OR",
-    "teamSize": "4 QA Analysts",
-    "technologies": ["Manual Testing", "SQL", "TestLink", "Bugzilla", "Excel"],
-    "achievements": [
-      "Successfully identified 200+ critical bugs in cloud-based applications",
-      "Improved test case coverage by 45% through systematic analysis",
-      "Reduced regression testing time by implementing structured test suites"
-    ],
+    "period": "April 2014 - Oct 2016",
+    "title": "Software Consultant",
+    "company": "Syntel India Pvt Ltd",
+    "location": "Chennai, IN",
+    "technologies": ["HP UFT", "Selenium", "SQL", "HP ALM"],
     "responsibilities": [
-      "Perform manual testing on web applications and cloud services",
-      "Write detailed test cases and execute test scenarios",
-      "Document and track defects using bug tracking systems",
-      "Collaborate with development team for bug resolution",
-      "Assist in user acceptance testing and deployment validation",
-      "Create test data and maintain testing environments"
+      "Led functional testing for Front Office and Mortgage Applications, ensuring thorough validation for each change request.",
+      "Performed comprehensive regression testing with every upgrade release to maintain system integrity.",
+      "Analyzed requirements, prepared/executed test cases, and logged defects in HP ALM to streamline testing.",
+      "Developed automation scripts using Keyword or Hybrid approaches for regression testing during upgrades, leveraging UFT for efficient automation."
     ],
-    "projects": [
-      "Cloud Migration Testing: Validated application functionality during cloud migration",
-      "E-commerce Platform QA: Tested online shopping platform for small businesses",
-      "Database Integration Testing: Verified data integrity across multiple systems"
-    ],
-    "type": "junior"
-  },
-  {
-    "period": "2015 - 2016",
-    "title": "QA Intern",
-    "company": "TechStart Inc",
-    "location": "San Jose, CA",
-    "teamSize": "2 QA Engineers",
-    "technologies": ["Manual Testing", "HTML/CSS", "Basic SQL", "Excel", "TestCase Management"],
     "achievements": [
-      "Completed comprehensive QA training program with 95% score",
-      "Discovered 50+ usability issues during internship period",
-      "Contributed to successful launch of 2 major product releases"
-    ],
-    "responsibilities": [
-      "Assist senior QA engineers with test case execution",
-      "Perform basic functional and UI testing",
-      "Document test results and report findings",
-      "Learn and apply software testing fundamentals",
-      "Support test environment setup and maintenance",
-      "Participate in daily standup meetings and team activities"
-    ],
-    "projects": [
-      "Web Portal Testing: Supported testing of customer management portal",
-      "Mobile App Validation: Assisted in testing mobile application features",
-      "Documentation Review: Helped review and update testing documentation"
-    ],
-    "type": "intern"
-  },
-  {
-    "period": "2014 - 2015",
-    "title": "Software Tester",
-    "company": "Beta Solutions",
-    "location": "Denver, CO",
-    "teamSize": "5 Testers",
-    "technologies": ["Manual Testing", "Windows Testing", "Basic Automation", "TestComplete"],
-    "achievements": [
-      "Gained foundational experience in software testing methodologies",
-      "Contributed to testing of 3 desktop applications",
-      "Achieved 100% completion rate for assigned test cases"
-    ],
-    "responsibilities": [
-      "Execute manual test cases for desktop applications",
-      "Report software defects and track resolution progress",
-      "Perform installation and compatibility testing",
-      "Support test planning and test case development",
-      "Conduct basic regression testing after bug fixes",
-      "Maintain testing documentation and reports"
-    ],
-    "projects": [
-      "Desktop Application Testing: Tested accounting software for small businesses",
-      "Installation Testing: Verified software installation across different OS versions",
-      "Compatibility Testing: Ensured application compatibility with various Windows versions"
-    ],
-    "type": "entry"
+      "Led a major upgrade testing project as an ad-hoc Lead, overseeing a 5-member team, completing it within a 6-month timeframe.",
+      "Managed the project lifecycle from inception to production release, executing over 3000 business test cases for a seamless transition and successful deployment."
+    ]
   }
 ]

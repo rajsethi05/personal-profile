@@ -3,6 +3,17 @@ name: Build and Deploy to GitHub Pages
 on:
   push:
     branches: [ main ]
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - ready_for_review
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to run on'
+        required: true
+        default: 'main'
 
 permissions:
   contents: read

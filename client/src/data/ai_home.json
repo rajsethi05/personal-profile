@@ -2,7 +2,7 @@
   "profile": {
     "title": "Senior QA Engineer",
     "subTitle": "AI Enthusiast | Data Scientist | Machine Learning Engineer",
-    "aboutMe": "With 11+ years in IT, I'm a seasoned Quality Assurance Engineer leveraging a deep foundation in software quality, testing methodologies, and system architecture. I am now strategically pivoting my extensive experience to master the Artificial Intelligence field, aiming to apply my quality-driven mindset to developing, testing, and ensuring the reliability of innovative AI systems.",
+    "aboutMe": "<p>I’m a Senior QA Engineer and SDET with over 11 years of experience ensuring that software isn’t just functional—but reliable, secure, high-performing, and built to scale.<br>Throughout my career, I’ve worked across UI, API, performance, security, and cloud testing, helping teams ship products with confidence and speed.</p><p>I specialize in building robust, maintainable automation frameworks using tools like Selenium, Cypress, and UFT, and integrating them seamlessly into modern CI/CD pipelines.<br>Over the years, I’ve driven multiple 0-to-1 initiatives, defined test strategies for complex systems, and led teams toward quality-first engineering practices.</p><p>With a proven track record of automating 10,000+ test cases and significantly improving test coverage, I thrive on solving problems, optimizing processes, and elevating the overall quality bar.<br>Whether it’s designing an end-to-end automation suite, strengthening security and performance validation, or mentoring teams, I’m passionate about delivering software that users can trust—every single time.</p>",
     "skills":[
   {
     "title": "Testing Tools",
