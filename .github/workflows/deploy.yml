@@ -47,6 +47,9 @@ jobs:
         NODE_ENV: production
         VITE_PROFILE_ID: qa
         
+    - name: Copy CNAME into build
+      run: cp CNAME client/build/
+        
     - name: Setup Pages
       uses: actions/configure-pages@v4
       
