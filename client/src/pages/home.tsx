@@ -19,12 +19,16 @@ import {
   Users,
   HelpCircle,
   RefreshCw,
-  ArrowRight,
   Download,
   Mail,
   MapPin,
   Calendar,
   Building,
+  Wrench,
+  ListCheck,
+  ListChecks,
+  Orbit,
+  Lightbulb
 } from "lucide-react";
 import workExperienceData from "@/data/workexp.json";
 
@@ -108,6 +112,10 @@ export default function Home() {
     RefreshCw,
     HelpCircle,
     Users,
+    Wrench,
+    ListChecks,
+    Orbit,
+    Lightbulb
   };
 
   const workExperience = workExperienceData;
@@ -198,7 +206,7 @@ export default function Home() {
           </div>
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
-              <p className="text-lg text-muted-foreground leading-relaxed">
+              <p className="text-lg text-muted-foreground leading-relaxed" style={{ whiteSpace: 'pre-wrap' }}>
                 {profileData.profile.aboutMe}
               </p>
               <div className="grid grid-cols-2 gap-6">
@@ -444,10 +452,6 @@ export default function Home() {
                         <Calendar className="w-4 h-4 text-muted-foreground" />
                         <span>{selectedJob.period}</span>
                       </div>
-                      <div className="flex items-center space-x-2">
-                        <Users className="w-4 h-4 text-muted-foreground" />
-                        <span>{selectedJob.teamSize}</span>
-                      </div>
                     </div>
                   </div>
                 </DialogDescription>
@@ -476,7 +480,7 @@ export default function Home() {
                 </div>
 
                 {/* Key Achievements */}
-                <div>
+                {/* <div>
                   <h4 className="text-lg font-semibold text-foreground mb-3 flex items-center">
                     <CheckCircle className="w-5 h-5 mr-2 text-green-500" />
                     Key Achievements
@@ -493,12 +497,12 @@ export default function Home() {
                       ),
                     )}
                   </ul>
-                </div>
+                </div> */}
 
                 {/* Responsibilities */}
                 <div>
                   <h4 className="text-lg font-semibold text-foreground mb-3 flex items-center">
-                    <BarChart3 className="w-5 h-5 mr-2 text-accent" />
+                    <ListCheck className="w-5 h-5 mr-2 text-accent" />
                     Key Responsibilities
                   </h4>
                   <ul className="space-y-2">
@@ -516,22 +520,22 @@ export default function Home() {
                 </div>
 
                 {/* Notable Projects */}
-                <div>
-                  <h4 className="text-lg font-semibold text-foreground mb-3 flex items-center">
-                    <Code className="w-5 h-5 mr-2 text-secondary-foreground" />
-                    Notable Projects
-                  </h4>
-                  <ul className="space-y-3">
-                    {selectedJob.projects.map((project: any, index: number) => (
-                      <li key={index} className="flex items-start space-x-2">
-                        <span className="text-secondary-foreground mt-1">
-                          •
-                        </span>
-                        <span className="text-muted-foreground">{project}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                {selectedJob.achievements && selectedJob.achievements.length > 0 && (
+                  <div>
+                    <h4 className="text-lg font-semibold text-foreground mb-3 flex items-center">
+                      <Code className="w-5 h-5 mr-2 text-secondary-foreground" />
+                      Notable Achievements
+                    </h4>
+                    <ul className="space-y-3">
+                      {selectedJob.achievements.map((achievement: any, index: number) => (
+                        <li key={index} className="flex items-start space-x-2">
+                          <span className="text-secondary-foreground mt-1">•</span>
+                          <span className="text-muted-foreground">{achievement}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             </>
           )}

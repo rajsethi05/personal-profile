@@ -2,51 +2,75 @@
   "profile": {
     "title": "Senior QA Engineer",
     "subTitle": "Ensuring Quality Through Strategic Testing & Automation",
-    "aboutMe": "With over 11 years of experience in quality assurance, I specialize in building robust testing frameworks and implementing comprehensive QA strategies that ensure software reliability and performance. My expertise spans across manual testing, test automation, API testing, and performance optimization. I'm passionate about creating testing solutions that not only catch bugs but also improve development workflows and team productivity. My approach combines technical excellence with strategic thinking to deliver quality software that exceeds user expectations.",
-    "skills":[
-  {
-    "title": "Testing Tools",
-    "icon": "CheckCircle",
-    "skills": ["Selenium", "Cypress", "Postman", "TestRail", "JIRA"],
-    "color": "primary"
-  },
-  {
-    "title": "Programming",
-    "icon": "Code",
-    "skills": ["JavaScript", "Python", "Java", "TypeScript", "SQL"],
-    "color": "accent"
-  },
-  {
-    "title": "Methodologies",
-    "icon": "BarChart3",
-    "skills": ["Agile", "Scrum", "BDD", "TDD", "Ri Testing"],
-    "color": "secondary"
-  },
-  {
-    "title": "CI/CD & DevOps",
-    "icon": "Zap",
-    "skills": ["Jenkins", "Docker", "GitHub Actions", "AWS", "Kubernetes"],
-    "color": "primary"
-  },
-  {
-    "title": "Performance Testing",
-    "icon": "BarChart3",
-    "skills": ["JMeter", "LoadRunner", "K6", "Gatling"],
-    "color": "accent"
-  },
-  {
-    "title": "Security Testing",
-    "icon": "Shield",
-    "skills": ["OWASP", "Burp Suite", "ZAP", "Nessus"],
-    "color": "secondary"
-  },
-  {
-    "title": "AI Tools",
-    "icon": "Zap",
-    "skills": ["Co-pilot"],
-    "color": "primary"
-  }
-],
-    "footnote": "Dedicated to delivering exceptional software quality through strategic testing and automation."
+    "aboutMe": "I am a Senior QA Engineer and SDET with over 11 years of experience ensuring that software isn’t just functional but reliable, secure, high-performing, and built to scale. \n\nThroughout my career, I’ve worked across UI, API, performance, security, and cloud testing, helping teams ship products with confidence and speed. I specialize in building robust, maintainable automation frameworks using tools like Selenium, Cypress, and UFT, and integrating them seamlessly into modern CI/CD pipelines.\n\nOver the years, I’ve driven multiple 0-to-1 initiatives, defined test strategies for complex systems, and led teams toward quality-first engineering practices. With a proven track record of automating 10,000+ test cases and significantly improving test coverage, I thrive on solving problems, optimizing processes, and elevating the overall quality bar. Whether it’s designing an end-to-end automation suite, strengthening security and performance validation, or mentoring teams, I’m passionate about delivering software that users can trust—every single time.",
+    "skills": [
+      {
+        "title": "Testing Tools",
+        "icon": "CheckCircle",
+        "skills": [
+          "Selenium",
+          "Cypress",
+          "Playwright",
+          "UFT",
+          "Postman",
+          "TestRail",
+          "JIRA",
+          "ALM"
+        ],
+        "color": "primary"
+      },
+      {
+        "title": "Testing Skills",
+        "icon": "Lightbulb",
+        "skills": [
+          "E2E",
+          "API",
+          "UI",
+          "Performance",
+          "Mobile",
+          "Manual",
+          "Automation Frameworks",
+          "Planning and Design"
+        ],
+        "color": "secondary"
+      },
+      {
+        "title": "Programming",
+        "icon": "Code",
+        "skills": ["Python", "Java", "JS/TS", "C#", "SQL"],
+        "color": "primary"
+      },
+      {
+        "title": "Performance & Security Testing",
+        "icon": "BarChart3",
+        "skills": ["JMeter", "LoadRunner", "Locust", "OWASP ZAP"],
+        "color": "secondary"
+      },
+      {
+        "title": "CI/CD & Cloud",
+        "icon": "RefreshCw",
+        "skills": [
+          "Jenkins",
+          "Docker",
+          "GitHub Actions",
+          "GitLab",
+          "AWS",
+          "GCP"
+        ],
+        "color": "primary"
+      },
+      {
+        "title": "Methodologies",
+        "icon": "Orbit",
+        "skills": ["Agile", "Scrum", "BDD", "TDD"],
+        "color": "accent"
+      },
+      {
+        "title": "AI Tools",
+        "icon": "Wrench",
+        "skills": ["Co-pilot"],
+        "color": "accent"
+      }
+    ]
   }
 }
