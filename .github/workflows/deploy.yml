@@ -48,7 +48,7 @@ jobs:
         VITE_PROFILE_ID: qa
         
     - name: Copy CNAME into build
-      run: cp CNAME client/build/
+      run: cp CNAME ./dist/public
         
     - name: Setup Pages
       uses: actions/configure-pages@v4
